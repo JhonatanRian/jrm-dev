@@ -1,0 +1,17 @@
+{% load i18n %}
+<!-- --- Seção Projetos --- -->
+<section id="projects" class="mt-16">
+    <h3 class="text-3xl font-black mb-6 text-center">{% translate 'Projects' %}</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {% for project in portfolio.projects.all %}
+            <a href="{{ project.repository }}" target="_blank"
+               class="block bg-white border-2 border-black rounded-lg neo-shadow-md p-6 hover:bg-gray-100 transition-colors">
+                <h4 class="font-bold text-xl">
+                    {{ project }}
+                    <i class="material-icons">open_in_new</i>
+                </h4>
+                <p class="font-semibold text-gray-700 mt-1">{{ project.description }}</p>
+            </a>
+        {% endfor %}
+    </div>
+</section>

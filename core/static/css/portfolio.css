@@ -1,0 +1,55 @@
+/* Estilos do Editor de Código Animado */
+.code-editor-container {
+    overflow-x: auto;
+}
+
+.code-editor {
+    font-family: 'Fira Code', monospace;
+    padding: 1.5rem;
+    color: #E5E7EB; /* gray-200 */
+    white-space: pre; /* Garante que o código não quebre a linha */
+}
+
+.code-editor .token-comment {
+    color: #6B7280;
+}
+
+/* gray-500 */
+.code-editor .token-keyword {
+    color: #F472B6;
+}
+
+/* pink-400 */
+.code-editor .token-class-name {
+    color: #60A5FA;
+}
+
+/* blue-400 */
+.code-editor .token-function {
+    color: #A7F3D0;
+}
+
+/* custom green */
+.code-editor .token-string {
+    color: #FBBF24;
+}
+
+/* amber-400 */
+.code-editor .token-variable {
+    color: #FFFFFF;
+}
+
+.blinking-cursor {
+    display: inline-block;
+    width: 10px;
+    height: 1.25rem;
+    background-color: #E5E7EB;
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}

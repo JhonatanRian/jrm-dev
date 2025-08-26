@@ -1,0 +1,29 @@
+{% extends 'core/base_public.html' %}
+{% load static %}
+
+{% block title %}
+	Jhonatan Rian - Desenvolvedor
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'portfolio/header.html' %}
+
+    <main class="container mx-auto px-6 py-12">
+        {% include 'portfolio/hero.html' %}
+
+        {% include 'portfolio/about.html' %}
+
+        {% include 'portfolio/skills.html' %}
+
+        {% include 'portfolio/projects.html' %}
+    </main>
+
+    {% include 'portfolio/footer.html' %}
+    {% block js %}
+        <script src="{% static 'js/portfolio.js' %}"></script>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "accounts/base_login.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% include 'accounts/header.html' %}
+    <main class="mx-auto bg-[#faebd7]">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="w-full max-w-md">
+                <div class="bg-white border-4 border-black rounded-2xl neo-shadow-lg p-8">
+                    <div class="text-center">
+                        <h1 class="text-4xl font-black">Bem-vindo(a) de Volta!</h1>
+                        <p class="text-gray-600 font-semibold mt-2">Faça login para continuar.</p>
+                    </div>
+                    {% crispy form %}
+{#                    <form method="post" class="space-y-6 mt-8">#}
+{#                        {% csrf_token %}#}
+{#                        {{ form|crispy }}#}
+{#                        <div>#}
+{#                            <button type="submit"#}
+{#                                    class="w-full font-bold text-lg text-white bg-black border-2 border-black rounded-lg py-3 neo-shadow-sm neo-button hover:bg-gray-800">#}
+{#                                Entrar#}
+{#                            </button>#}
+{#                        </div>#}
+{#                    </form>#}
+
+                    <div class="relative mt-8 flex items-center">
+                        <div class="flex-grow border-t-2 border-black"></div>
+                        <span class="flex-shrink mx-4 text-sm font-bold text-gray-500">OU</span>
+                        <div class="flex-grow border-t-2 border-black"></div>
+                    </div>
+
+                    <div class="mt-6 grid grid-cols-2 gap-4">
+                        <button class="w-full flex items-center justify-center gap-3 font-bold text-black bg-white border-2 border-black rounded-lg py-3 neo-shadow-sm neo-button hover:bg-gray-100">
+                            <svg class="w-6 h-6" viewBox="0 0 48 48">
+                                <path fill="#FFC107"
+                                      d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
+                                <path fill="#FF3D00"
+                                      d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path>
+                                <path fill="#4CAF50"
+                                      d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.223,0-9.651-3.657-11.303-8.653l-6.571,4.819C9.656,39.663,16.318,44,24,44z"></path>
+                                <path fill="#1976D2"
+                                      d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.574l6.19,5.238C39.99,36.566,44,30.836,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
+                            </svg>
+                            <span>Google</span>
+                        </button>
+                        <button class="w-full flex items-center justify-center gap-3 font-bold text-black bg-white border-2 border-black rounded-lg py-3 neo-shadow-sm neo-button hover:bg-gray-100">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                      d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"/>
+                            </svg>
+                            <span>GitHub</span>
+                        </button>
+                    </div>
+
+                    <div class="mt-8 text-center">
+                        <p class="font-semibold text-sm">Não tem uma conta? <a href="#"
+                                                                               class="font-bold text-blue-600 hover:underline">Crie
+                            uma agora</a></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+<!-- --- Barra Lateral (Sidebar) --- -->
+<aside id="sidebar"
+       class="fixed top-0 left-0 h-full bg-[#FFD1DC] p-4 border-black border-r-4 transform transition-all duration-300 ease-in-out z-20 w-72">
+    <div class="h-full flex flex-col">
+        <div class="flex items-center justify-between mb-10 h-10">
+            <h1 class="text-3xl font-black text-black sidebar-header-text whitespace-nowrap">PAINEL</h1>
+        </div>
+        <nav class="flex-grow overflow-y-auto">
+
+            <a href="#"
+               class="flex items-center p-2 my-1 rounded-lg transition-all duration-200 bg-yellow-300 text-black shadow-[2px_2px_0px_rgba(0,0,0,1)] border-2 border-black">
+                <i class="material-icons">home</i>
+                <span class="ml-4 font-bold">Meu Espaço</span>
+            </a>
+            <a href="#" class="flex items-center p-3 my-1 rounded-lg transition-all duration-200 hover:bg-gray-200 opt-menu-selected">
+                <i class="material-icons">settings</i>
+                <span class="ml-4 font-bold">Configurações</span>
+            </a>
+        </nav>
+        <div class="mt-auto flex-shrink-0">
+            <a href="#" class="flex items-center gap-3 p-3 font-bold hover:bg-white/50 rounded-md transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.5" class="flex-shrink-0">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                <span class="font-bold whitespace-nowrap sidebar-footer-text">Sair</span>
+            </a>
+        </div>
+    </div>
+</aside>
+<!-- Botão de Toggle do Sidebar -->
+<button id="sidebar-toggle"
+        class="fixed top-1/2 -translate-y-1/2 w-10 h-10 bg-black text-white rounded-full border-4 border-white z-30 flex items-center justify-center transition-all duration-300 ease-in-out">
+    <svg id="toggle-icon-open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2.5">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+    <svg id="toggle-icon-close" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="2.5" class="hidden">
+        <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+</button>

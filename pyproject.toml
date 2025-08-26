@@ -1,0 +1,54 @@
+[project]
+name = "jrm_dev"
+version = "0.1.0"
+description = "Sistema particular para desenvolvimento e afins"
+requires-python = ">=3.12"
+dependencies = [
+    "beautifulsoup4>=4.13.4",
+    "cookiecutter>=2.6.0",
+    "django>=5.2.2",
+    "django-crispy-forms>=2.4",
+    "django-debug-toolbar>=5.2.0",
+    "django-encrypted-model-fields>=0.6.5",
+    "django-environ>=0.12.0",
+    "crispy_neurobrutalist",
+]
+
+[tool.uv.sources]
+crispy_neurobrutalist = { git = "http://github.com/JhonatanRian/crispy_neurobrutalist", tag = "v0.4.0" }
+
+[[tool.uv.dependency-metadata]]
+name = "crispy_neurobrutalist"
+version = "0.4.0"
+requires-dist = ["django", "django-crispy-forms"]
+
+
+[dependency-groups]
+dev = [
+    "mypy>=1.16.0",
+]
+
+[tool.mypy]
+python_version = "3.12"
+plugins = [
+    "mypy_django_plugin.main",
+    "mypy_drf_plugin.main",
+]
+disallow_untyped_defs = true
+strict = false
+allow_incomplete_defs = false
+check_untyped_defs = true
+allow_untyped_globals = true
+
+exclude = [
+    "venv/",
+    ".venv/",
+    "migrations/",
+]
+
+show_error_codes = true
+
+[tool.django-stubs]
+strict_settings = false
+ignore_missing_model_attributes = true
+django_settings_module = "config.settings"

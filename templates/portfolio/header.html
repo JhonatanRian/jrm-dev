@@ -1,0 +1,17 @@
+{% load i18n %}
+<!-- --- Cabeçalho (Header) --- -->
+<header class="bg-white border-b-4 border-black sticky top-0 z-10">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-black">JHONATAN RIAN</div>
+        <nav class="hidden md:flex items-center gap-6 font-bold">
+            <a href="#about" class="hover:underline">{% translate 'About' %}</a>
+            <a href="#skills" class="hover:underline">{% translate 'Skills' %}</a>
+            <a href="#projects" class="hover:underline">{% translate 'Projects' %}</a>
+            <a href="#contact" class="hover:underline">{% translate 'Contact' %}</a>
+        </nav>
+        <a href="mailto:{{ portfolio.email }}"
+           class="hidden sm:block font-bold text-white bg-black border-2 border-black rounded-lg px-5 py-2 neo-shadow-sm active:shadow-none active:translate-x-0.5 active:translate-y-0.5 transition-all">
+            {% translate 'Contact' %}
+        </a>
+    </div>
+</header>

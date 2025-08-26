@@ -1,0 +1,12 @@
+{% extends 'core/base_painel.html' %}
+
+{% block content %}
+    <!-- --- Header do Dashboard --- -->
+    <header class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8">
+        <div>
+            <h2 class="text-3xl font-bold">Olá, Bem-vindo {{ user }}! 👋</h2>
+            <p class="text-gray-600">O que temos para hoje?</p>
+        </div>
+    </header>
+
+{% endblock %}
