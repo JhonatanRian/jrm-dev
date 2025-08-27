@@ -97,7 +97,11 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -137,3 +141,5 @@ LOGGING = {
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = ("neobrutalist")
 CRISPY_TEMPLATE_PACK = "neobrutalist"
+
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)

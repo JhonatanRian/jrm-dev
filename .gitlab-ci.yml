@@ -1,0 +1,43 @@
+stages:
+  - build_deploy
+
+build_deploy:hml:
+  stage: build_deploy
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+  before_script:
+    - docker login registry.gitlab.com -u $USERNAME -p $TOKEN_REGISTRY
+  script:
+    - echo '>>> Building Image...'
+     - cp $ENV_STAGING .env
+    - docker build -t registry.gitlab.com/jhonatanrian/jrm_dev:homolog .
+    - docker push registry.gitlab.com/jhonatanrian/jrm_dev:homolog
+    - echo '>>> Done !!!'
+  only:
+    refs:
+      - homolog
+
+build_deploy:main:
+  stage: build_deploy
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+  before_script:
+    - docker login registry.gitlab.com -u $USERNAME -p $TOKEN_REGISTRY
+  script:
+    - echo '>>> Building Image...'
+     - cp $ENV_STAGING .env
+    - docker build -t registry.gitlab.com/jhonatanrian/jrm_dev:main .
+    - docker push registry.gitlab.com/jhonatanrian/jrm_dev:main
+    - echo '>>> Done !!!'
+  only:
+    refs:
+      - main
+
