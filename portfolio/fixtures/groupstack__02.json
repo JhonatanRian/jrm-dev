@@ -1,0 +1,177 @@
+[
+{
+  "model": "portfolio.stack",
+  "pk": 1,
+  "fields": {
+    "name": "Python (Principal)"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 2,
+  "fields": {
+    "name": "Node.js"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 3,
+  "fields": {
+    "name": "Java (Iniciante)"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 4,
+  "fields": {
+    "name": "Go (Iniciante)"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 5,
+  "fields": {
+    "name": "TypeScript (Intermediário)"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 6,
+  "fields": {
+    "name": "Django"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 7,
+  "fields": {
+    "name": "FastAPI"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 8,
+  "fields": {
+    "name": "Celery"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 9,
+  "fields": {
+    "name": "Docker"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 10,
+  "fields": {
+    "name": "Git & GitLab"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 11,
+  "fields": {
+    "name": "Express"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 12,
+  "fields": {
+    "name": "React"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 13,
+  "fields": {
+    "name": "Svelte | Sveltkit"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 15,
+  "fields": {
+    "name": "PostgreSQL"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 16,
+  "fields": {
+    "name": "MySQL"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 17,
+  "fields": {
+    "name": "MongoDB"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 18,
+  "fields": {
+    "name": "RabbitMQ"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 19,
+  "fields": {
+    "name": "Redis"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 20,
+  "fields": {
+    "name": "AWS (S3, EC2, Rekognition)"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 21,
+  "fields": {
+    "name": "CI/CD"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 22,
+  "fields": {
+    "name": "Digibee"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 23,
+  "fields": {
+    "name": "Git & GitLab"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 24,
+  "fields": {
+    "name": "Clean Architecture"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 25,
+  "fields": {
+    "name": "TDD & DDD"
+  }
+},
+{
+  "model": "portfolio.stack",
+  "pk": 26,
+  "fields": {
+    "name": "Testes Unitários"
+  }
+}
+]

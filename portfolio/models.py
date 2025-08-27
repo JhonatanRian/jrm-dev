@@ -5,9 +5,9 @@ from core.models.base_model import BaseModel
 
 
 class SectionHero(models.Model):
-    title = models.CharField(max_length=100)
-    subtitle = models.CharField(max_length=50)
-    description = models.CharField(max_length=500)
+    title = models.CharField(verbose_name=_("Title"), max_length=100)
+    subtitle = models.CharField(verbose_name=_("Subtitle"), max_length=50)
+    description = models.CharField(verbose_name=_("Description"), max_length=500)
 
     class Meta:
         verbose_name = _("Section Hero")
@@ -18,7 +18,7 @@ class SectionHero(models.Model):
 
 
 class Stack(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(verbose_name=_("Name"), max_length=100)
 
     class Meta:
         verbose_name = _("Stack")
@@ -29,8 +29,8 @@ class Stack(models.Model):
 
 
 class GroupStack(models.Model):
-    title = models.CharField(max_length=100)
-    stacks = models.ManyToManyField(Stack)
+    title = models.CharField(verbose_name=_("Title"), max_length=100)
+    stacks = models.ManyToManyField(Stack, verbose_name=_("Stacks"))
 
     class Meta:
         verbose_name = _("Section Stack")
@@ -41,9 +41,9 @@ class GroupStack(models.Model):
 
 
 class Project(BaseModel):
-    title = models.CharField(max_length=100)
-    description = models.CharField(max_length=500)
-    repository = models.URLField()
+    title = models.CharField(verbose_name=_("Title"), max_length=100)
+    description = models.CharField(verbose_name=_("Description"), max_length=500)
+    repository = models.URLField(verbose_name=_("Repository"))
 
     class Meta:
         verbose_name = _("Project")
