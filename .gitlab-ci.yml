@@ -13,7 +13,7 @@ build_deploy:hml:
     - docker login registry.gitlab.com -u $USERNAME -p $TOKEN_REGISTRY
   script:
     - echo '>>> Building Image...'
-     - cp $ENV_STAGING .env
+    - cp $ENV_STAGING .env
     - docker build -t registry.gitlab.com/jhonatanrian/jrm_dev:homolog .
     - docker push registry.gitlab.com/jhonatanrian/jrm_dev:homolog
     - echo '>>> Done !!!'
@@ -33,7 +33,7 @@ build_deploy:main:
     - docker login registry.gitlab.com -u $USERNAME -p $TOKEN_REGISTRY
   script:
     - echo '>>> Building Image...'
-     - cp $ENV_STAGING .env
+    - cp $ENV_STAGING .env
     - docker build -t registry.gitlab.com/jhonatanrian/jrm_dev:main .
     - docker push registry.gitlab.com/jhonatanrian/jrm_dev:main
     - echo '>>> Done !!!'
