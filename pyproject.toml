@@ -27,6 +27,9 @@ requires-dist = ["django", "django-crispy-forms"]
 dev = [
     "mypy>=1.16.0",
 ]
+prd = [
+    "uwsgi>=2.0.30",
+]
 
 [tool.mypy]
 python_version = "3.12"
