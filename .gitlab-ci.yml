@@ -1,45 +1,44 @@
+# Define os estágios da pipeline
 stages:
   - build_deploy
 
-build_deploy:hml:
+# Cria um "template" com as configurações comuns para não repetir código
+.build_template:
   stage: build_deploy
   image: docker:latest
   services:
     - docker:dind
   variables:
-    DOCKER_HOST: tcp://docker:2375/
-    DOCKER_DRIVER: overlay2
+    # Usa a variável pré-definida do GitLab para o endereço do registry
+    # Isso garante que a imagem terá o caminho correto do projeto (grupo/projeto)
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
   before_script:
-    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    # Login no registry do GitLab usando o token do job
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
   script:
-    - echo '>>> Building Image...'
-    - cp $ENV_STAGING .env
-    - docker build -t registry.gitlab.com/jhonatanrian/jrm_dev:homolog .
-    - docker push $IMAGE_NAME:$CI_COMMIT_SHORT_SHA
-    - echo '>>> Done !!!'
+    - echo ">>> Building image: $IMAGE_TAG"
+    # O comando 'cp' precisa que a variável de ambiente (ENV_STAGING) 
+    # seja configurada nas variáveis de CI/CD do seu projeto no GitLab
+    - cp $ENV_FILE .env
+    - docker build -t $IMAGE_TAG .
+    - echo ">>> Pushing image: $IMAGE_TAG"
+    - docker push $IMAGE_TAG
+    - echo ">>> Done!"
+
+# Job para o ambiente de homologação
+build_deploy:hml:
+  extends: .build_template # Herda toda a configuração do .build_template
+  variables:
+    ENV_FILE: $ENV_HOMOLOG # Variável que aponta para o seu arquivo .env de homolog
   only:
     refs:
       - homolog
 
+# Job para o ambiente de produção (main)
 build_deploy:main:
-  stage: build_deploy
-  image: docker:latest
-  services:
-    - docker:dind
+  extends: .build_template # Herda toda a configuração do .build_template
   variables:
-    DOCKER_HOST: tcp://docker:2375/
-    DOCKER_DRIVER: overlay2
-  before_script:
-    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
-  script:
-    - echo " TOKEN CI_JOB_TOKEN"
-    - echo $CI_JOB_TOKEN
-    - echo '>>> Building Image...'
-    - cp $ENV_STAGING .env
-    - docker build -t registry.gitlab.com/jhonatanrian/jrm_dev:main .
-    - docker push $IMAGE_NAME:$CI_COMMIT_SHORT_SHA
-    - echo '>>> Done !!!'
+    ENV_FILE: $ENV_PROD # Variável que aponta para o seu arquivo .env de produção
   only:
     refs:
       - main
-
