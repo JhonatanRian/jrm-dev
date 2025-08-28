@@ -11,7 +11,7 @@ Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = 'django-insecure-l!dth02*r^!5_u@=^d+l$$dl%8$w$a-%82r_&!^r7-3(%zi^ub'
 FIELD_ENCRYPTION_KEY = env.str('FIELD_ENCRYPTION_KEY')
 
-DEBUG = env.bool( 'DEBUG' )
+DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
