@@ -32,8 +32,9 @@ build_deploy:main:
   before_script:
     - docker login registry.gitlab.com -u $USERNAME -p $TOKEN_REGISTRY
   script:
-    - echo '>>> Building Image...'
+    - echo " TOKEN CI_JOB_TOKEN"
     - echo $CI_JOB_TOKEN
+    - echo '>>> Building Image...'
     - cp $ENV_STAGING .env
     - docker build -t registry.gitlab.com/jhonatanrian/jrm_dev:main .
     - docker push registry.gitlab.com/jhonatanrian/jrm_dev:main
