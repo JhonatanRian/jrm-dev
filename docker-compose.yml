@@ -2,14 +2,11 @@ version: '3.8'
 
 services:
   web:
+    image: registry.gitlab.com/jrm-digital/jrm-dev:main
     build:
       context: .
       dockerfile: Dockerfile
     container_name: jrm_dev_web
-    volumes:
-      - .:/app
-    expose:
-      - 8000
     networks:
       - public
     labels:
@@ -21,6 +18,4 @@ services:
 
 networks:
   public:
-    name: public
-    driver: overlay
 
