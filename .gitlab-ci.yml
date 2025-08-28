@@ -10,12 +10,12 @@ build_deploy:hml:
     DOCKER_HOST: tcp://docker:2375/
     DOCKER_DRIVER: overlay2
   before_script:
-    - docker login registry.gitlab.com -u $USERNAME -p $TOKEN_REGISTRY
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
   script:
     - echo '>>> Building Image...'
     - cp $ENV_STAGING .env
     - docker build -t registry.gitlab.com/jhonatanrian/jrm_dev:homolog .
-    - docker push registry.gitlab.com/jhonatanrian/jrm_dev:homolog
+    - docker push $IMAGE_NAME:$CI_COMMIT_SHORT_SHA
     - echo '>>> Done !!!'
   only:
     refs:
@@ -30,14 +30,14 @@ build_deploy:main:
     DOCKER_HOST: tcp://docker:2375/
     DOCKER_DRIVER: overlay2
   before_script:
-    - docker login registry.gitlab.com -u $USERNAME -p $TOKEN_REGISTRY
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
   script:
     - echo " TOKEN CI_JOB_TOKEN"
     - echo $CI_JOB_TOKEN
     - echo '>>> Building Image...'
     - cp $ENV_STAGING .env
     - docker build -t registry.gitlab.com/jhonatanrian/jrm_dev:main .
-    - docker push registry.gitlab.com/jhonatanrian/jrm_dev:main
+    - docker push $IMAGE_NAME:$CI_COMMIT_SHORT_SHA
     - echo '>>> Done !!!'
   only:
     refs:
