@@ -5,15 +5,20 @@ from environ import Env
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = Env()
+env = Env(
+    DEBUG=(bool, False),
+    SECURE_SSL_REDIRECT=(bool, False),
+    SESSION_COOKIE_SECURE=(bool, False),
+    CSRF_COOKIE_SECURE=(bool, False),
+)
 Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-SECRET_KEY = 'django-insecure-l!dth02*r^!5_u@=^d+l$$dl%8$w$a-%82r_&!^r7-3(%zi^ub'
+SECRET_KEY = env.str('SECRET_KEY')
 FIELD_ENCRYPTION_KEY = env.str('FIELD_ENCRYPTION_KEY')
 
-DEBUG = env.bool('DEBUG')
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -144,10 +149,21 @@ CRISPY_TEMPLATE_PACK = "neobrutalist"
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
-SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT")
-SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE")
-CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE")
+# Security & Session Settings
+SECURE_SSL_REDIRECT = env("SECURE_SSL_REDIRECT")
+SESSION_COOKIE_SECURE = env("SESSION_COOKIE_SECURE")
+CSRF_COOKIE_SECURE = env("CSRF_COOKIE_SECURE")
 SESSION_COOKIE_NAME = env.str("SESSION_COOKIE_NAME", default="jrm_dev")
 SESSION_COOKIE_AGE = env.int("SESSION_COOKIE_AGE", default=21600)
 SESSION_SAVE_EVERY_REQUEST = env.bool("SESSION_SAVE_EVERY_REQUEST", default=True)
 SESSION_COOKIE_HTTPONLY = env.bool("SESSION_COOKIE_HTTPONLY", default=True)
+
+
+# Production Security Headers
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "DENY"
+SECURE_HSTS_SECONDS = env.int("SECURE_HSTS_SECONDS", default=0)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("SECURE_HSTS_INCLUDE_SUBDOMAINS", default=False)
+SECURE_HSTS_PRELOAD = env.bool("SECURE_HSTS_PRELOAD", default=False)
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")

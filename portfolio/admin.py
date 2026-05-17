@@ -14,6 +14,7 @@ class PortfolioAdmin(admin.ModelAdmin):
         "projects",
         "linkedin",
         "github",
+        "active",
     )
     filter_horizontal = ("groups_stacks", "projects")
 
@@ -39,5 +40,6 @@ class GroupStackAdmin(admin.ModelAdmin):
 
 @register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ("title",)
-    fields = ("title", "description", "repository")
+    list_display = ("title", "slug")
+    fields = ("title", "slug", "description", "repository")
+    prepopulated_fields = {"slug": ("title",)}
