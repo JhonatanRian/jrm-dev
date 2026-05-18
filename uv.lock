@@ -6,7 +6,7 @@ requires-python = ">=3.12"
 
 [[manifest.dependency-metadata]]
 name = "crispy-neurobrutalist"
-version = "0.4.0"
+version = "0.5.0"
 requires-dist = ["django", "django-crispy-forms"]
 
 [[package]]
@@ -184,8 +184,8 @@ wheels = [
 
 [[package]]
 name = "crispy-neurobrutalist"
-version = "0.4.0"
-source = { git = "http://github.com/JhonatanRian/crispy_neurobrutalist?tag=v0.4.0#9e3e0f68b6ca38a0b41fcd63e65233719e6470b8" }
+version = "0.5.0"
+source = { git = "https://github.com/JhonatanRian/crispy_neurobrutalist?tag=v0.5.0#c9a9a21f9f799479ecb82c7537a76995ecf0d538" }
 dependencies = [
     { name = "django" },
     { name = "django-crispy-forms" },
@@ -345,7 +345,7 @@ prd = [
 requires-dist = [
     { name = "beautifulsoup4", specifier = ">=4.13.4" },
     { name = "cookiecutter", specifier = ">=2.6.0" },
-    { name = "crispy-neurobrutalist", git = "http://github.com/JhonatanRian/crispy_neurobrutalist?tag=v0.4.0" },
+    { name = "crispy-neurobrutalist", git = "https://github.com/JhonatanRian/crispy_neurobrutalist?tag=v0.5.0" },
     { name = "dj-static", specifier = ">=0.0.6" },
     { name = "django", specifier = ">=5.2.2" },
     { name = "django-crispy-forms", specifier = ">=2.4" },

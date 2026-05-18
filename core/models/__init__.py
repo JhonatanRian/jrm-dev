@@ -1,5 +1,5 @@
-# from core.models.user_integration import UserIntegration
-#
-# __all__ = [
-#     "UserIntegration",
-# ]
+from core.models.base_model import BaseModel
+
+__all__ = [
+    "BaseModel",
+]

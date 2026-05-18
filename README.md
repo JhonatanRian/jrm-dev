@@ -6,7 +6,6 @@ This is a personal portfolio project built with Django. It's designed to showcas
 
 *   **Dynamic Portfolio:** Easily update projects, skills, and personal information through the Django admin.
 *   **User Authentication:** Secure user registration and login functionality.
-*   **Integration Ready:** Includes a model for storing API keys for services like Jira and Gemini.
 
 ## Tech Stack
 

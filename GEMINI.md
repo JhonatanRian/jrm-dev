@@ -34,8 +34,6 @@ The project is organized into the following Django apps:
 ### Core
 
 *   `BaseModel`: An abstract model that provides `created_at` and `updated_at` fields.
-*   `EncryptedCharField`: A custom field for storing encrypted data.
-*   `UserIntegration`: A model to store user-specific integration tokens for services like Jira and Gemini.
 
 ### Portfolio
 

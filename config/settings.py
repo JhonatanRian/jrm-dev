@@ -14,7 +14,6 @@ env = Env(
 Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = env.str('SECRET_KEY')
-FIELD_ENCRYPTION_KEY = env.str('FIELD_ENCRYPTION_KEY')
 
 DEBUG = env('DEBUG')
 
