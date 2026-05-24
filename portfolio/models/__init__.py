@@ -1,6 +1,6 @@
 from .hero import SectionHero
-from .stack import Stack, GroupStack
-from .project import Project
 from .portfolio import Portfolio
+from .project import Project
+from .stack import GroupStack, Stack
 
 __all__ = ["SectionHero", "Stack", "GroupStack", "Project", "Portfolio"]

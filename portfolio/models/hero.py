@@ -1,7 +1,10 @@
+# pyrefly: ignore [untyped-import]
 from django.db import models
+# pyrefly: ignore [untyped-import]
 from django.utils.translation import gettext_lazy as _
 
 from core.models.base_model import BaseModel
+
 
 class SectionHero(BaseModel):
     title = models.CharField(verbose_name=_("Title"), max_length=100)

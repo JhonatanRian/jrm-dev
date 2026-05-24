@@ -1,10 +1,16 @@
-from django.db import models
+# pyrefly: ignore [untyped-import]
 from django.core.exceptions import ValidationError
+# pyrefly: ignore [untyped-import]
+from django.db import models
+# pyrefly: ignore [untyped-import]
 from django.utils.translation import gettext_lazy as _
+
 from core.models.base_model import BaseModel
+
 from .hero import SectionHero
-from .stack import GroupStack
 from .project import Project
+from .stack import GroupStack
+
 
 class Portfolio(BaseModel):
     section_hero = models.OneToOneField(

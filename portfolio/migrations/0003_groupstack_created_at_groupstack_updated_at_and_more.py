@@ -4,43 +4,42 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('portfolio', '0002_project_slug'),
+        ("portfolio", "0002_project_slug"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='groupstack',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, default='2024-01-01 00:00'),
+            model_name="groupstack",
+            name="created_at",
+            field=models.DateTimeField(auto_now_add=True, default="2024-01-01 00:00"),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='groupstack',
-            name='updated_at',
+            model_name="groupstack",
+            name="updated_at",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='sectionhero',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, default='2024-01-01 00:00'),
+            model_name="sectionhero",
+            name="created_at",
+            field=models.DateTimeField(auto_now_add=True, default="2024-01-01 00:00"),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='sectionhero',
-            name='updated_at',
+            model_name="sectionhero",
+            name="updated_at",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='stack',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, default='2024-01-01 00:00'),
+            model_name="stack",
+            name="created_at",
+            field=models.DateTimeField(auto_now_add=True, default="2024-01-01 00:00"),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='stack',
-            name='updated_at',
+            model_name="stack",
+            name="updated_at",
             field=models.DateTimeField(auto_now=True),
         ),
     ]

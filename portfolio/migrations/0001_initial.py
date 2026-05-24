@@ -5,86 +5,136 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='GroupStack',
+            name="GroupStack",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=100, verbose_name='Title')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=100, verbose_name="Title")),
             ],
             options={
-                'verbose_name': 'Section Stack',
-                'verbose_name_plural': 'Sections Stacks',
+                "verbose_name": "Section Stack",
+                "verbose_name_plural": "Sections Stacks",
             },
         ),
         migrations.CreateModel(
-            name='Project',
+            name="Project",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('title', models.CharField(max_length=100, verbose_name='Title')),
-                ('description', models.CharField(max_length=500, verbose_name='Description')),
-                ('repository', models.URLField(verbose_name='Repository')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("title", models.CharField(max_length=100, verbose_name="Title")),
+                (
+                    "description",
+                    models.CharField(max_length=500, verbose_name="Description"),
+                ),
+                ("repository", models.URLField(verbose_name="Repository")),
             ],
             options={
-                'verbose_name': 'Project',
-                'verbose_name_plural': 'Projects',
+                "verbose_name": "Project",
+                "verbose_name_plural": "Projects",
             },
         ),
         migrations.CreateModel(
-            name='SectionHero',
+            name="SectionHero",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=100, verbose_name='Title')),
-                ('subtitle', models.CharField(max_length=50, verbose_name='Subtitle')),
-                ('description', models.CharField(max_length=500, verbose_name='Description')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=100, verbose_name="Title")),
+                ("subtitle", models.CharField(max_length=50, verbose_name="Subtitle")),
+                (
+                    "description",
+                    models.CharField(max_length=500, verbose_name="Description"),
+                ),
             ],
             options={
-                'verbose_name': 'Section Hero',
-                'verbose_name_plural': 'Sections Heroes',
+                "verbose_name": "Section Hero",
+                "verbose_name_plural": "Sections Heroes",
             },
         ),
         migrations.CreateModel(
-            name='Stack',
+            name="Stack",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, verbose_name='Name')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100, verbose_name="Name")),
             ],
             options={
-                'verbose_name': 'Stack',
-                'verbose_name_plural': 'Stacks',
+                "verbose_name": "Stack",
+                "verbose_name_plural": "Stacks",
             },
         ),
         migrations.CreateModel(
-            name='Portfolio',
+            name="Portfolio",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('about', models.TextField()),
-                ('linkedin', models.URLField()),
-                ('github', models.URLField()),
-                ('active', models.BooleanField(default=True)),
-                ('contact_email', models.EmailField(max_length=254)),
-                ('groups_stacks', models.ManyToManyField(to='portfolio.groupstack')),
-                ('projects', models.ManyToManyField(to='portfolio.project')),
-                ('section_hero', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='portfolio.sectionhero')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("about", models.TextField()),
+                ("linkedin", models.URLField()),
+                ("github", models.URLField()),
+                ("active", models.BooleanField(default=True)),
+                ("contact_email", models.EmailField(max_length=254)),
+                ("groups_stacks", models.ManyToManyField(to="portfolio.groupstack")),
+                ("projects", models.ManyToManyField(to="portfolio.project")),
+                (
+                    "section_hero",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="portfolio.sectionhero",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Portfolio',
-                'verbose_name_plural': 'Portfolios',
+                "verbose_name": "Portfolio",
+                "verbose_name_plural": "Portfolios",
             },
         ),
         migrations.AddField(
-            model_name='groupstack',
-            name='stacks',
-            field=models.ManyToManyField(to='portfolio.stack', verbose_name='Stacks'),
+            model_name="groupstack",
+            name="stacks",
+            field=models.ManyToManyField(to="portfolio.stack", verbose_name="Stacks"),
         ),
     ]

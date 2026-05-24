@@ -1,4 +1,6 @@
+# pyrefly: ignore [untyped-import]
 from django.contrib import admin
+# pyrefly: ignore [untyped-import]
 from django.contrib.admin import register
 
 from portfolio.models import GroupStack, Portfolio, Project, SectionHero, Stack

@@ -1,7 +1,10 @@
+# pyrefly: ignore [untyped-import]
 from django.db import models
+# pyrefly: ignore [untyped-import]
 from django.utils.translation import gettext_lazy as _
 
 from core.models.base_model import BaseModel
+
 
 class Stack(BaseModel):
     name = models.CharField(verbose_name=_("Name"), max_length=100)
@@ -12,6 +15,7 @@ class Stack(BaseModel):
 
     def __str__(self):
         return self.name
+
 
 class GroupStack(BaseModel):
     title = models.CharField(verbose_name=_("Title"), max_length=100)
