@@ -9,6 +9,7 @@ detail: Always analyze whether GEMINI.md and the project are aligned.
 
 *   **Backend:** Django
 *   **Frontend:** Django Templates, HTML, CSS, JS
+*   **CSS Framework:** Tailwind CSS (via Standalone CLI v4)
 *   **Web Server:** uWSGI
 *   **Database:** SQLite (for development)
 *   **Dependency Management:** uv
@@ -51,3 +52,13 @@ The project is organized into the following Django apps:
     ```
 2.  **Access the application:**
     Open your browser and go to [http://localhost:8000](http://localhost:8000)
+
+3.  **Compiling Tailwind CSS (Frontend Development):**
+    To watch and automatically compile styles while developing locally, run:
+    ```bash
+    ./tailwindcss -i ./core/static/css/src/input.css -o ./core/static/css/app.css --watch
+    ```
+    To build and minify the CSS for production:
+    ```bash
+    ./tailwindcss -i ./core/static/css/src/input.css -o ./core/static/css/app.css --minify
+    ```
