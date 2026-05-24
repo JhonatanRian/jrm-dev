@@ -1,6 +1,8 @@
 from crispy_forms.helper import FormHelper
 from crispy_neurobrutalist.layout import Submit
+# pyrefly: ignore [untyped-import]
 from django import forms
+# pyrefly: ignore [untyped-import]
 from django.contrib.auth.forms import AuthenticationForm
 
 
@@ -13,4 +15,3 @@ class LoginForm(AuthenticationForm):
         self.helper = FormHelper()
         self.helper.form_error_title = "Por favor, corrija os seguintes erros:"
         self.helper.add_input(Submit("submit", "Fazer Login"))
-
