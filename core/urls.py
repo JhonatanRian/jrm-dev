@@ -1,3 +1,4 @@
+# pyrefly: ignore [untyped-import]
 from django.urls import path
 
 from core.views import PainelView
@@ -5,5 +6,5 @@ from core.views import PainelView
 app_name = "core"
 
 urlpatterns = [
-    # path("", PainelView.as_view(), name="painel"),
+    path("", PainelView.as_view(), name="painel"),
 ]

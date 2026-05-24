@@ -1,5 +1,7 @@
 from debug_toolbar.toolbar import debug_toolbar_urls
+# pyrefly: ignore [untyped-import]
 from django.contrib import admin
+# pyrefly: ignore [untyped-import]
 from django.urls import include, path
 
 from config import settings

@@ -1,6 +1,8 @@
+# pyrefly: ignore [untyped-import]
 from django.apps import AppConfig
 
 
 class CoreConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'core'
+    # pyrefly: ignore [bad-override]
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "core"
