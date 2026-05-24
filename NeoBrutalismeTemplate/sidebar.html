@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Neobrutalista</title>
+    <!-- Incluindo o Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados e classes do Neobrutalismo */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .neo-shadow {
+            box-shadow: 4px 4px 0px rgba(0,0,0,1);
+        }
+        .neo-shadow-sm {
+            box-shadow: 2px 2px 0px rgba(0,0,0,1);
+        }
+        .neo-button:active:not(:disabled) {
+            box-shadow: none;
+            transform: translate(4px, 4px);
+        }
+        .neo-button-sm:active:not(:disabled) {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+        .neo-button:disabled {
+            background-color: #d1d5db; /* gray-300 */
+            color: #6b7280; /* gray-500 */
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body class="bg-[#FDF5E6]">
+
+    <div class="min-h-screen flex flex-col lg:flex-row">
+      <!-- --- Barra Lateral (Sidebar) --- -->
+      <aside id="sidebar" class="absolute lg:relative w-72 lg:w-80 bg-[#FFD1DC] p-6 border-black lg:border-r-4 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-20">
+        <div class="flex items-center justify-between mb-10">
+          <h1 class="text-3xl font-black text-black">PAINEL</h1>
+          <button id="close-menu-btn" class="lg:hidden text-black">
+            <!-- Ícone X (Fechar) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        <nav>
+          <!-- Item de Menu Ativo -->
+          <a href="#" class="flex items-center p-3 my-1 rounded-lg transition-all duration-200 bg-yellow-300 text-black shadow-[2px_2px_0px_rgba(0,0,0,1)] border-2 border-black">
+            <!-- Ícone HardDrive -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="12" x2="2" y2="12"></line><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path><line x1="6" y1="16" x2="6.01" y2="16"></line><line x1="10" y1="16" x2="10.01" y2="16"></line></svg>
+            <span class="ml-4 font-bold">Meu Espaço</span>
+          </a>
+          <!-- Outros Itens de Menu -->
+          <a href="#" class="flex items-center p-3 my-1 rounded-lg transition-all duration-200 hover:bg-gray-200">
+            <!-- Ícone Users -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <span class="ml-4 font-bold">Equipes</span>
+          </a>
+          <a href="#" class="flex items-center p-3 my-1 rounded-lg transition-all duration-200 hover:bg-gray-200">
+             <!-- Ícone Briefcase -->
+             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            <span class="ml-4 font-bold">Projetos</span>
+          </a>
+          <a href="#" class="flex items-center p-3 my-1 rounded-lg transition-all duration-200 hover:bg-gray-200">
+            <!-- Ícone Settings -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l-.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <span class="ml-4 font-bold">Configurações</span>
+          </a>
+        </nav>
+        <div class="absolute bottom-6 left-6 right-6 p-4 bg-[#A7F3D0] border-2 border-black rounded-xl neo-shadow">
+           <h3 class="font-bold text-lg">Upgrade!</h3>
+           <p class="text-sm mt-1 mb-3">Obtenha mais espaço e recursos exclusivos.</p>
+           <button class="w-full text-sm font-bold text-black bg-white border-2 border-black rounded-md px-3 py-2 neo-shadow-sm neo-button-sm hover:bg-yellow-300 transition-all">
+             Fazer Upgrade Agora
+           </button>
+        </div>
+      </aside>
+      
+      <!-- --- Conteúdo Principal --- -->
+      <main class="flex-1 p-4 sm:p-6 lg:p-8">
+        
+        <!-- --- Seção de Sidebars --- -->
+        <div class="bg-white p-6 border-2 border-black rounded-xl neo-shadow mt-8">
+            <h3 class="text-2xl font-bold mb-6">Componente: Sidebars</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Exemplo 1: Sidebar Normal -->
+                <div>
+                    <h4 class="font-bold mb-3 text-lg">1. Sidebar Normal</h4>
+                    <aside class="w-full bg-blue-200 p-6 border-2 border-black rounded-lg h-[32rem] flex flex-col">
+                        <div class="flex items-center gap-2 mb-10">
+                            <div class="w-8 h-8 bg-blue-500 border-2 border-black rounded-md"></div>
+                            <h2 class="text-2xl font-black">MARCA</h2>
+                        </div>
+                        <nav class="flex-grow flex flex-col gap-2 font-semibold text-lg">
+                           <a href="#" class="p-3 rounded-md bg-white border-2 border-black neo-shadow-sm">Dashboard</a>
+                           <a href="#" class="p-3 rounded-md hover:bg-blue-300 transition-colors">Análises</a>
+                           <a href="#" class="p-3 rounded-md hover:bg-blue-300 transition-colors">Inventário</a>
+                           <a href="#" class="p-3 rounded-md hover:bg-blue-300 transition-colors">Clientes</a>
+                        </nav>
+                         <a href="#" class="mt-auto p-3 rounded-md font-semibold text-lg hover:bg-blue-300 transition-colors">Sair</a>
+                    </aside>
+                </div>
+                
+                <!-- Exemplo 2: Sidebar com Ícones e Botão -->
+                 <div>
+                    <h4 class="font-bold mb-3 text-lg">2. Com Ícones e Botão</h4>
+                    <aside class="w-full bg-white p-6 border-2 border-black rounded-lg h-[32rem] flex flex-col">
+                        <div class="flex items-center gap-3 mb-10">
+                            <div class="w-12 h-12 bg-green-300 rounded-full border-2 border-black flex items-center justify-center">
+                                 <span class="text-xl font-bold">B</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Beatriz</h3>
+                                <p class="text-sm text-gray-600">Plano Pro</p>
+                            </div>
+                        </div>
+                        <nav class="flex-grow flex flex-col gap-1 font-bold">
+                           <a href="#" class="flex items-center gap-3 p-3 text-black bg-gray-200 border-2 border-black rounded-md neo-shadow-sm">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" /><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" /></svg>
+                               Notificações 
+                               <span class="ml-auto font-bold text-xs text-white bg-red-600 border-2 border-black rounded-full px-2 py-0.5">3</span>
+                           </a>
+                           <a href="#" class="flex items-center gap-3 p-3 hover:bg-gray-100 rounded-md transition-colors">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                               Mensagens
+                           </a>
+                           <a href="#" class="flex items-center gap-3 p-3 hover:bg-gray-100 rounded-md transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                               Integrações
+                           </a>
+                        </nav>
+                        <div class="mt-auto">
+                            <button class="w-full text-center p-3 font-bold text-white bg-purple-600 border-2 border-black rounded-lg neo-shadow neo-button hover:bg-purple-700">
+                                Ver Faturamento
+                            </button>
+                        </div>
+                    </aside>
+                </div>
+
+                <!-- Exemplo 3: Com Submenus -->
+                 <div>
+                    <h4 class="font-bold mb-3 text-lg">3. Com Submenus</h4>
+                    <aside class="w-full bg-gray-800 text-white p-6 border-2 border-black rounded-lg h-[32rem] flex flex-col">
+                        <div class="text-2xl font-black mb-10">WORKFLOW</div>
+                        <nav class="flex-grow flex flex-col gap-2 font-semibold">
+                            <a href="#" class="flex items-center gap-3 p-3 hover:bg-gray-700 rounded-md transition-colors">Dashboard</a>
+                            <a href="#" class="flex items-center gap-3 p-3 hover:bg-gray-700 rounded-md transition-colors">Calendário</a>
+                            <div>
+                                <button data-submenu-trigger class="w-full flex justify-between items-center gap-3 p-3 hover:bg-gray-700 rounded-md transition-colors">
+                                    <span>Relatórios</span>
+                                    <svg data-submenu-icon class="w-5 h-5 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                                </button>
+                                <div data-submenu-list class="hidden mt-2 ml-4 flex flex-col gap-2 border-l-2 border-gray-600 pl-4">
+                                     <a href="#" class="p-2 text-sm hover:bg-gray-700 rounded-md">Vendas</a>
+                                     <a href="#" class="p-2 text-sm hover:bg-gray-700 rounded-md">Marketing</a>
+                                     <a href="#" class="p-2 text-sm hover:bg-gray-700 rounded-md">Financeiro</a>
+                                </div>
+                            </div>
+                            <a href="#" class="flex items-center gap-3 p-3 hover:bg-gray-700 rounded-md transition-colors">Ajustes</a>
+                        </nav>
+                    </aside>
+                </div>
+
+            </div>
+        </div>
+
+      </main>
+    </div>
+
+    <script>
+      // Script para interatividade do menu mobile
+      const sidebar = document.getElementById('sidebar');
+      const openMenuBtn = document.getElementById('open-menu-btn');
+      const closeMenuBtn = document.getElementById('close-menu-btn');
+
+      if (openMenuBtn) {
+          openMenuBtn.addEventListener('click', () => {
+            if(sidebar) sidebar.classList.remove('-translate-x-full');
+            if(sidebar) sidebar.classList.add('translate-x-0');
+          });
+      }
+
+      if (closeMenuBtn) {
+          closeMenuBtn.addEventListener('click', () => {
+            if(sidebar) sidebar.classList.remove('translate-x-0');
+            if(sidebar) sidebar.classList.add('-translate-x-full');
+          });
+      }
+
+      // Script para interatividade dos submenus
+      document.addEventListener('click', (e) => {
+        const submenuTrigger = e.target.closest('[data-submenu-trigger]');
+        if (submenuTrigger) {
+            const submenuList = submenuTrigger.nextElementSibling;
+            const submenuIcon = submenuTrigger.querySelector('[data-submenu-icon]');
+            submenuList.classList.toggle('hidden');
+            submenuIcon.classList.toggle('rotate-180');
+        }
+      });
+    </script>
+</body>
+</html>

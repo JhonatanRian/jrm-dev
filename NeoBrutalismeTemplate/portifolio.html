@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jhonatan Rian - Programador Backend</title>
+    <!-- Incluindo o Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados e classes do Neobrutalismo */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDF5E6;
+        }
+        .neo-shadow {
+            box-shadow: 8px 8px 0px rgba(0,0,0,1);
+        }
+        .neo-shadow-md {
+            box-shadow: 4px 4px 0px rgba(0,0,0,1);
+        }
+        .neo-shadow-sm {
+            box-shadow: 2px 2px 0px rgba(0,0,0,1);
+        }
+        .neo-button:active:not(:disabled) {
+            box-shadow: none;
+            transform: translate(4px, 4px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- --- Cabeçalho (Header) --- -->
+    <header class="bg-white border-b-4 border-black sticky top-0 z-10">
+      <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+          <div class="text-2xl font-black">JHONATAN RIAN</div>
+          <nav class="hidden md:flex items-center gap-6 font-bold">
+              <a href="#sobre" class="hover:underline">Sobre</a>
+              <a href="#habilidades" class="hover:underline">Habilidades</a>
+              <a href="#projetos" class="hover:underline">Projetos</a>
+              <a href="#contato" class="hover:underline">Contato</a>
+          </nav>
+          <a href="mailto:seu-email-aqui@exemplo.com" class="hidden sm:block font-bold text-white bg-black border-2 border-black rounded-lg px-5 py-2 neo-shadow-sm active:shadow-none active:translate-x-0.5 active:translate-y-0.5 transition-all">
+              Contato
+          </a>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <!-- --- Seção Hero --- -->
+        <section class="text-center md:text-left">
+            <div class="bg-pink-300 border-4 border-black rounded-2xl neo-shadow p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h1 class="text-5xl md:text-7xl font-black leading-tight">Jhonatan Rian</h1>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mt-2">Programador Backend</h2>
+                    <p class="mt-4 text-lg font-semibold">2 anos de experiência construindo soluções robustas e escaláveis, com um amor especial por Python e pelo ecossistema Linux.</p>
+                    <div class="mt-8 flex justify-center md:justify-start gap-4">
+                        <a href="https://www.linkedin.com/in/jhonatan-rian/" target="_blank" class="font-bold text-black bg-white border-2 border-black rounded-lg px-8 py-3 neo-shadow-md neo-button">LinkedIn</a>
+                        <a href="http://github.com/JhonatanRian/" target="_blank" class="font-bold text-black bg-white border-2 border-black rounded-lg px-8 py-3 neo-shadow-md neo-button">GitHub</a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center justify-center h-80 bg-pink-400 border-2 border-black rounded-lg neo-shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                </div>
+            </div>
+        </section>
+        
+        <!-- --- Seção Sobre --- -->
+        <section id="sobre" class="mt-16">
+             <div class="bg-white border-2 border-black rounded-xl neo-shadow-md p-8">
+                <h3 class="text-3xl font-black mb-4">Sobre Mim</h3>
+                <div class="space-y-4 font-semibold text-lg text-gray-800">
+                    <p>Olá! Sou o Jhonatan, um programador backend de 22 anos (quase 23, meu aniversário é dia 30 de junho!). Moro em Laranjal do Jari, Amapá, e sou um entusiasta de tecnologia, especialmente do universo Linux.</p>
+                    <p>Com 2 anos de experiência profissional, minha jornada tem sido focada em desenvolver e manter aplicações backend de alta performance. Tenho uma base sólida em arquiteturas como Clean Architecture, TDD e DDD, aplicando esses conceitos principalmente com Django para garantir a qualidade e manutenibilidade do código.</p>
+                     <p>Meu inglês técnico me permite consumir e contribuir com documentações e comunidades globais, mantendo-me sempre atualizado com as melhores práticas do mercado.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- --- Seção Habilidades (Stack) --- -->
+        <section id="habilidades" class="mt-16">
+            <h3 class="text-3xl font-black mb-6 text-center">Minha Stack</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Linguagens -->
+                <div class="bg-blue-200 border-2 border-black rounded-lg neo-shadow-sm p-6">
+                    <h4 class="font-bold text-xl mb-4">Linguagens</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">Python (Principal)</span>
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">Node.js</span>
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">Java (Iniciante)</span>
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">Go (Iniciante)</span>
+                    </div>
+                </div>
+                <!-- Frameworks e Ferramentas -->
+                <div class="bg-green-200 border-2 border-black rounded-lg neo-shadow-sm p-6">
+                    <h4 class="font-bold text-xl mb-4">Frameworks e Ferramentas</h4>
+                     <div class="flex flex-wrap gap-2">
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">Django</span>
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">FastAPI</span>
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">Celery</span>
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">Docker</span>
+                         <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">Git & GitLab</span>
+                    </div>
+                </div>
+                <!-- Bancos de Dados & Mensageria -->
+                <div class="bg-yellow-200 border-2 border-black rounded-lg neo-shadow-sm p-6">
+                    <h4 class="font-bold text-xl mb-4">Bancos de Dados & Mensageria</h4>
+                     <div class="flex flex-wrap gap-2">
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">PostgreSQL</span>
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">MySQL</span>
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">MongoDB</span>
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">RabbitMQ</span>
+                         <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">Redis</span>
+                    </div>
+                </div>
+                 <!-- Cloud & DevOps -->
+                 <div class="bg-purple-200 border-2 border-black rounded-lg neo-shadow-sm p-6">
+                    <h4 class="font-bold text-xl mb-4">Cloud & DevOps</h4>
+                     <div class="flex flex-wrap gap-2">
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">AWS (S3, EC2, Rekognition)</span>
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">CI/CD</span>
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">Digibee</span>
+                    </div>
+                </div>
+                <!-- Metodologias -->
+                <div class="bg-orange-200 border-2 border-black rounded-lg neo-shadow-sm p-6">
+                    <h4 class="font-bold text-xl mb-4">Metodologias e Testes</h4>
+                     <div class="flex flex-wrap gap-2">
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">Clean Architecture</span>
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">TDD & DDD</span>
+                        <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">Testes Unitários</span>
+                    </div>
+                </div>
+                 <!-- Hobbies -->
+                <div class="bg-red-200 border-2 border-black rounded-lg neo-shadow-sm p-6">
+                    <h4 class="font-bold text-xl mb-4">Hobbies</h4>
+                     <div class="flex flex-wrap items-center gap-4 font-bold">
+                        <span class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16.8 3.9c.7-.4 1.5-.8 2.2-1.2.7-.4 1.6-.6 2.5.2.8.7.7 1.8.3 2.5-.4.7-.8 1.5-1.2 2.2-.4.7-.6 1.6.2 2.5.7.8 1.8.7 2.5.3.7-.4 1.5-.8 2.2-1.2.4-.7.6-1.6-.2-2.5s-1.8-.7-2.5-.3c-.7.4-1.5.8-2.2 1.2-.7.4-1.6.6-2.5-.2-.8-.7-.7-1.8-.3-2.5zM2.3 21.7c.4-.7.8-1.5 1.2-2.2.4-.7.6-1.6-.2-2.5-.8-.8-1.9-.7-2.5-.3-.7.4-1.5.8-2.2 1.2-.7.4-.6 1.6.2 2.5s1.8.7 2.5.3c.7-.4 1.5-.8 2.2-1.2zM8.2 9.2c.4-.7.8-1.5 1.2-2.2.4-.7.6-1.6-.2-2.5-.8-.8-1.9-.7-2.5-.3-.7.4-1.5.8-2.2 1.2-.7.4-.6 1.6.2 2.5s1.8.7 2.5.3c.7-.4 1.5-.8 2.2-1.2zM22 2l-5.2 5.2c-.4.4-.7.8-.9 1.3l-2.4 6.1c-.3.8-.9 1.4-1.7 1.7L5.7 18.8c-.5.2-1.1.1-1.5-.2L3.3 18c-.4-.4-.5-1-.2-1.5l2.4-6.1c.3-.8.9-1.4 1.7-1.7L12.3 6c.5-.2 1-.1 1.5.2L19 11.3c.4.4.5 1 .2 1.5L13.1 22l-1-1-4.2-4.2 1-1 4.2 4.2 1.1-1.1-4.2-4.2 1-1 4.2 4.2 1.1-1.1-4.2-4.2 1-1 4.2 4.2 1.1-1.1Z"/></svg> Contrabaixo</span>
+                        <span class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 12h12M12 6v12"/><path d="M17.45 6.31 9.3 2.25a1 1 0 0 0-1.09.28L2.25 9.3a1 1 0 0 0 .28 1.09l4.06 8.15a1 1 0 0 0 1.09.28l8.15-4.06a1 1 0 0 0 .28-1.09L12.3 1.94a1 1 0 0 0-1.09-.28L2.25 9.3"/></svg> Videogame</span>
+                         <span class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a7 7 0 1 0 10 10"/></svg> Anime</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- --- Seção Projetos --- -->
+        <section id="projetos" class="mt-16">
+            <h3 class="text-3xl font-black mb-6 text-center">Projetos no GitHub</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Projeto 1 -->
+                <a href="#" target="_blank" class="block bg-white border-2 border-black rounded-lg neo-shadow-md p-6 hover:bg-gray-100 transition-colors">
+                    <h4 class="font-bold text-xl">Nome do Projeto 1</h4>
+                    <p class="font-semibold text-gray-700 mt-1">Uma breve descrição do que este projeto faz e as tecnologias utilizadas.</p>
+                </a>
+                <!-- Projeto 2 -->
+                <a href="#" target="_blank" class="block bg-white border-2 border-black rounded-lg neo-shadow-md p-6 hover:bg-gray-100 transition-colors">
+                    <h4 class="font-bold text-xl">Nome do Projeto 2</h4>
+                    <p class="font-semibold text-gray-700 mt-1">Uma breve descrição do que este projeto faz e as tecnologias utilizadas.</p>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- --- Rodapé (Footer) --- -->
+    <footer id="contato" class="bg-black text-white mt-16">
+        <div class="container mx-auto px-6 py-12 text-center">
+             <h3 class="text-3xl font-black">Vamos Conversar?</h3>
+             <p class="text-gray-300 mt-2">Sinta-se à vontade para entrar em contato.</p>
+             <div class="mt-6 flex justify-center gap-6">
+                <a href="https://www.linkedin.com/in/jhonatan-rian/" target="_blank" class="font-bold bg-white text-black border-2 border-black rounded-lg px-6 py-2 neo-shadow-sm neo-button-sm">LinkedIn</a>
+                <a href="http://github.com/JhonatanRian/" target="_blank" class="font-bold bg-white text-black border-2 border-black rounded-lg px-6 py-2 neo-shadow-sm neo-button-sm">GitHub</a>
+             </div>
+             <div class="mt-12 border-t border-gray-800 pt-6 text-gray-500 text-sm">
+                <p>&copy; 2025 Jhonatan Rian. Construído com café e código.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+      // Script para interatividade do menu mobile
+      const sidebar = document.getElementById('sidebar');
+      const openMenuBtn = document.getElementById('open-menu-btn');
+      const closeMenuBtn = document.getElementById('close-menu-btn');
+
+      if (openMenuBtn) {
+          openMenuBtn.addEventListener('click', () => {
+            if(sidebar) sidebar.classList.remove('-translate-x-full');
+            if(sidebar) sidebar.classList.add('translate-x-0');
+          });
+      }
+
+      if (closeMenuBtn) {
+          closeMenuBtn.addEventListener('click', () => {
+            if(sidebar) sidebar.classList.remove('translate-x-0');
+            if(sidebar) sidebar.classList.add('-translate-x-full');
+          });
+      }
+    </script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Neobrutalista</title>
+    <!-- Incluindo o Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados e classes do Neobrutalismo */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .neo-shadow {
+            box-shadow: 8px 8px 0px rgba(0,0,0,1);
+        }
+        .neo-shadow-md {
+            box-shadow: 4px 4px 0px rgba(0,0,0,1);
+        }
+        .neo-shadow-sm {
+            box-shadow: 2px 2px 0px rgba(0,0,0,1);
+        }
+        .neo-button:active:not(:disabled) {
+            box-shadow: none;
+            transform: translate(4px, 4px);
+        }
+    </style>
+</head>
+<body class="bg-[#FDF5E6]">
+
+    <div class="min-h-screen flex flex-col">
+      <!-- --- Cabeçalho (Header) --- -->
+      <header class="bg-white border-b-4 border-black sticky top-0 z-10">
+          <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+              <div class="text-3xl font-black">NEO.BLOG</div>
+              <nav class="hidden md:flex items-center gap-6 font-bold">
+                  <a href="#" class="hover:underline">Design</a>
+                  <a href="#" class="hover:underline">Tecnologia</a>
+                  <a href="#" class="hover:underline">Opinião</a>
+                  <a href="#" class="hover:underline">Sobre</a>
+              </nav>
+              <button class="bg-black text-white px-4 py-2 rounded-lg border-2 border-black neo-shadow-sm active:shadow-none active:translate-x-0.5 active:translate-y-0.5 transition-all">
+                  Buscar
+              </button>
+          </div>
+      </header>
+      
+      <!-- --- Conteúdo Principal --- -->
+      <main class="container mx-auto px-6 py-12">
+        
+        <!-- --- Post em Destaque --- -->
+        <section>
+            <h2 class="text-3xl font-black mb-6">Em Destaque</h2>
+            <div class="bg-pink-300 border-4 border-black rounded-2xl neo-shadow p-8 flex flex-col lg:flex-row items-center gap-8">
+                <div class="lg:w-1/2">
+                    <div class="bg-blue-400 border-2 border-black rounded-lg h-80 neo-shadow-md"></div>
+                </div>
+                <div class="lg:w-1/2">
+                    <span class="font-bold text-xs text-black bg-white border-2 border-black rounded-full px-3 py-1 self-start">DESIGN</span>
+                    <h1 class="text-4xl lg:text-5xl font-black leading-tight mt-4">A Crueza Elegante do Neobrutalismo</h1>
+                    <p class="mt-4 text-lg font-semibold text-gray-800">Uma análise sobre como a honestidade e a funcionalidade estão moldando as interfaces modernas.</p>
+                    <div class="mt-6 flex items-center gap-3">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full border-2 border-black"></div>
+                        <div>
+                            <p class="font-bold">Ana Silva</p>
+                            <p class="text-sm text-gray-600">Publicado há 2 dias</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- --- Posts Recentes --- -->
+        <section class="mt-16">
+            <h2 class="text-3xl font-black mb-6">Últimos Posts</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Card de Post 1 -->
+                <div class="bg-white border-2 border-black rounded-lg neo-shadow-md flex flex-col group">
+                    <div class="bg-green-300 border-b-2 border-black h-48"></div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <span class="font-bold text-xs text-black bg-white border-2 border-black rounded-full px-3 py-1 self-start">TECNOLOGIA</span>
+                        <h4 class="font-bold text-xl mt-3 flex-grow">Entendendo Svelte e SvelteKit</h4>
+                        <div class="mt-4 flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gray-300 rounded-full border-2 border-black"></div>
+                            <p class="font-bold text-sm">Bruno Costa</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card de Post 2 -->
+                <div class="bg-white border-2 border-black rounded-lg neo-shadow-md flex flex-col group">
+                    <div class="bg-purple-300 border-b-2 border-black h-48"></div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <span class="font-bold text-xs text-black bg-white border-2 border-black rounded-full px-3 py-1 self-start">OPINIÃO</span>
+                        <h4 class="font-bold text-xl mt-3 flex-grow">O Minimalismo Morreu?</h4>
+                        <div class="mt-4 flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gray-300 rounded-full border-2 border-black"></div>
+                            <p class="font-bold text-sm">Carla Dias</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card de Post 3 -->
+                <div class="bg-white border-2 border-black rounded-lg neo-shadow-md flex flex-col group">
+                    <div class="bg-orange-300 border-b-2 border-black h-48"></div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <span class="font-bold text-xs text-black bg-white border-2 border-black rounded-full px-3 py-1 self-start">TUTORIAL</span>
+                        <h4 class="font-bold text-xl mt-3 flex-grow">Criando um Kit de UI com Tailwind CSS</h4>
+                        <div class="mt-4 flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gray-300 rounded-full border-2 border-black"></div>
+                            <p class="font-bold text-sm">Ana Silva</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- --- Newsletter --- -->
+        <section class="mt-16">
+             <div class="bg-yellow-300 border-4 border-black rounded-2xl neo-shadow p-8 md:p-12 text-center">
+                <h2 class="text-4xl font-black">Junte-se à nossa Newsletter</h2>
+                <p class="max-w-xl mx-auto mt-4 text-lg font-semibold text-gray-800">Receba os melhores artigos sobre design e tecnologia diretamente na sua caixa de entrada, sem spam.</p>
+                <form class="mt-8 max-w-lg mx-auto flex flex-col sm:flex-row gap-4">
+                    <input type="email" placeholder="seu.email@exemplo.com" class="w-full p-4 bg-white border-2 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-black neo-shadow-md">
+                    <button class="font-bold text-white bg-black border-2 border-black rounded-lg px-8 py-4 neo-shadow-md neo-button">Inscrever</button>
+                </form>
+            </div>
+        </section>
+
+      </main>
+
+      <!-- --- Rodapé (Footer) --- -->
+      <footer class="bg-black text-white mt-16">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="font-black text-lg">NEO.BLOG</h4>
+                    <p class="text-gray-400 mt-2 text-sm">Um blog sobre a beleza na simplicidade e na funcionalidade.</p>
+                </div>
+                 <div>
+                    <h4 class="font-bold">Categorias</h4>
+                    <nav class="flex flex-col gap-2 mt-2 text-gray-300">
+                        <a href="#" class="hover:underline">Design</a>
+                        <a href="#" class="hover:underline">Tecnologia</a>
+                        <a href="#" class="hover:underline">Opinião</a>
+                    </nav>
+                </div>
+                 <div>
+                    <h4 class="font-bold">Empresa</h4>
+                    <nav class="flex flex-col gap-2 mt-2 text-gray-300">
+                        <a href="#" class="hover:underline">Sobre Nós</a>
+                        <a href="#" class="hover:underline">Contato</a>
+                        <a href="#" class="hover:underline">Privacidade</a>
+                    </nav>
+                </div>
+                 <div>
+                    <h4 class="font-bold">Siga-nos</h4>
+                    <div class="flex gap-4 mt-2">
+                        <a href="#" class="text-white hover:text-yellow-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </a>
+                        <a href="#" class="text-white hover:text-yellow-300">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-800 pt-6 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 NEO.BLOG. Todos os direitos reservados.</p>
+            </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Script para interatividade do menu mobile (se necessário)
+      const sidebar = document.getElementById('sidebar');
+      const openMenuBtn = document.getElementById('open-menu-btn');
+      const closeMenuBtn = document.getElementById('close-menu-btn');
+
+      if (openMenuBtn) {
+          openMenuBtn.addEventListener('click', () => {
+            if(sidebar) sidebar.classList.remove('-translate-x-full');
+            if(sidebar) sidebar.classList.add('translate-x-0');
+          });
+      }
+
+      if (closeMenuBtn) {
+          closeMenuBtn.addEventListener('click', () => {
+            if(sidebar) sidebar.classList.remove('translate-x-0');
+            if(sidebar) sidebar.classList.add('-translate-x-full');
+          });
+      }
+    </script>
+</body>
+</html>

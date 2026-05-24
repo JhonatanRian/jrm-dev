@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Neobrutalista</title>
+    <!-- Incluindo o Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados e classes do Neobrutalismo */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .neo-shadow {
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
+        }
+
+        .neo-shadow-sm {
+            box-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+        }
+
+        .neo-button:active:not(:disabled) {
+            box-shadow: none;
+            transform: translate(4px, 4px);
+        }
+
+        .neo-button-sm:active:not(:disabled) {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .neo-button:disabled {
+            background-color: #d1d5db;
+            /* gray-300 */
+            color: #6b7280;
+            /* gray-500 */
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+    </style>
+</head>
+
+<body class="bg-[#FDF5E6]">
+
+    <div class="min-h-screen flex flex-col lg:flex-row">
+        <!-- --- Barra Lateral (Sidebar) --- -->
+        <aside id="sidebar"
+            class="absolute lg:relative w-72 lg:w-80 bg-[#FFD1DC] p-6 border-black lg:border-r-4 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-20">
+            <div class="flex items-center justify-between mb-10">
+                <h1 class="text-3xl font-black text-black">PAINEL</h1>
+                <button id="close-menu-btn" class="lg:hidden text-black">
+                    <!-- Ícone X (Fechar) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <nav>
+                <!-- Item de Menu Ativo -->
+                <a href="#"
+                    class="flex items-center p-3 my-1 rounded-lg transition-all duration-200 bg-yellow-300 text-black shadow-[2px_2px_0px_rgba(0,0,0,1)] border-2 border-black">
+                    <!-- Ícone HardDrive -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="12" x2="2" y2="12"></line>
+                        <path
+                            d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z">
+                        </path>
+                        <line x1="6" y1="16" x2="6.01" y2="16"></line>
+                        <line x1="10" y1="16" x2="10.01" y2="16"></line>
+                    </svg>
+                    <span class="ml-4 font-bold">Meu Espaço</span>
+                </a>
+                <!-- Outros Itens de Menu -->
+                <a href="#" class="flex items-center p-3 my-1 rounded-lg transition-all duration-200 hover:bg-gray-200">
+                    <!-- Ícone Users -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <span class="ml-4 font-bold">Equipes</span>
+                </a>
+                <a href="#" class="flex items-center p-3 my-1 rounded-lg transition-all duration-200 hover:bg-gray-200">
+                    <!-- Ícone Briefcase -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                    <span class="ml-4 font-bold">Projetos</span>
+                </a>
+                <a href="#" class="flex items-center p-3 my-1 rounded-lg transition-all duration-200 hover:bg-gray-200">
+                    <!-- Ícone Settings -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l-.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z">
+                        </path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <span class="ml-4 font-bold">Configurações</span>
+                </a>
+            </nav>
+            <div class="absolute bottom-6 left-6 right-6 p-4 bg-[#A7F3D0] border-2 border-black rounded-xl neo-shadow">
+                <h3 class="font-bold text-lg">Upgrade!</h3>
+                <p class="text-sm mt-1 mb-3">Obtenha mais espaço e recursos exclusivos.</p>
+                <button
+                    class="w-full text-sm font-bold text-black bg-white border-2 border-black rounded-md px-3 py-2 neo-shadow-sm neo-button-sm hover:bg-yellow-300 transition-all">
+                    Fazer Upgrade Agora
+                </button>
+            </div>
+        </aside>
+
+        <!-- --- Conteúdo Principal --- -->
+        <main class="flex-1 p-4 sm:p-6 lg:p-8">
+
+            <!-- --- Seção de Perfil --- -->
+            <div class="space-y-8">
+                <!-- Header do Perfil -->
+                <div class="bg-white border-2 border-black rounded-xl neo-shadow">
+                    <div class="h-48 bg-blue-300 border-b-2 border-black rounded-t-lg"></div>
+                    <div class="p-6">
+                        <div class="flex flex-col sm:flex-row items-center sm:items-end -mt-20 sm:-mt-16 sm:gap-6">
+                            <div
+                                class="w-32 h-32 bg-pink-300 rounded-full border-4 border-black flex-shrink-0 neo-shadow-sm">
+                            </div>
+                            <div class="text-center sm:text-left mt-4 sm:mt-0 flex-grow">
+                                <h2 class="text-3xl font-black">Ana Pereira</h2>
+                                <p class="text-gray-600 font-semibold">@anapereira_dev</p>
+                            </div>
+                            <div class="flex gap-2 mt-4 sm:mt-0">
+                                <button
+                                    class="font-bold text-black bg-white border-2 border-black rounded-lg px-6 py-2 neo-shadow-sm neo-button-sm hover:bg-gray-100">Mensagem</button>
+                                <button
+                                    class="font-bold text-white bg-black border-2 border-black rounded-lg px-6 py-2 neo-shadow-sm neo-button-sm hover:bg-gray-800">Seguir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Coluna da Esquerda: Sobre e Habilidades -->
+                    <div class="lg:col-span-1 space-y-8">
+                        <!-- Card de Estatísticas -->
+                        <div class="bg-white border-2 border-black rounded-xl neo-shadow-sm p-6">
+                            <div class="flex justify-around text-center">
+                                <div>
+                                    <p class="text-2xl font-black">24</p>
+                                    <p class="text-sm font-semibold text-gray-600">Projetos</p>
+                                </div>
+                                <div>
+                                    <p class="text-2xl font-black">1.2K</p>
+                                    <p class="text-sm font-semibold text-gray-600">Seguidores</p>
+                                </div>
+                                <div>
+                                    <p class="text-2xl font-black">150</p>
+                                    <p class="text-sm font-semibold text-gray-600">Seguindo</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card Sobre -->
+                        <div class="bg-white border-2 border-black rounded-xl neo-shadow-sm p-6">
+                            <h4 class="text-xl font-bold mb-2">Sobre</h4>
+                            <p class="font-semibold text-gray-700">Desenvolvedora Front-end e entusiasta de UI/UX com
+                                paixão por criar interfaces bonitas, funcionais e brutalmente honestas.</p>
+                        </div>
+                        <!-- Card Habilidades -->
+                        <div class="bg-white border-2 border-black rounded-xl neo-shadow-sm p-6">
+                            <h4 class="text-xl font-bold mb-4">Habilidades</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="font-bold text-black bg-green-300 border-2 border-black rounded-md px-3 py-1">HTML</span>
+                                <span
+                                    class="font-bold text-black bg-blue-300 border-2 border-black rounded-md px-3 py-1">CSS</span>
+                                <span
+                                    class="font-bold text-black bg-yellow-300 border-2 border-black rounded-md px-3 py-1">JavaScript</span>
+                                <span
+                                    class="font-bold text-black bg-purple-300 border-2 border-black rounded-md px-3 py-1">React</span>
+                                <span
+                                    class="font-bold text-black bg-pink-300 border-2 border-black rounded-md px-3 py-1">UI/UX</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coluna da Direita: Projetos Recentes -->
+                    <div class="lg:col-span-2 space-y-8">
+                        <div class="bg-white border-2 border-black rounded-xl neo-shadow-sm p-6">
+                            <h4 class="text-xl font-bold mb-4">Projetos Recentes</h4>
+                            <div class="space-y-6">
+                                <!-- Projeto 1 -->
+                                <div
+                                    class="bg-gray-50 border-2 border-black rounded-lg neo-shadow-sm p-4 flex items-center gap-4">
+                                    <div class="w-24 h-24 bg-orange-300 border-2 border-black rounded-md flex-shrink-0">
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h5 class="text-lg font-bold">Kit de UI Neobrutalista</h5>
+                                        <p class="text-sm text-gray-600">Uma coleção completa de componentes para
+                                            acelerar seus projetos de design.</p>
+                                        <div class="mt-2 flex items-center gap-2 text-xs font-bold text-gray-500">
+                                            <span>HTML</span>
+                                            <span>•</span>
+                                            <span>Tailwind CSS</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Projeto 2 -->
+                                <div
+                                    class="bg-gray-50 border-2 border-black rounded-lg neo-shadow-sm p-4 flex items-center gap-4">
+                                    <div class="w-24 h-24 bg-teal-300 border-2 border-black rounded-md flex-shrink-0">
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h5 class="text-lg font-bold">App de Música</h5>
+                                        <p class="text-sm text-gray-600">Um conceito de aplicativo de streaming de
+                                            música com uma interface ousada e divertida.</p>
+                                        <div class="mt-2 flex items-center gap-2 text-xs font-bold text-gray-500">
+                                            <span>Figma</span>
+                                            <span>•</span>
+                                            <span>UI Design</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // Script para interatividade do menu mobile
+        const sidebar = document.getElementById('sidebar');
+        const openMenuBtn = document.getElementById('open-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+
+        if (openMenuBtn) {
+            openMenuBtn.addEventListener('click', () => {
+                if (sidebar) sidebar.classList.remove('-translate-x-full');
+                if (sidebar) sidebar.classList.add('translate-x-0');
+            });
+        }
+
+        if (closeMenuBtn) {
+            closeMenuBtn.addEventListener('click', () => {
+                if (sidebar) sidebar.classList.remove('translate-x-0');
+                if (sidebar) sidebar.classList.add('-translate-x-full');
+            });
+        }
+    </script>
+</body>
+
+</html>

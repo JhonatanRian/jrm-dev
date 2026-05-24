@@ -1,0 +1,111 @@
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+
+.neo-shadow {
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
+}
+
+.neo-shadow-sm {
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+}
+
+.neo-button:active:not(:disabled) {
+    box-shadow: none;
+    transform: translate(4px, 4px);
+}
+
+.neo-button-sm:active:not(:disabled) {
+    box-shadow: none;
+    transform: translate(2px, 2px);
+}
+
+.neo-button:disabled {
+    background-color: #d1d5db;
+    /* gray-300 */
+    color: #6b7280;
+    /* gray-500 */
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.sidebar-icon-text, .sidebar-header-text, .sidebar-footer-text {
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+}
+.sidebar-collapsed .sidebar-icon-text,
+.sidebar-collapsed .sidebar-header-text,
+.sidebar-collapsed .sidebar-footer-text {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.toast-in {
+    animation: slideInRight 0.3s ease-out forwards;
+}
+
+.toast-out {
+    animation: slideOutRight 0.3s ease-in forwards;
+}
+
+.custom-checkbox:checked {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+    background-color: black;
+}
+
+.custom-radio:checked {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+    background-color: black;
+}
+
+.checkbox-blue:checked {
+    background-color: #60a5fa;
+}
+
+/* blue-400 */
+.checkbox-pink:checked {
+    background-color: #f472b6;
+}
+
+/* pink-400 */
+.radio-blue:checked {
+    background-color: #60a5fa;
+}
+
+/* blue-400 */
+.radio-pink:checked {
+    background-color: #f472b6;
+}
