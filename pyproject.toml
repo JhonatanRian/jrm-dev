@@ -4,12 +4,12 @@ version = "0.1.0"
 description = "Sistema particular para desenvolvimento e afins"
 requires-python = ">=3.12"
 dependencies = [
-    "django>=5.2.2",
-    "django-crispy-forms>=2.4",
-    "django-debug-toolbar>=5.2.0",
-    "django-environ>=0.12.0",
-    "crispy_neurobrutalist",
-    "dj-static>=0.0.6",
+  "django>=5.2.2",
+  "django-crispy-forms>=2.4",
+  "django-debug-toolbar>=5.2.0",
+  "django-environ>=0.12.0",
+  "crispy_neurobrutalist",
+  "dj-static>=0.0.6",
 ]
 
 [tool.uv.sources]
@@ -23,10 +23,11 @@ requires-dist = ["django", "django-crispy-forms"]
 
 [dependency-groups]
 dev = [
-    "mypy>=1.16.0",
-    "pytest-django>=4.10.0",
-    "pytest-cov>=6.0.0",
-    "model-bakery>=1.20.0",
+  "mypy>=1.16.0",
+  "pytest-django>=4.10.0",
+  "pytest-cov>=6.0.0",
+  "model-bakery>=1.20.0",
+  "ruff>=0.15.13",
 ]
 
 [tool.pytest.ini_options]
@@ -35,36 +36,20 @@ python_files = ["tests.py", "test_*.py", "*_tests.py"]
 addopts = "--cov=. --cov-report=term-missing --no-cov-on-fail"
 
 [tool.coverage.run]
-omit = [
-    "*migrations*",
-    "*tests*",
-    "config/*",
-    "manage.py",
-    "venv/*",
-    ".venv/*",
-]
+omit = ["*migrations*", "*tests*", "config/*", "manage.py", "venv/*", ".venv/*"]
 
-prd = [
-    "uwsgi>=2.0.30",
-]
+prd = ["uwsgi>=2.0.30"]
 
 [tool.mypy]
 python_version = "3.12"
-plugins = [
-    "mypy_django_plugin.main",
-    "mypy_drf_plugin.main",
-]
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
 disallow_untyped_defs = true
 strict = false
 allow_incomplete_defs = false
 check_untyped_defs = true
 allow_untyped_globals = true
 
-exclude = [
-    "venv/",
-    ".venv/",
-    "migrations/",
-]
+exclude = ["venv/", ".venv/", "migrations/"]
 
 show_error_codes = true
 
@@ -72,3 +57,47 @@ show_error_codes = true
 strict_settings = false
 ignore_missing_model_attributes = true
 django_settings_module = "config.settings"
+
+[tool.ruff]
+# Target version
+target-version = "py312"
+# Line length
+line-length = 88
+
+[tool.ruff.lint]
+# Enable specific rules
+select = [
+  "E",   # pycodestyle errors
+  "W",   # pycodestyle warnings
+  "F",   # pyflakes
+  "I",   # isort
+  "UP",  # pyupgrade
+  "B",   # flake8-bugbear
+  "C4",  # flake8-comprehensions
+  "DJ",  # flake8-django
+  "T20", # flake8-print
+]
+# Ignore specific rules
+ignore = [
+  "DJ001", # Avoid nullable string-based fields (e.g., social_name)
+  "E501",  # Line too long (let formatter handle it where possible)
+]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+known-first-party = ["config", "accounts", "core", "portfolio"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.pyrefly]
+project-excludes = [
+    "**/venv/",
+    "**/.venv/",
+    "**/migrations/",
+]
+python-version = "3.12.0"
+preset = "legacy"
