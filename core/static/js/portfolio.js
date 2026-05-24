@@ -1,103 +1,135 @@
 const codeLines = [
-    {text: '# Um Desenvolvedor Backend em ação', type: 'comment'},
-    {text: 'class Developer:', type: 'keyword'},
-    {text: '    def __init__(self, name, stack):', type: 'keyword'},
-    {text: '        self.name = name', type: 'variable'},
-    {text: '        self.stack = stack', type: 'variable'},
-    {text: '', type: 'empty'},
-    {text: '    def code(self):', type: 'keyword'},
-    {text: '        print(f"{self.name} está codando em {self.stack[0]}...")', type: 'function'},
-    {text: '', type: 'empty'},
-    {text: '# Criando uma instância', type: 'comment'},
-    {text: 'me = Developer(', type: 'variable'},
-    {text: '    name="Jhonatan Rian",', type: 'variable'},
-    {text: '    stack=["Python", "Django", "Docker"]', type: 'variable'},
-    {text: ')', type: 'variable'},
-    {text: '', type: 'empty'},
-    {text: 'me.code()', type: 'function'},
+    { text: "def solve_problems():", type: "function_def" },
+    { text: "    while awake:", type: "keyword_block" },
+    { text: "        write_code()", type: "call" },
+    { text: "        run_tests()", type: "call" },
+    { text: "        deploy()", type: "call" },
+    { text: "    return \"Success!\"", type: "return_stmt" }
 ];
 
 const codeEditor = document.getElementById('code-editor');
-const typingSpeed = 80;
-const deletingSpeed = 30;
-const delayBetweenLines = 500;
-const delayAfterTyping = 3000;
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+function getHighlightedChar(char, type, lineText, charIndex) {
+    if (type === 'function_def') {
+        if (charIndex < 3) return `<span class="token-keyword">${char}</span>`;
+        if (charIndex > 3 && charIndex < lineText.indexOf('(')) return `<span class="token-function">${char}</span>`;
+    }
+    if (type === 'keyword_block') {
+        if (charIndex >= 4 && charIndex < 9) return `<span class="token-keyword">${char}</span>`;
+        if (charIndex >= 10 && charIndex < 15) return `<span class="token-variable">${char}</span>`;
+    }
+    if (type === 'call') {
+         if (charIndex >= 8 && charIndex < lineText.indexOf('(')) return `<span class="token-function">${char}</span>`;
+    }
+    if (type === 'return_stmt') {
+        if (charIndex >= 4 && charIndex < 10) return `<span class="token-keyword">${char}</span>`;
+        if (charIndex >= 11) return `<span class="token-string">${char}</span>`;
+    }
+    return char;
 }
 
-function getStyledLine(line) {
-    switch (line.type) {
-        case 'comment':
-            return `<span class="token-comment">${line.text}</span>`;
-        case 'keyword':
-            return line.text.replace(/(class|def|self)/g, '<span class="token-keyword">$1</span>');
-        case 'function':
-            return line.text.replace(/(\w+)\(.*\)/, '<span class="token-function">$1</span>()').replace(/f"(.+?)"/, `<span class="token-string">f"$1"</span>`);
-        case 'variable':
-            return line.text.replace(/"(.*?)"/g, '<span class="token-string">"$1"</span>');
-        default:
-            return line.text;
-    }
+async function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function typeWriter() {
     if (!codeEditor) return;
 
     while (true) {
-        codeEditor.innerHTML = ''; // Limpa o editor
+        codeEditor.innerHTML = '<span class="blinking-cursor"></span>';
+        
+        let fullHtml = '';
         for (let i = 0; i < codeLines.length; i++) {
             const line = codeLines[i];
-            if (line.type === 'empty') {
-                codeEditor.innerHTML += '<br>';
-                await sleep(delayBetweenLines);
-                continue;
+            let lineHtml = '';
+            
+            for (let j = 0; j < line.text.length; j++) {
+                const char = line.text[j];
+                lineHtml += getHighlightedChar(char, line.type, line.text, j);
+                
+                codeEditor.innerHTML = fullHtml + lineHtml + '<span class="blinking-cursor"></span>';
+                
+                let delay = Math.random() * (100 - 30) + 30;
+                if (char === ':' && (line.type === 'function_def' || line.type === 'keyword_block')) {
+                    delay += 500;
+                }
+                await sleep(delay);
             }
+            fullHtml += lineHtml + '\n';
+            codeEditor.innerHTML = fullHtml + '<span class="blinking-cursor"></span>';
+            await sleep(500);
+        }
 
-            const styledLine = getStyledLine(line);
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = styledLine;
+        await sleep(2000);
 
-            const nodes = Array.from(tempDiv.childNodes);
-            let currentLineHTML = '';
+        // Backspace effect
+        let plainText = "";
+        codeLines.forEach(l => plainText += l.text + '\n');
+        let totalChars = plainText.length;
 
-            for (const node of nodes) {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    for (const char of node.textContent) {
-                        currentLineHTML += char;
-                        codeEditor.innerHTML = codeEditor.innerHTML.split('<br>').slice(0, -1).join('<br>') + (i > 0 ? '<br>' : '') + currentLineHTML;
-                        await sleep(typingSpeed);
+        for(let i = 0; i < totalChars; i++) {
+            let charsToKeep = totalChars - i - 1;
+            
+            let newHtml = '';
+            let kept = 0;
+            for(let k=0; k<codeLines.length; k++) {
+                let lineStr = "";
+                for(let j=0; j<codeLines[k].text.length; j++) {
+                    if(kept < charsToKeep) {
+                        lineStr += getHighlightedChar(codeLines[k].text[j], codeLines[k].type, codeLines[k].text, j);
+                        kept++;
                     }
-                } else {
-                    const outerHTML = node.outerHTML;
-                    let tempNodeHTML = '';
-                    for (const char of outerHTML) {
-                        tempNodeHTML += char;
-                        codeEditor.innerHTML = codeEditor.innerHTML.split('<br>').slice(0, -1).join('<br>') + (i > 0 ? '<br>' : '') + currentLineHTML + tempNodeHTML;
-                        await sleep(typingSpeed / 2);
-                    }
-                    currentLineHTML += outerHTML;
+                }
+                if(lineStr.length > 0) newHtml += lineStr;
+                if(kept < charsToKeep && k < codeLines.length - 1) {
+                    newHtml += '\n';
+                    kept++;
                 }
             }
-            codeEditor.innerHTML += '<br>';
+            
+            codeEditor.innerHTML = newHtml + '<span class="blinking-cursor"></span>';
+            await sleep(20);
         }
-
-        await sleep(delayAfterTyping);
-
-        // Deleting effect
-        let lines = codeEditor.innerHTML.split('<br>');
-        for (let i = lines.length - 1; i >= 0; i--) {
-            let line = lines[i];
-            while (line.length > 0) {
-                line = line.slice(0, -1);
-                lines[i] = line;
-                codeEditor.innerHTML = lines.join('<br>');
-                await sleep(deletingSpeed);
-            }
-            lines.pop();
-        }
+        await sleep(500);
     }
 }
 
-document.addEventListener('DOMContentLoaded', typeWriter);
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Start type writer effect
+    typeWriter();
+
+    // Mobile menu toggle logic
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+
+    if (mobileMenuButton && mobileMenu && menuIcon) {
+        mobileMenuButton.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.textContent = 'close';
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.textContent = 'menu';
+            }
+        });
+
+        // Close mobile menu when clicking any link inside it
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.textContent = 'menu';
+            });
+        });
+
+        // Close mobile menu if window is resized to desktop width
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                mobileMenu.classList.add('hidden');
+                menuIcon.textContent = 'menu';
+            }
+        });
+    }
+});

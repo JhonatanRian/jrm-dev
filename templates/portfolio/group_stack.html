@@ -1,8 +1,10 @@
-<div class="bg-blue-200 border-2 border-black rounded-lg neo-shadow-sm p-6">
-    <h4 class="font-bold text-xl mb-4">{{ group_stack.title }}</h4>
-    <div class="flex flex-wrap gap-2">
+<div class="neo-border {{ bg_color }} p-sm md:p-md neo-card rounded-lg flex flex-col">
+    <h3 class="font-headline-md text-lg md:text-headline-md mb-md bg-white px-sm neo-border inline-block self-start">
+        {{ group_stack.title }}
+    </h3>
+    <div class="flex flex-wrap gap-xs mt-auto">
         {% for stack in group_stack.stacks.all %}
-            <span class="font-bold text-black bg-white border-2 border-black rounded-md px-3 py-1">
+            <span class="bg-white px-xs py-xs neo-border border-2 font-label-bold text-[10px] md:text-xs uppercase text-black">
                 {{ stack.name }}
             </span>
         {% endfor %}

@@ -1,9 +1,10 @@
 <!-- --- Seção Habilidades (Stack) --- -->
-<section id="skills" class="mt-16">
-    <h3 class="text-3xl font-black mb-6 text-center">Minha Stack</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<section id="skills" class="space-y-md md:space-y-lg mt-16">
+    <h2 class="font-headline-xl text-3xl md:text-headline-xl text-center uppercase tracking-tighter">Minha Stack</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-md md:gap-lg">
         {% for group_stack in portfolio.groups_stacks.all %}
-            {% include 'portfolio/group_stack.html' with group_stack=group_stack %}
+            {% cycle 'bg-neo-blue' 'bg-neo-green' 'bg-neo-yellow' 'bg-neo-purple' 'bg-neo-orange' 'bg-neo-pink' as bg_color silent %}
+            {% include 'portfolio/group_stack.html' with group_stack=group_stack bg_color=bg_color %}
         {% endfor %}
     </div>
 </section>
