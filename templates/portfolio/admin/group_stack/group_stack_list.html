@@ -1,0 +1,57 @@
+{% extends 'core/base_painel.html' %}
+
+{% block title %}Seções de Stack | Admin{% endblock %}
+
+{% block content %}
+{% url 'portfolio:group_stack_create' as add_url %}
+{% include 'components/admin/page_header.html' with title="Seções de Stack" add_url=add_url add_label="Nova Seção" %}
+
+<div class="bg-white border-4 border-black rounded-xl p-6 neo-shadow">
+    <div class="overflow-x-auto border-2 border-black rounded-lg neo-shadow-sm">
+        <table class="w-full text-left">
+            <thead class="bg-yellow-300 border-b-2 border-black font-bold">
+                <tr>
+                    <th class="p-4">ID</th>
+                    <th class="p-4">Título</th>
+                    <th class="p-4">Stacks Associadas</th>
+                    <th class="p-4">Criado em</th>
+                    <th class="p-4 text-center">Ações</th>
+                </tr>
+            </thead>
+            <tbody class="font-semibold text-black">
+                {% for group_stack in group_stacks %}
+                <tr class="border-b-2 border-gray-200 hover:bg-gray-50">
+                    <td class="p-4">{{ group_stack.id }}</td>
+                    <td class="p-4">{{ group_stack.title }}</td>
+                    <td class="p-4">
+                        <div class="flex flex-wrap gap-1">
+                            {% for stack in group_stack.stacks.all %}
+                                <span class="bg-gray-100 border border-black rounded px-2 py-0.5 text-xs text-black">
+                                    {{ stack.name }}
+                                </span>
+                            {% empty %}
+                                <span class="text-gray-400 text-xs font-normal">Nenhuma stack associada</span>
+                            {% endfor %}
+                        </div>
+                    </td>
+                    <td class="p-4">{{ group_stack.created_at|date:"d/m/Y" }}</td>
+                    <td class="p-4 text-center">
+                        {% url 'portfolio:group_stack_update' group_stack.pk as edit_url %}
+                        {% url 'portfolio:group_stack_delete' group_stack.pk as delete_url %}
+                        {% include 'components/admin/table_action_dropdown.html' with edit_url=edit_url delete_url=delete_url %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="p-8 text-center text-xl font-bold text-gray-500">
+                        Nenhuma seção de stack cadastrada ainda.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% include 'components/admin/pagination.html' %}
+</div>
+{% endblock %}

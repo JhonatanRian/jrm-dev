@@ -1,0 +1,10 @@
+<div class="mb-8 flex justify-between items-center">
+    <h1 class="text-3xl font-bold bg-neo-yellow inline-block px-4 py-2 border-4 border-black neo-shadow transform -rotate-2">
+        {{ title }}
+    </h1>
+    {% if add_url and add_label %}
+    <a href="{{ add_url }}" class="bg-neo-green text-black font-bold px-6 py-2 border-4 border-black rounded-lg neo-shadow-sm neo-button flex items-center gap-2 hover:bg-green-400">
+        <span class="material-icons">add</span> {{ add_label }}
+    </a>
+    {% endif %}
+</div>

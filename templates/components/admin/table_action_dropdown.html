@@ -1,0 +1,21 @@
+<div class="relative inline-block text-left" data-dropdown-container>
+    <button type="button" class="inline-flex items-center justify-center font-bold text-black bg-white border-2 border-black rounded-lg px-4 py-2 neo-shadow-sm neo-button-sm hover:bg-gray-100" data-dropdown-button>
+        Opções
+        <svg class="-mr-1 ml-2 h-4 w-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+    </button>
+    <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-lg neo-shadow border-2 border-black bg-white hidden z-50" data-dropdown-menu>
+        <div class="py-1" role="menu" aria-orientation="vertical">
+            {% if view_url %}
+            <a href="{{ view_url }}" class="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100" role="menuitem">Visualizar</a>
+            {% endif %}
+            {% if edit_url %}
+            <a href="{{ edit_url }}" class="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-blue-100" role="menuitem">Editar</a>
+            {% endif %}
+            {% if delete_url %}
+            <a href="{{ delete_url }}" class="block px-4 py-2 text-sm font-bold text-red-600 hover:bg-red-100" role="menuitem">Excluir</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

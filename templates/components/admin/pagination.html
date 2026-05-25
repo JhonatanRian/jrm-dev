@@ -1,0 +1,25 @@
+{% if is_paginated %}
+<div class="mt-8 flex justify-center">
+    <nav class="flex items-center justify-center gap-2">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="inline-flex items-center justify-center w-10 h-10 font-bold text-black bg-white border-2 border-black rounded-lg neo-shadow-sm neo-button-sm hover:bg-gray-100">&laquo;</a>
+        {% endif %}
+
+        {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                <span class="inline-flex items-center justify-center w-10 h-10 font-bold text-white bg-black border-2 border-black rounded-lg neo-shadow-sm">{{ i }}</span>
+            {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+                <a href="?page={{ i }}" class="inline-flex items-center justify-center w-10 h-10 font-bold text-black bg-white border-2 border-black rounded-lg neo-shadow-sm neo-button-sm hover:bg-gray-100">{{ i }}</a>
+            {% elif i == 1 or i == paginator.num_pages %}
+                <a href="?page={{ i }}" class="inline-flex items-center justify-center w-10 h-10 font-bold text-black bg-white border-2 border-black rounded-lg neo-shadow-sm neo-button-sm hover:bg-gray-100">{{ i }}</a>
+            {% elif i == page_obj.number|add:'-3' or i == page_obj.number|add:'3' %}
+                <span class="inline-flex items-center justify-center h-10 font-bold text-black">...</span>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="inline-flex items-center justify-center w-10 h-10 font-bold text-black bg-white border-2 border-black rounded-lg neo-shadow-sm neo-button-sm hover:bg-gray-100">&raquo;</a>
+        {% endif %}
+    </nav>
+</div>
+{% endif %}

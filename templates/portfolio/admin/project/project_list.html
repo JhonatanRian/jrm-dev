@@ -1,0 +1,31 @@
+{% extends 'core/base_painel.html' %}
+
+{% block title %}Projetos Ativos | Admin{% endblock %}
+
+{% block content %}
+{% url 'portfolio:project_create' as add_url %}
+{% include 'components/admin/page_header.html' with title="Projetos Ativos" add_url=add_url add_label="Novo Projeto" %}
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for project in projects %}
+    <div class="bg-white border-4 border-black rounded-xl p-6 neo-shadow hover:-translate-y-1 transition-transform">
+        <h3 class="text-2xl font-bold mb-4">{{ project.title }}</h3>
+        <p class="text-sm text-gray-600 mb-6 truncate">{{ project.description }}</p>
+        <div class="flex gap-2">
+            <a href="{% url 'portfolio:project_update' project.pk %}" class="bg-neo-blue text-black font-bold px-4 py-2 border-2 border-black rounded-lg neo-button-sm text-sm">
+                Editar
+            </a>
+            <a href="{% url 'portfolio:project_delete' project.pk %}" class="bg-neo-pink text-black font-bold px-4 py-2 border-2 border-black rounded-lg neo-button-sm text-sm">
+                Excluir
+            </a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-span-full bg-white border-4 border-black p-8 text-center rounded-xl neo-shadow">
+        <p class="text-xl font-bold text-gray-500">Nenhum projeto salvo ainda.</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% include 'components/admin/pagination.html' %}
+{% endblock %}

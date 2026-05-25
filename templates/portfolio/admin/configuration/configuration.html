@@ -1,0 +1,199 @@
+{% extends 'core/base_painel.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}Configurações | Admin{% endblock %}
+
+{% block content %}
+<!-- Carregar jQuery para o django-select2 funcionar -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{ form.media }}
+
+<div class="mb-8">
+    <h1 class="text-3xl font-bold bg-neo-yellow inline-block px-4 py-2 border-4 border-black neo-shadow transform -rotate-1 text-black">
+        Configurações do Sistema
+    </h1>
+</div>
+
+{% if messages %}
+    <div class="mb-6 space-y-2">
+        {% for message in messages %}
+            <div class="p-4 border-4 border-black rounded-lg font-bold neo-shadow-sm {% if message.tags == 'success' %}bg-neo-green text-black{% else %}bg-red-300 text-black{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<!-- Tabs em Caixa (Boxed Tabs) -->
+<div data-tabs-container class="w-full">
+    <!-- Abas Cabeçalho -->
+    <div class="bg-gray-200 border-4 border-black rounded-xl p-1 inline-flex gap-1 mb-6">
+        <nav data-tab-list class="flex gap-1">
+            <button type="button" data-tab-trigger="config-portfolio"
+                    class="px-6 py-2.5 font-bold bg-white border-2 border-black rounded-lg neo-shadow-sm text-black cursor-pointer">
+                Portfólio
+            </button>
+            <button type="button" data-tab-trigger="config-visual"
+                    class="px-6 py-2.5 font-bold hover:bg-white/50 rounded-lg text-black cursor-pointer transition-colors">
+                Tema & Visual
+            </button>
+            <button type="button" data-tab-trigger="config-account"
+                    class="px-6 py-2.5 font-bold hover:bg-white/50 rounded-lg text-black cursor-pointer transition-colors">
+                Conta & Segurança
+            </button>
+        </nav>
+    </div>
+
+    <!-- Conteúdo das Abas -->
+    <div class="bg-white border-4 border-black rounded-xl p-8 neo-shadow max-w-4xl text-black">
+        
+        <!-- Aba 1: Portfólio (Ativa por padrão) -->
+        <div data-tab-content="config-portfolio">
+            <h2 class="text-2xl font-bold mb-6 border-b-4 border-black pb-2">Informações do Portfólio</h2>
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="md:col-span-2">
+                        {{ form.about|as_crispy_field }}
+                    </div>
+                    <div>
+                        {{ form.contact_email|as_crispy_field }}
+                    </div>
+                    <div>
+                        {{ form.linkedin|as_crispy_field }}
+                    </div>
+                    <div>
+                        {{ form.github|as_crispy_field }}
+                    </div>
+                    <div class="md:col-span-2">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                {{ form.groups_stacks|as_crispy_field }}
+                            </div>
+                            <div>
+                                {{ form.projects|as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2 flex items-center gap-3 bg-gray-50 p-4 border-2 border-black rounded-lg mt-2">
+                        {{ form.active }}
+                        <label for="{{ form.active.id_for_label }}" class="font-bold text-sm select-none cursor-pointer">
+                            Marcar este portfólio como ativo no site principal
+                        </label>
+                    </div>
+                </div>
+
+                <div class="pt-6 border-t-2 border-gray-200 flex gap-4">
+                    <button type="submit" class="bg-neo-green text-black font-bold px-8 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm">
+                        Salvar Configurações
+                    </button>
+                    <a href="{% url 'core:painel' %}" class="bg-gray-200 text-black font-bold px-8 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm">
+                        Voltar ao Painel
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Aba 2: Tema & Visual (Placeholder) -->
+        <div data-tab-content="config-visual" class="hidden">
+            <h2 class="text-2xl font-bold mb-6 border-b-4 border-black pb-2">Aparência do Portfólio</h2>
+            <p class="text-gray-600 mb-6">Personalize o esquema de cores brutas e a tipografia padrão do seu site público.</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                <div class="border-2 border-black rounded-lg p-4 bg-gray-50 flex items-center justify-between">
+                    <div>
+                        <h4 class="font-bold text-black">Modo Escuro (Dark Mode)</h4>
+                        <p class="text-xs text-gray-500">Alternar cores do site</p>
+                    </div>
+                    <div class="w-12 h-6 bg-gray-300 border-2 border-black rounded-full p-0.5 cursor-pointer relative">
+                        <div class="w-4 h-4 bg-black rounded-full transition-all"></div>
+                    </div>
+                </div>
+                <div class="border-2 border-black rounded-lg p-4 bg-gray-50 flex items-center justify-between">
+                    <div>
+                        <h4 class="font-bold text-black">Esquema Brutal</h4>
+                        <p class="text-xs text-gray-500">Paleta de acentuação viva</p>
+                    </div>
+                    <span class="font-black text-xs bg-neo-pink px-2 py-1 border border-black rounded shadow-[1px_1px_0px_#000]">PINK</span>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <button type="button" class="bg-neo-green text-black font-bold px-8 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm opacity-50 cursor-not-allowed" disabled>
+                    Salvar Tema
+                </button>
+            </div>
+        </div>
+
+        <!-- Aba 3: Conta & Segurança (Placeholder) -->
+        <div data-tab-content="config-account" class="hidden">
+            <h2 class="text-2xl font-bold mb-6 border-b-4 border-black pb-2">Segurança da Conta</h2>
+            <p class="text-gray-600 mb-6">Gerencie suas credenciais de acesso administrativas.</p>
+            
+            <div class="space-y-4 max-w-md mb-8">
+                <div>
+                    <label class="block font-bold text-sm mb-2 text-black">Nova Senha</label>
+                    <input type="password" placeholder="••••••••" class="w-full p-2 border-2 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-neo-yellow text-black bg-gray-100" disabled>
+                </div>
+                <div>
+                    <label class="block font-bold text-sm mb-2 text-black">Confirmar Nova Senha</label>
+                    <input type="password" placeholder="••••••••" class="w-full p-2 border-2 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-neo-yellow text-black bg-gray-100" disabled>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <button type="button" class="bg-neo-green text-black font-bold px-8 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm opacity-50 cursor-not-allowed" disabled>
+                    Atualizar Senha
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Custom Select2 Overrides -->
+<style>
+    .select2-container--default .select2-selection--multiple {
+        border: 2px solid #000000 !important;
+        border-radius: 8px !important;
+        padding: 4px !important;
+        background-color: #ffffff !important;
+    }
+    .select2-container--default.select2-container--focus .select2-selection--multiple {
+        border-color: #000000 !important;
+        box-shadow: 2px 2px 0px #000000 !important;
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #FFD700 !important; /* Gold / yellow theme tag */
+        border: 2px solid #000000 !important;
+        border-radius: 4px !important;
+        color: #000000 !important;
+        font-weight: bold !important;
+        padding: 2px 8px !important;
+        margin: 2px !important;
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+        color: #000000 !important;
+        font-weight: bold !important;
+        margin-right: 4px !important;
+        border-right: 2px solid #000000 !important;
+        padding-right: 4px !important;
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+        background-color: #ba1a1a !important;
+        color: #ffffff !important;
+    }
+    .select2-dropdown {
+        border: 2px solid #000000 !important;
+        border-radius: 8px !important;
+        box-shadow: 4px 4px 0px #000000 !important;
+        z-index: 99999 !important;
+    }
+    .select2-container--default .select2-results__option--highlighted[aria-selected] {
+        background-color: #FF8DA1 !important; /* Pink theme selector highlight */
+        color: #000000 !important;
+        font-weight: bold !important;
+    }
+</style>
+{% endblock %}
