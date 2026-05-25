@@ -10,6 +10,8 @@ dependencies = [
   "django-environ>=0.12.0",
   "crispy_neurobrutalist",
   "dj-static>=0.0.6",
+  "django-filter>=25.2",
+  "django-select2>=8.4.8",
 ]
 
 [tool.uv.sources]
@@ -28,6 +30,7 @@ dev = [
   "pytest-cov>=6.0.0",
   "model-bakery>=1.20.0",
   "ruff>=0.15.13",
+  "django-stubs>=6.0.4",
 ]
 
 [tool.pytest.ini_options]
