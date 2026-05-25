@@ -1,29 +1,36 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        {% block title %}{% endblock %}
-    </title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/app.css' %}">
-</head>
-<body class="bg-[#FDF5E6]">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block title %}{% endblock %}
+        </title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+              rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/app.css' %}">
+        {% block extra_css %}
+        {% endblock extra_css %}
+    </head>
 
-<div class="relative min-h-screen">
-    {% include 'components/sidebar.html' %}
-    <!-- --- Conteúdo Principal --- -->
-    <main id="main-content" class="p-4 sm:p-6 lg:p-8 transition-all duration-300 ease-in-out">
-        {% block content %}
-        {% endblock %}
-    </main>
-</div>
-<script src="{% static 'js/app.js' %}?v=1"></script>
-</body>
+    <body class="bg-[#FDF5E6]">
+
+        <div class="relative min-h-screen">
+            {% include "components/sidebar.html" %}
+            <!-- --- Conteúdo Principal --- -->
+            <main id="main-content"
+                  class="p-4 sm:p-6 lg:p-8 transition-all duration-300 ease-in-out">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+        <script src="{% static 'js/app.js' %}?v=1"></script>
+        {% block extra_js %}
+        {% endblock extra_js %}
+    </body>
 </html>
