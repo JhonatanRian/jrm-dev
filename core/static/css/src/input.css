@@ -242,3 +242,46 @@ body {
     overflow: hidden;
     transition: max-height 0.3s ease-out;
 }
+
+/* ==========================================================================
+   Destaques Customizados (Highlighting)
+   ========================================================================== */
+
+.highlight-neo-gray,
+.highlight-neo-yellow,
+.highlight-neo-green {
+    display: inline-block;
+    font-weight: 800;
+    border: 2px solid #000000;
+    padding: 0.125rem 0.375rem;
+    margin: 0.125rem 0.125rem;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease, box-shadow 0.2s ease;
+    cursor: default;
+    border-radius: 4px;
+}
+
+.highlight-neo-gray {
+    background-color: #E5E7EB; /* Gray 200 */
+    color: #000000;
+}
+
+.highlight-neo-yellow {
+    background-color: #FEF08A; /* Yellow 200 */
+    color: #000000;
+}
+
+.highlight-neo-green {
+    background-color: #4ADE80; /* Green 400 */
+    color: #000000;
+}
+
+/* Efeito Premium de Hover: escala, rotação anti-horária de -2.5 graus, cor amarela brilhante e sombra 3D */
+.highlight-neo-gray:hover,
+.highlight-neo-yellow:hover,
+.highlight-neo-green:hover {
+    transform: scale(1.08) rotate(-2.5deg);
+    background-color: #FFD700 !important; /* Sempre transiciona para amarelo vibrante no hover */
+    box-shadow: 3px 3px 0px #000000;
+}
+
+
