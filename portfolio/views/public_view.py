@@ -1,4 +1,3 @@
-# pyrefly: ignore [untyped-import]
 from django.views.generic.base import TemplateView
 
 from portfolio.models import Portfolio
