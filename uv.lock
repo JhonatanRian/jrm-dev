@@ -114,7 +114,7 @@ wheels = [
 [[package]]
 name = "crispy-neurobrutalist"
 version = "0.5.0"
-source = { git = "https://github.com/JhonatanRian/crispy_neurobrutalist?tag=v0.5.0#c9a9a21f9f799479ecb82c7537a76995ecf0d538" }
+source = { git = "https://github.com/JhonatanRian/crispy_neurobrutalist?tag=v0.6.1#01b8fe4f041f35c0973872050cce7230e32ab479" }
 dependencies = [
     { name = "django" },
     { name = "django-crispy-forms" },
@@ -274,11 +274,12 @@ dev = [
     { name = "pytest-cov" },
     { name = "pytest-django" },
     { name = "ruff" },
+    { name = "types-django-filter" },
 ]
 
 [package.metadata]
 requires-dist = [
-    { name = "crispy-neurobrutalist", git = "https://github.com/JhonatanRian/crispy_neurobrutalist?tag=v0.5.0" },
+    { name = "crispy-neurobrutalist", git = "https://github.com/JhonatanRian/crispy_neurobrutalist?tag=v0.6.1" },
     { name = "dj-static", specifier = ">=0.0.6" },
     { name = "django", specifier = ">=5.2.2" },
     { name = "django-crispy-forms", specifier = ">=2.4" },
@@ -296,6 +297,7 @@ dev = [
     { name = "pytest-cov", specifier = ">=6.0.0" },
     { name = "pytest-django", specifier = ">=4.10.0" },
     { name = "ruff", specifier = ">=0.15.13" },
+    { name = "types-django-filter", specifier = ">=25.2.0.20260508" },
 ]
 
 [[package]]
@@ -462,6 +464,18 @@ name = "static3"
 version = "0.7.0"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/87/b0/9cf15108b73c4f2ffffe11d237c938f57785f55d3693d822d565432cb680/static3-0.7.0.tar.gz", hash = "sha256:674641c64bc75507af2eb20bef7e7e3593dca993dec6674be108fa15b42f47c8", size = 24607, upload-time = "2016-05-10T11:43:45.17Z" }
+
+[[package]]
+name = "types-django-filter"
+version = "25.2.0.20260508"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django-stubs" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/46/ec/ca3494b2bcda8f16ceae401fd784e47d7ad68b7f6eb64a67a9e284d4af9b/types_django_filter-25.2.0.20260508.tar.gz", hash = "sha256:7798d6bf8c953d888cb846c5041ffa012f770bb335e6ddb3ac76d1fc01e03a20", size = 15868, upload-time = "2026-05-08T04:52:09.333Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9c/1d/be62b89749e3e399875f84683774eb21eb932c67178878df7b47b19ea832/types_django_filter-25.2.0.20260508-py3-none-any.whl", hash = "sha256:8f76ec516a10b8e8d2d363015b95a474899001664718b6ebf51c929f3514016e", size = 19330, upload-time = "2026-05-08T04:52:08.458Z" },
+]
 
 [[package]]
 name = "types-pyyaml"

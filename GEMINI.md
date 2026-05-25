@@ -84,6 +84,8 @@ When creating core components (Views, Forms, Filters, Models), strictly follow t
 1.  **Component Organization:** Do not cram all elements into a single `views.py`, `forms.py`, `filters.py`, or `models.py`. Create a module/folder (e.g., `views/admin/`, `forms/`, `filters/`, `models/`) and place one `.py` file per resource (e.g., `stack_view.py`, `stack_form.py`, `stack_filter.py`, `stack.py`). Import these inside the module's `__init__.py` to expose them cleanly.
 2.  **Permissions Base Class:** All secure views must inherit from a base permission mixin (like `AdminPermissionMixin` or `SystemPermissionsBase`) that inherits from `LoginRequiredMixin` and `UserPassesTestMixin`. Do not apply login requirements randomly on a per-view basis.
 3.  **List Views Filtering:** When creating List views, prefer using `django-filter` and `django_filters.views.FilterView` to allow future scalability of search and filtering capabilities.
+4.  **Form Styling & Crispy Theme:** Since the project is configured to use the custom `crispy_neurobrutalist` template pack, forms rendered using crispy do not need manual CSS styling classes (e.g., `w-full p-2 border-2...`) injected on their fields or widgets in Python code. The crispy template tags automatically apply all required Neo-Brutalist styles to the rendered fields.
+
 
 ## Validations & QA
 1.  **Always Run Checks:** Always run `uv run manage.py check` after finishing any implementation or refactoring to catch missing imports and other configuration errors.

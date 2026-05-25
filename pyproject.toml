@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-crispy_neurobrutalist = { git = "https://github.com/JhonatanRian/crispy_neurobrutalist", tag = "v0.5.0" }
+crispy_neurobrutalist = { git = "https://github.com/JhonatanRian/crispy_neurobrutalist", tag = "v0.6.1" }
 
 [[tool.uv.dependency-metadata]]
 name = "crispy_neurobrutalist"
@@ -31,6 +31,7 @@ dev = [
   "model-bakery>=1.20.0",
   "ruff>=0.15.13",
   "django-stubs>=6.0.4",
+  "types-django-filter>=25.2.0.20260508",
 ]
 
 [tool.pytest.ini_options]
