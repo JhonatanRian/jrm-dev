@@ -20,11 +20,11 @@ class ConfigurationView(AdminPermissionMixin, View):
             )
             portfolio = Portfolio.objects.create(
                 section_hero=hero,
-                about="Olá! Sou o Jhonatan, tenho 22 anos e sou do Amapá.",
+                about="",
                 linkedin="https://linkedin.com",
                 github="https://github.com",
                 active=True,
-                contact_email="jhonatan@example.com",
+                contact_email="[EMAIL_ADDRESS]",
             )
         return portfolio
 

@@ -2,6 +2,7 @@ from django import forms
 from django_select2.forms import Select2MultipleWidget
 
 from portfolio.models import GroupStack, Portfolio, Project
+from portfolio.widgets import TipTapEditorWidget
 
 
 class PortfolioForm(forms.ModelForm):
@@ -29,3 +30,7 @@ class PortfolioForm(forms.ModelForm):
             "contact_email",
             "active",
         ]
+        widgets = {
+            "about": TipTapEditorWidget(),
+        }
+
