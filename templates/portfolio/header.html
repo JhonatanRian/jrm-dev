@@ -1,26 +1,26 @@
 {% load i18n %}
 <!-- --- Cabeçalho (Header) --- -->
-<nav class="bg-background w-full sticky top-0 z-50 border-b-border-width border-primary transition-colors duration-300">
-    <div class="flex justify-between items-center w-full px-sm md:px-md py-sm max-w-7xl mx-auto">
+<nav class="bg-background w-full sticky top-0 z-50 border-b-border-width border-primary" id="header-nav">
+    <div class="header-inner flex justify-between items-center w-full px-sm md:px-md py-sm max-w-7xl mx-auto">
         <a class="font-headline-md text-xl md:text-headline-md font-black tracking-tighter text-primary uppercase" href="#">
             Jhonatan Rian
         </a>
         
         <!-- Desktop Nav & Actions -->
         <div class="hidden md:flex gap-md font-label-bold text-label-bold uppercase text-primary items-center">
-            <a class="hover:text-neo-pink transition-colors" href="#about">{% translate 'About' %}</a>
-            <a class="hover:text-neo-pink transition-colors" href="#skills">{% translate 'Skills' %}</a>
-            <a class="hover:text-neo-pink transition-colors" href="#projects">{% translate 'Projects' %}</a>
+            <a class="nav-link hover:text-neo-pink transition-colors text-black" href="#sobre">{% translate 'About' %}</a>
+            <a class="nav-link hover:text-neo-pink transition-colors text-black" href="#stack">{% translate 'Skills' %}</a>
+            <a class="nav-link hover:text-neo-pink transition-colors text-black" href="#projetos">{% translate 'Projects' %}</a>
 
             <!-- Contato CTA Desktop -->
-            <a class="neo-border bg-neo-yellow px-md py-sm neo-shadow neo-button uppercase font-label-bold text-label-bold text-black" href="mailto:{{ portfolio.email }}">
+            <a class="neo-border bg-neo-yellow px-md py-sm neo-shadow neo-button uppercase font-label-bold text-label-bold text-black" href="#contato">
                 {% translate 'Contact' %}
             </a>
         </div>
         
         <!-- Mobile Actions -->
         <div class="flex md:hidden items-center gap-sm">
-            <a class="neo-border bg-neo-yellow px-sm py-xs neo-shadow-mobile neo-button uppercase font-label-bold text-xs text-black" href="mailto:{{ portfolio.email }}">
+            <a class="neo-border bg-neo-yellow px-sm py-xs neo-shadow-mobile neo-button uppercase font-label-bold text-xs text-black" href="#contato">
                 {% translate 'Contact' %}
             </a>
         </div>

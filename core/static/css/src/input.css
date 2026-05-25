@@ -38,14 +38,34 @@ body {
     transform: translate(0, 0);
 }
 
-.neo-button:active:not(:disabled) {
+.neo-button.neo-shadow:active:not(:disabled) {
+    transition: none !important;
+    transform: translate(4px, 4px) !important;
+    box-shadow: 0px 0px 0px var(--neo-shadow-color) !important;
+}
+
+.neo-button.neo-shadow-md:active:not(:disabled) {
+    transition: none !important;
+    transform: translate(3px, 3px) !important;
+    box-shadow: 0px 0px 0px var(--neo-shadow-color) !important;
+}
+
+.neo-button.neo-shadow-sm:active:not(:disabled) {
+    transition: none !important;
     transform: translate(2px, 2px) !important;
-    box-shadow: 2px 2px 0px var(--neo-shadow-color) !important;
+    box-shadow: 0px 0px 0px var(--neo-shadow-color) !important;
+}
+
+.neo-button:active:not(:disabled) {
+    transition: none !important;
+    transform: translate(4px, 4px) !important;
+    box-shadow: 0px 0px 0px var(--neo-shadow-color) !important;
 }
 
 .neo-button-sm:active:not(:disabled) {
+    transition: none !important;
     transform: translate(1px, 1px) !important;
-    box-shadow: 1px 1px 0px var(--neo-shadow-color) !important;
+    box-shadow: 0px 0px 0px var(--neo-shadow-color) !important;
 }
 
 @media (min-width: 640px) {
@@ -61,14 +81,34 @@ body {
         box-shadow: 3px 3px 0px var(--neo-shadow-color);
     }
 
-    .neo-button:active:not(:disabled) {
+    .neo-button.neo-shadow:active:not(:disabled) {
+        transition: none !important;
+        transform: translate(8px, 8px) !important;
+        box-shadow: 0px 0px 0px var(--neo-shadow-color) !important;
+    }
+
+    .neo-button.neo-shadow-md:active:not(:disabled) {
+        transition: none !important;
         transform: translate(4px, 4px) !important;
-        box-shadow: 4px 4px 0px var(--neo-shadow-color) !important;
+        box-shadow: 0px 0px 0px var(--neo-shadow-color) !important;
+    }
+
+    .neo-button.neo-shadow-sm:active:not(:disabled) {
+        transition: none !important;
+        transform: translate(3px, 3px) !important;
+        box-shadow: 0px 0px 0px var(--neo-shadow-color) !important;
+    }
+
+    .neo-button:active:not(:disabled) {
+        transition: none !important;
+        transform: translate(8px, 8px) !important;
+        box-shadow: 0px 0px 0px var(--neo-shadow-color) !important;
     }
 
     .neo-button-sm:active:not(:disabled) {
+        transition: none !important;
         transform: translate(2px, 2px) !important;
-        box-shadow: 2px 2px 0px var(--neo-shadow-color) !important;
+        box-shadow: 0px 0px 0px var(--neo-shadow-color) !important;
     }
 }
 

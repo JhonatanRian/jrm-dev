@@ -1,22 +1,24 @@
 {% load i18n %}
 <!-- --- Seção Projetos --- -->
-<section class="space-y-md md:space-y-lg mt-16" id="projects">
-    <h2 class="font-headline-xl text-2xl md:text-headline-xl uppercase bg-primary text-white inline-block px-sm py-xs neo-border">
-        {% translate 'Projects' %}
-    </h2>
+<section class="reveal-on-scroll space-y-md md:space-y-lg mt-16" id="projetos">
+    <div class="flex justify-center">
+        <h2 class="font-headline-xl text-2xl md:text-headline-xl uppercase bg-primary text-white inline-block px-sm py-xs neo-border transform -rotate-2">
+            Projetos
+        </h2>
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-md md:gap-lg">
         {% for project in portfolio.projects.all %}
-            <div class="neo-border bg-white p-md md:p-lg neo-card rounded-lg flex flex-col h-full">
+            <div class="project-card neo-border bg-white p-md md:p-lg rounded-lg flex flex-col h-full">
                 <div class="flex justify-between items-start mb-sm md:mb-md">
-                    <h3 class="font-headline-md text-lg md:text-headline-md uppercase">
+                    <h3 class="font-headline-md text-lg md:text-headline-md uppercase text-black font-black">
                         {{ project.title }}
                     </h3>
-                    <span class="material-symbols-outlined text-2xl md:text-4xl text-neo-green">code</span>
+                    <span class="project-icon material-symbols-outlined text-2xl md:text-4xl text-neo-green">code</span>
                 </div>
-                <p class="font-body-md text-sm md:text-body-md mb-md flex-grow">
+                <p class="font-body-md text-sm md:text-body-md mb-md flex-grow text-black">
                     {{ project.description }}
                 </p>
-                <a class="neo-border bg-primary text-white px-sm md:px-md py-xs md:py-sm neo-shadow-mobile md:neo-shadow neo-button uppercase font-label-bold text-xs md:text-label-bold flex items-center justify-center gap-sm self-start" href="{{ project.repository }}" target="_blank">
+                <a class="neo-border bg-primary text-white px-sm md:px-md py-xs md:py-sm neo-shadow-mobile md:neo-shadow neo-button uppercase font-label-bold text-xs md:text-label-bold flex items-center justify-center gap-sm self-start text-white hover:text-white" href="{{ project.repository }}" target="_blank">
                     GitHub <span class="material-symbols-outlined text-sm">north_east</span>
                 </a>
             </div>

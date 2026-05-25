@@ -132,4 +132,45 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Scroll Reveal Observer
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(section => {
+        observer.observe(section);
+    });
+
+    // Header scroll
+    window.addEventListener('scroll', () => {
+        const navInner = document.querySelector('.header-inner');
+        if (navInner) {
+            if (window.scrollY > 100) {
+                navInner.classList.add('header-scrolled');
+            } else {
+                navInner.classList.remove('header-scrolled');
+            }
+        }
+    });
+
+    // Parallax footer
+    window.addEventListener('scroll', () => {
+        const footerShape = document.getElementById('footer-shape');
+        if (footerShape) {
+            const scrolled = window.scrollY;
+            footerShape.style.transform = `translateY(${scrolled * 0.1}px)`;
+        }
+    });
 });

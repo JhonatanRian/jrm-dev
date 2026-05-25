@@ -1,20 +1,24 @@
 <!-- --- Rodapé (Footer) --- -->
-<footer class="bg-primary border-t-border-width border-primary mt-xl text-white py-lg md:py-xl px-sm md:px-md w-full relative overflow-hidden" id="contact">
+<footer class="reveal-on-scroll bg-primary border-t-border-width border-primary mt-xl text-white py-lg md:py-xl px-sm md:px-md w-full relative overflow-hidden" id="contato">
     <div class="max-w-7xl mx-auto flex flex-col items-center justify-center text-center space-y-md md:space-y-lg z-10 relative">
-        <h2 class="font-headline-xl text-3xl md:text-headline-xl font-black uppercase text-neo-yellow transform -rotate-1 mb-md">VAMOS CONVERSAR?</h2>
+        <h2 class="font-headline-xl text-3xl md:text-headline-xl font-black uppercase text-neo-yellow transform -rotate-2 inline-block px-sm neo-border mb-md">VAMOS CONVERSAR?</h2>
         <p class="font-body-md md:font-body-lg text-sm md:text-body-lg max-w-2xl mb-md">
             Estou sempre aberto a discutir novas oportunidades, projetos open-source ou falar sobre tech e Linux.
         </p>
         <div class="flex flex-col sm:flex-row gap-sm md:gap-md w-full sm:w-auto px-md">
-            {% if portfolio.email %}
-                <a class="neo-border bg-white text-primary px-md py-xs md:py-sm neo-shadow-mobile md:neo-shadow neo-button uppercase font-label-bold text-xs md:text-label-bold flex items-center gap-sm justify-center text-black" href="mailto:{{ portfolio.email }}">
+            {% if portfolio.contact_email %}
+                <a class="neo-border bg-white text-primary px-md py-xs md:py-sm neo-shadow-mobile md:neo-shadow neo-button uppercase font-label-bold text-xs md:text-label-bold flex items-center gap-sm justify-center text-black hover:bg-neutral-100" href="mailto:{{ portfolio.contact_email }}">
+                    <span class="material-symbols-outlined text-sm md:text-base text-black">mail</span> Email
+                </a>
+            {% elif portfolio.email %}
+                <a class="neo-border bg-white text-primary px-md py-xs md:py-sm neo-shadow-mobile md:neo-shadow neo-button uppercase font-label-bold text-xs md:text-label-bold flex items-center gap-sm justify-center text-black hover:bg-neutral-100" href="mailto:{{ portfolio.email }}">
                     <span class="material-symbols-outlined text-sm md:text-base text-black">mail</span> Email
                 </a>
             {% endif %}
-            <a class="neo-border bg-white text-primary px-md py-xs md:py-sm neo-shadow-mobile md:neo-shadow neo-button uppercase font-label-bold text-xs md:text-label-bold flex items-center gap-sm justify-center text-black" href="{{ portfolio.linkedin }}" target="_blank">
+            <a class="neo-border bg-white text-primary px-md py-xs md:py-sm neo-shadow-mobile md:neo-shadow neo-button uppercase font-label-bold text-xs md:text-label-bold flex items-center gap-sm justify-center text-black hover:bg-neutral-100" href="{{ portfolio.linkedin }}" target="_blank">
                 <span class="material-symbols-outlined text-sm md:text-base text-black">link</span> LinkedIn
             </a>
-            <a class="neo-border bg-white text-primary px-md py-xs md:py-sm neo-shadow-mobile md:neo-shadow neo-button uppercase font-label-bold text-xs md:text-label-bold flex items-center gap-sm justify-center text-black" href="{{ portfolio.github }}" target="_blank">
+            <a class="neo-border bg-white text-primary px-md py-xs md:py-sm neo-shadow-mobile md:neo-shadow neo-button uppercase font-label-bold text-xs md:text-label-bold flex items-center gap-sm justify-center text-black hover:bg-neutral-100" href="{{ portfolio.github }}" target="_blank">
                 <span class="material-symbols-outlined text-sm md:text-base text-black">code</span> GitHub
             </a>
         </div>
@@ -24,7 +28,7 @@
         </div>
     </div>
     <!-- Abstract Background Shape -->
-    <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none flex justify-center items-center">
+    <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none flex justify-center items-center" id="footer-shape">
         <span class="material-symbols-outlined text-[200px] md:text-[400px]" style="font-variation-settings: 'FILL' 1;">code_blocks</span>
     </div>
 </footer>
