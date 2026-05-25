@@ -134,8 +134,13 @@
         const editorElement = editorMount.querySelector('.tiptap-content-area');
         const toolbar = editorMount.querySelector('.tiptap-toolbar');
 
+        // Cache elements for maximum performance
+        const cmdButtons = toolbar.querySelectorAll('[data-tiptap-cmd]');
+        const highlightButtons = toolbar.querySelectorAll('[data-tiptap-highlight]');
+
         const updateToolbarState = (editor) => {
-            toolbar.querySelectorAll('[data-tiptap-cmd]').forEach(btn => {
+            // Update standard command buttons
+            cmdButtons.forEach(btn => {
                 const cmd = btn.getAttribute('data-tiptap-cmd');
                 const level = btn.getAttribute('data-level');
                 
@@ -152,6 +157,20 @@
                 } else {
                     btn.classList.remove('bg-black', 'text-white');
                     btn.classList.add('bg-white', 'text-black');
+                }
+            });
+
+            // Update highlight buttons (visually pressed state)
+            highlightButtons.forEach(btn => {
+                const highlight = btn.getAttribute('data-tiptap-highlight');
+                const isActive = editor.isActive(highlight);
+
+                if (isActive) {
+                    btn.classList.add('translate-y-[2px]', 'translate-x-[2px]', 'shadow-none', 'ring-2', 'ring-black');
+                    btn.classList.remove('shadow-[2px_2px_0_0_rgba(0,0,0,1)]');
+                } else {
+                    btn.classList.remove('translate-y-[2px]', 'translate-x-[2px]', 'shadow-none', 'ring-2', 'ring-black');
+                    btn.classList.add('shadow-[2px_2px_0_0_rgba(0,0,0,1)]');
                 }
             });
         };
@@ -181,7 +200,7 @@
         });
 
         // Setup toolbar actions
-        toolbar.querySelectorAll('[data-tiptap-cmd]').forEach(btn => {
+        cmdButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const cmd = btn.getAttribute('data-tiptap-cmd');
@@ -203,7 +222,7 @@
             });
         });
 
-        toolbar.querySelectorAll('[data-tiptap-highlight]').forEach(btn => {
+        highlightButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const highlight = btn.getAttribute('data-tiptap-highlight');
