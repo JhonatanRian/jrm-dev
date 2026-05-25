@@ -1,5 +1,4 @@
-# pyrefly: ignore [untyped-import]
-from django.urls import path
+from django.urls import include, path
 
 from core.views import PainelView
 

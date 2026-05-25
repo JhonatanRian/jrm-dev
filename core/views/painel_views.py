@@ -1,9 +1,10 @@
-# pyrefly: ignore [untyped-import]
 from django.contrib.auth.mixins import LoginRequiredMixin
-# pyrefly: ignore [untyped-import]
+
 from django.forms import Form, fields, widgets
-# pyrefly: ignore [untyped-import]
+
 from django.views.generic import TemplateView
+
+from portfolio.models import Project, Stack
 
 
 class FormExample(Form):
@@ -49,4 +50,6 @@ class PainelView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form_example"] = FormExample()
+        context["stack_count"] = Stack.objects.count()
+        context["project_count"] = Project.objects.count()
         return context

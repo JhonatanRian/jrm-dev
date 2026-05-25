@@ -1,4 +1,3 @@
-# pyrefly: ignore [untyped-import]
 from django.db import models
 
 

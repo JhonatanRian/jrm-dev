@@ -7,12 +7,24 @@
         </div>
         <nav class="flex-grow overflow-y-auto">
 
-            <a href="#"
-               class="flex items-center p-2 my-1 rounded-lg transition-all duration-200 bg-yellow-300 text-black shadow-[2px_2px_0px_rgba(0,0,0,1)] border-2 border-black">
+            <a href="{% url 'core:painel' %}"
+               class="flex items-center p-2 my-1 rounded-lg transition-all duration-200 hover:bg-gray-200 {% if request.resolver_match.url_name == 'painel' %}bg-yellow-300 text-black shadow-[2px_2px_0px_rgba(0,0,0,1)] border-2 border-black{% else %}opt-menu-selected{% endif %}">
                 <i class="material-icons">home</i>
                 <span class="ml-4 font-bold">Meu Espaço</span>
             </a>
-            <a href="#" class="flex items-center p-3 my-1 rounded-lg transition-all duration-200 hover:bg-gray-200 opt-menu-selected">
+            <a href="{% url 'portfolio:stack_list' %}" class="flex items-center p-2 my-1 rounded-lg transition-all duration-200 hover:bg-gray-200 {% if 'stack_' in request.resolver_match.url_name and 'group_stack' not in request.resolver_match.url_name %}bg-yellow-300 shadow-[2px_2px_0px_rgba(0,0,0,1)] border-2 border-black{% else %}opt-menu-selected{% endif %}">
+                <i class="material-icons">layers</i>
+                <span class="ml-4 font-bold">Stacks</span>
+            </a>
+            <a href="{% url 'portfolio:group_stack_list' %}" class="flex items-center p-2 my-1 rounded-lg transition-all duration-200 hover:bg-gray-200 {% if 'group_stack' in request.resolver_match.url_name %}bg-yellow-300 shadow-[2px_2px_0px_rgba(0,0,0,1)] border-2 border-black{% else %}opt-menu-selected{% endif %}">
+                <i class="material-icons">view_module</i>
+                <span class="ml-4 font-bold">Seções Stack</span>
+            </a>
+            <a href="{% url 'portfolio:project_list' %}" class="flex items-center p-2 my-1 rounded-lg transition-all duration-200 hover:bg-gray-200 {% if 'project_' in request.resolver_match.url_name %}bg-yellow-300 shadow-[2px_2px_0px_rgba(0,0,0,1)] border-2 border-black{% else %}opt-menu-selected{% endif %}">
+                <i class="material-icons">folder</i>
+                <span class="ml-4 font-bold">Projetos</span>
+            </a>
+            <a href="{% url 'portfolio:configuration' %}" class="flex items-center p-2 my-1 rounded-lg transition-all duration-200 hover:bg-gray-200 {% if request.resolver_match.url_name == 'configuration' %}bg-yellow-300 shadow-[2px_2px_0px_rgba(0,0,0,1)] border-2 border-black{% else %}opt-menu-selected{% endif %}">
                 <i class="material-icons">settings</i>
                 <span class="ml-4 font-bold">Configurações</span>
             </a>

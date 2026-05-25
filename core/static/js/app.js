@@ -1,30 +1,46 @@
-const sidebar = document.getElementById('sidebar');
-const mainContent = document.getElementById('main-content');
-const sidebarToggle = document.getElementById('sidebar-toggle');
-const toggleIconOpen = document.getElementById('toggle-icon-open');
-const toggleIconClose = document.getElementById('toggle-icon-close');
+class SidebarManager {
+    constructor() {
+        this.sidebar = document.getElementById('sidebar');
+        this.mainContent = document.getElementById('main-content');
+        this.sidebarToggle = document.getElementById('sidebar-toggle');
+        this.toggleIconOpen = document.getElementById('toggle-icon-open');
+        this.toggleIconClose = document.getElementById('toggle-icon-close');
+        
+        this.COLLAPSED_WIDTH_CLASS = 'w-20';
+        this.EXPANDED_WIDTH_CLASS = 'w-72';
+        this.COLLAPSED_MARGIN = '80px';
+        this.EXPANDED_MARGIN = '288px';
+        this.COLLAPSED_BUTTON_LEFT = '60px';
+        this.EXPANDED_BUTTON_LEFT = '268px';
+        
+        this.init();
+    }
 
-if (sidebar && mainContent && sidebarToggle && toggleIconOpen && toggleIconClose) {
-    const COLLAPSED_WIDTH_CLASS = 'w-20';
-    const EXPANDED_WIDTH_CLASS = 'w-72';
-    const COLLAPSED_MARGIN = '80px';
-    const EXPANDED_MARGIN = '288px';
-    const COLLAPSED_BUTTON_LEFT = '60px';
-    const EXPANDED_BUTTON_LEFT = '268px';
+    init() {
+        if (!this.sidebar || !this.mainContent || !this.sidebarToggle) return;
+        
+        this.sidebarToggle.addEventListener('click', () => {
+            this.setSidebarState(this.sidebar.classList.contains(this.EXPANDED_WIDTH_CLASS));
+        });
 
-    function setSidebarState(isCollapsed) {
-        sidebar.classList.toggle('sidebar-collapsed', isCollapsed);
+        document.querySelectorAll('[data-submenu-trigger]').forEach(trigger => {
+            trigger.addEventListener('click', (e) => this.handleSubmenuToggle(e, trigger));
+        });
 
-        sidebar.classList.toggle(EXPANDED_WIDTH_CLASS, !isCollapsed);
-        sidebar.classList.toggle(COLLAPSED_WIDTH_CLASS, isCollapsed);
+        this.setSidebarState(false);
+    }
 
-        mainContent.style.marginLeft = isCollapsed ? COLLAPSED_MARGIN : EXPANDED_MARGIN;
-        sidebarToggle.style.left = isCollapsed ? COLLAPSED_BUTTON_LEFT : EXPANDED_BUTTON_LEFT;
+    setSidebarState(isCollapsed) {
+        this.sidebar.classList.toggle('sidebar-collapsed', isCollapsed);
+        this.sidebar.classList.toggle(this.EXPANDED_WIDTH_CLASS, !isCollapsed);
+        this.sidebar.classList.toggle(this.COLLAPSED_WIDTH_CLASS, isCollapsed);
 
-        toggleIconOpen.classList.toggle('hidden', !isCollapsed);
-        toggleIconClose.classList.toggle('hidden', isCollapsed);
+        this.mainContent.style.marginLeft = isCollapsed ? this.COLLAPSED_MARGIN : this.EXPANDED_MARGIN;
+        this.sidebarToggle.style.left = isCollapsed ? this.COLLAPSED_BUTTON_LEFT : this.EXPANDED_BUTTON_LEFT;
 
-        // Fecha todos os submenus quando o sidebar é recolhido
+        if (this.toggleIconOpen) this.toggleIconOpen.classList.toggle('hidden', !isCollapsed);
+        if (this.toggleIconClose) this.toggleIconClose.classList.toggle('hidden', isCollapsed);
+
         if (isCollapsed) {
             document.querySelectorAll('[data-submenu-list]').forEach(submenu => {
                 submenu.classList.add('hidden');
@@ -34,26 +50,100 @@ if (sidebar && mainContent && sidebarToggle && toggleIconOpen && toggleIconClose
         }
     }
 
-    sidebarToggle.addEventListener('click', () => {
-        setSidebarState(sidebar.classList.contains(EXPANDED_WIDTH_CLASS));
-    });
+    handleSubmenuToggle(e, trigger) {
+        if (this.sidebar.classList.contains('sidebar-collapsed')) {
+            this.setSidebarState(false);
+        }
 
-    // Lógica do Submenu
-    document.querySelectorAll('[data-submenu-trigger]').forEach(trigger => {
-        trigger.addEventListener('click', () => {
-            // Não expandir submenu se o sidebar estiver recolhido
-            if (sidebar.classList.contains('sidebar-collapsed')) {
-                setSidebarState(false); // Expande o sidebar
-            }
+        const submenuList = trigger.nextElementSibling;
+        const submenuIcon = trigger.querySelector('[data-submenu-icon]');
 
-            const submenuList = trigger.nextElementSibling;
-            const submenuIcon = trigger.querySelector('[data-submenu-icon]');
-
-            submenuList.classList.toggle('hidden');
-            submenuIcon.classList.toggle('rotate-180');
-        });
-    });
-
-    // Estado inicial (Expandido por padrão)
-    setSidebarState(false);
+        if (submenuList) submenuList.classList.toggle('hidden');
+        if (submenuIcon) submenuIcon.classList.toggle('rotate-180');
+    }
 }
+
+class DropdownManager {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        document.addEventListener('click', this.handleDocumentClick.bind(this));
+    }
+
+    handleDocumentClick(event) {
+        const isDropdownButton = event.target.closest('[data-dropdown-button]');
+        
+        if (!isDropdownButton && !event.target.closest('[data-dropdown-container]')) {
+            this.closeAllDropdowns();
+            return;
+        }
+
+        if (isDropdownButton) {
+            const container = isDropdownButton.closest('[data-dropdown-container]');
+            if (!container) return;
+            const menu = container.querySelector('[data-dropdown-menu]');
+            
+            if (menu) {
+                const isHidden = menu.classList.contains('hidden');
+                this.closeAllDropdowns();
+                if (isHidden) {
+                    menu.classList.remove('hidden');
+                }
+            }
+        }
+    }
+
+    closeAllDropdowns() {
+        document.querySelectorAll('[data-dropdown-menu]').forEach(menu => {
+            menu.classList.add('hidden');
+        });
+    }
+}
+
+class TabsManager {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        document.querySelectorAll('[data-tabs-container]').forEach(tabsContainer => {
+            const tabList = tabsContainer.querySelector('[data-tab-list]');
+            if (!tabList) return;
+            const tabTriggers = tabList.querySelectorAll('[data-tab-trigger]');
+            const tabContents = tabsContainer.querySelectorAll('[data-tab-content]');
+
+            tabTriggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    const targetTabId = trigger.getAttribute('data-tab-trigger');
+
+                    // Update button classes
+                    tabTriggers.forEach(btn => {
+                        const isTarget = btn.getAttribute('data-tab-trigger') === targetTabId;
+
+                        // Toggle classes for "Abas em Caixa" style (boxed tabs)
+                        btn.classList.toggle('bg-white', isTarget);
+                        btn.classList.toggle('border-2', isTarget);
+                        btn.classList.toggle('border-black', isTarget);
+                        btn.classList.toggle('neo-shadow-sm', isTarget);
+                        
+                        btn.classList.toggle('hover:bg-white/50', !isTarget);
+                    });
+
+                    // Show/hide content panels
+                    tabContents.forEach(content => {
+                        const contentId = content.getAttribute('data-tab-content');
+                        content.classList.toggle('hidden', contentId !== targetTabId);
+                    });
+                });
+            });
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    new SidebarManager();
+    new DropdownManager();
+    new TabsManager();
+});

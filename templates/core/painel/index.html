@@ -9,7 +9,41 @@
             <p class="text-gray-600">O que temos para hoje?</p>
         </div>
     </header>
-    <div>
-        {{ form_example|crispy }}
+    <!-- --- Cartões de Estatísticas --- -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Stat Card 1 -->
+        <div class="flex-1 p-6 bg-white border-2 border-black rounded-xl neo-shadow transition-transform transform hover:-translate-y-1 hover:-translate-x-1">
+            <div class="flex items-center">
+                <div class="p-3 rounded-lg bg-blue-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-gray-600 font-semibold">Projetos Ativos</p>
+                    <p class="text-3xl font-bold text-black">{{ project_count }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Stat Card 2 -->
+        <div class="flex-1 p-6 bg-white border-2 border-black rounded-xl neo-shadow transition-transform transform hover:-translate-y-1 hover:-translate-x-1">
+            <div class="flex items-center">
+                <div class="p-3 rounded-lg bg-green-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-gray-600 font-semibold">Stacks Salvas</p>
+                    <p class="text-3xl font-bold text-black">{{ stack_count }}</p>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
