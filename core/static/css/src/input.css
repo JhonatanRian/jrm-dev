@@ -318,5 +318,29 @@ body {
     margin-bottom: 1rem;
 }
 
+/* ==========================================================================
+   Emblemas de Stacks (Stack Badges)
+   ========================================================================== */
+
+.stack-badge-neo {
+    display: inline-block;
+    background-color: #FFFFFF;
+    color: #000000;
+    font-weight: 800;
+    border: 2px solid #000000;
+    padding: 0.25rem 0.5rem;
+    margin: 0.125rem;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease, box-shadow 0.2s ease;
+    cursor: default;
+    border-radius: 4px;
+}
+
+.stack-badge-neo:hover {
+    transform: scale(1.08) rotate(-2.5deg);
+    background-color: #FFD700 !important; /* Sempre transiciona para amarelo vibrante no hover */
+    box-shadow: 3px 3px 0px #000000;
+}
+
+
 
 

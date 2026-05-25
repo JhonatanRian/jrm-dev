@@ -4,7 +4,7 @@
     </h3>
     <div class="flex flex-wrap gap-xs mt-auto">
         {% for stack in group_stack.stacks.all %}
-            <span class="bg-white px-xs py-xs neo-border border-2 font-label-bold text-[10px] md:text-xs uppercase text-black">
+            <span class="stack-badge-neo font-label-bold text-[10px] md:text-xs uppercase">
                 {{ stack.name }}
             </span>
         {% endfor %}
