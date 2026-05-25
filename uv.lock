@@ -126,7 +126,7 @@ wheels = [
 [[package]]
 name = "crispy-neurobrutalist"
 version = "0.5.0"
-source = { git = "https://github.com/JhonatanRian/crispy_neurobrutalist?tag=v0.6.1#01b8fe4f041f35c0973872050cce7230e32ab479" }
+source = { git = "https://github.com/JhonatanRian/crispy_neurobrutalist?tag=v0.6.2#27257177687296f3827a6de7318baf9e7ca69180" }
 dependencies = [
     { name = "django" },
     { name = "django-crispy-forms" },
@@ -343,7 +343,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "crispy-neurobrutalist", git = "https://github.com/JhonatanRian/crispy_neurobrutalist?tag=v0.6.1" },
+    { name = "crispy-neurobrutalist", git = "https://github.com/JhonatanRian/crispy_neurobrutalist?tag=v0.6.2" },
     { name = "dj-static", specifier = ">=0.0.6" },
     { name = "django", specifier = ">=5.2.2" },
     { name = "django-crispy-forms", specifier = ">=2.4" },

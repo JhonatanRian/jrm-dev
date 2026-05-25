@@ -28,7 +28,6 @@ class PortfolioForm(forms.ModelForm):
             "linkedin",
             "github",
             "contact_email",
-            "active",
         ]
         widgets = {
             "about": TipTapEditorWidget(),
