@@ -1,8 +1,8 @@
 from crispy_forms.helper import FormHelper
 from crispy_neurobrutalist.layout import Submit
-# pyrefly: ignore [untyped-import]
+
 from django import forms
-# pyrefly: ignore [untyped-import]
+
 from django.contrib.auth.forms import AuthenticationForm
 
 

@@ -1,14 +1,13 @@
-# pyrefly: ignore [untyped-import]
 from django.contrib.auth.base_user import AbstractBaseUser
-# pyrefly: ignore [untyped-import]
+
 from django.contrib.auth.models import PermissionsMixin, UserManager
-# pyrefly: ignore [untyped-import]
+
 from django.core.mail import send_mail
-# pyrefly: ignore [untyped-import]
+
 from django.db import models
-# pyrefly: ignore [untyped-import]
+
 from django.utils import timezone
-# pyrefly: ignore [untyped-import]
+
 from django.utils.translation import gettext_lazy as _
 
 
