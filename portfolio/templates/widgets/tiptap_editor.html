@@ -1,0 +1,220 @@
+{% include "django/forms/widgets/textarea.html" %}
+
+<div class="tiptap-editor-mount w-full border-4 border-black bg-[#E2E8F0] shadow-[4px_4px_0_0_rgba(0,0,0,1)] rounded-sm overflow-hidden mb-4 mt-2">
+    <!-- Toolbar -->
+    <div class="tiptap-toolbar flex flex-wrap gap-2 p-2 bg-[#F1F5F9] border-b-4 border-black">
+        <button type="button" data-tiptap-cmd="bold" class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">B</button>
+        <button type="button" data-tiptap-cmd="italic" class="px-3 py-1 bg-white border-2 border-black italic shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">I</button>
+        <button type="button" data-tiptap-cmd="strike" class="px-3 py-1 bg-white border-2 border-black line-through shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">S</button>
+        <button type="button" data-tiptap-cmd="heading" data-level="2" class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">H2</button>
+        <button type="button" data-tiptap-cmd="heading" data-level="3" class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">H3</button>
+        <button type="button" data-tiptap-cmd="bulletList" class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">• Lista</button>
+        <button type="button" data-tiptap-cmd="orderedList" class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">1. Lista</button>
+
+        <!-- Highlights Neo-Brutalist -->
+        <span class="border-l-2 border-black mx-1"></span>
+        <button type="button" data-tiptap-highlight="highlightGray" class="px-3 py-1 bg-[#E2E8F0] border-2 border-black text-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">Cinza</button>
+        <button type="button" data-tiptap-highlight="highlightYellow" class="px-3 py-1 bg-[#FEF08A] border-2 border-black text-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">Amarelo</button>
+        <button type="button" data-tiptap-highlight="highlightGreen" class="px-3 py-1 bg-[#BBF7D0] border-2 border-black text-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">Verde</button>
+    </div>
+
+    <!-- Editor Content Area -->
+    <div class="tiptap-content-area bg-white min-h-[200px] text-base p-4 focus:outline-none"></div>
+</div>
+
+<style>
+    /* TipTap styles */
+    .tiptap-editor-mount .ProseMirror {
+        min-height: 200px;
+        outline: none;
+    }
+    .tiptap-editor-mount .ProseMirror p {
+        margin-bottom: 1em;
+    }
+    .tiptap-editor-mount .ProseMirror p.is-editor-empty:first-child::before {
+        color: #9CA3AF;
+        content: attr(data-placeholder);
+        float: left;
+        height: 0;
+        pointer-events: none;
+    }
+    .tiptap-editor-mount .ProseMirror h2 {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+    }
+    .tiptap-editor-mount .ProseMirror h3 {
+        font-size: 1.17em;
+        font-weight: bold;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+    }
+    .tiptap-editor-mount .ProseMirror ul {
+        list-style-type: disc;
+        padding-left: 1.5em;
+        margin-bottom: 1em;
+    }
+    .tiptap-editor-mount .ProseMirror ol {
+        list-style-type: decimal;
+        padding-left: 1.5em;
+        margin-bottom: 1em;
+    }
+    /* Using highlight-neo-* global classes from app.css */
+</style>
+
+<script type="module">
+    import { Editor, Mark, mergeAttributes } from 'https://esm.sh/@tiptap/core';
+    import StarterKit from 'https://esm.sh/@tiptap/starter-kit';
+    import Placeholder from 'https://esm.sh/@tiptap/extension-placeholder';
+
+    // Custom Highlights Marks
+    const HighlightGray = Mark.create({
+        name: 'highlightGray',
+        parseHTML() {
+            return [{ tag: 'mark.highlight-neo-gray' }, { tag: 'mark.highlight-gray' }]
+        },
+        renderHTML({ HTMLAttributes }) {
+            return ['mark', mergeAttributes(HTMLAttributes, { class: 'highlight-neo-gray' }), 0]
+        },
+        addCommands() {
+            return {
+                toggleHighlightGray: () => ({ commands }) => {
+                    return commands.toggleMark(this.name)
+                },
+            }
+        },
+    });
+
+    const HighlightYellow = Mark.create({
+        name: 'highlightYellow',
+        parseHTML() {
+            return [{ tag: 'mark.highlight-neo-yellow' }, { tag: 'mark.highlight-yellow' }]
+        },
+        renderHTML({ HTMLAttributes }) {
+            return ['mark', mergeAttributes(HTMLAttributes, { class: 'highlight-neo-yellow' }), 0]
+        },
+        addCommands() {
+            return {
+                toggleHighlightYellow: () => ({ commands }) => {
+                    return commands.toggleMark(this.name)
+                },
+            }
+        },
+    });
+
+    const HighlightGreen = Mark.create({
+        name: 'highlightGreen',
+        parseHTML() {
+            return [{ tag: 'mark.highlight-neo-green' }, { tag: 'mark.highlight-green' }]
+        },
+        renderHTML({ HTMLAttributes }) {
+            return ['mark', mergeAttributes(HTMLAttributes, { class: 'highlight-neo-green' }), 0]
+        },
+        addCommands() {
+            return {
+                toggleHighlightGreen: () => ({ commands }) => {
+                    return commands.toggleMark(this.name)
+                },
+            }
+        },
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const textareaId = "{{ widget.attrs.id|default:'' }}";
+        if (!textareaId) return;
+        
+        const textarea = document.getElementById(textareaId);
+        if (!textarea) return;
+        
+        // Hide textarea as fallback
+        textarea.style.display = 'none';
+
+        const editorMount = textarea.nextElementSibling;
+        const editorElement = editorMount.querySelector('.tiptap-content-area');
+        const toolbar = editorMount.querySelector('.tiptap-toolbar');
+
+        const updateToolbarState = (editor) => {
+            toolbar.querySelectorAll('[data-tiptap-cmd]').forEach(btn => {
+                const cmd = btn.getAttribute('data-tiptap-cmd');
+                const level = btn.getAttribute('data-level');
+                
+                let isActive = false;
+                if (level) {
+                    isActive = editor.isActive(cmd, { level: parseInt(level) });
+                } else {
+                    isActive = editor.isActive(cmd);
+                }
+
+                if (isActive) {
+                    btn.classList.add('bg-black', 'text-white');
+                    btn.classList.remove('bg-white', 'text-black');
+                } else {
+                    btn.classList.remove('bg-black', 'text-white');
+                    btn.classList.add('bg-white', 'text-black');
+                }
+            });
+        };
+
+        const editor = new Editor({
+            element: editorElement,
+            extensions: [
+                StarterKit,
+                Placeholder.configure({
+                    placeholder: 'Escreva algo incrível...',
+                }),
+                HighlightGray,
+                HighlightYellow,
+                HighlightGreen,
+            ],
+            content: textarea.value,
+            onUpdate: ({ editor }) => {
+                textarea.value = editor.getHTML();
+                updateToolbarState(editor);
+            },
+            onSelectionUpdate: ({ editor }) => {
+                updateToolbarState(editor);
+            },
+            onTransaction: ({ editor }) => {
+                updateToolbarState(editor);
+            }
+        });
+
+        // Setup toolbar actions
+        toolbar.querySelectorAll('[data-tiptap-cmd]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const cmd = btn.getAttribute('data-tiptap-cmd');
+                const level = btn.getAttribute('data-level');
+
+                if (cmd === 'heading') {
+                    editor.chain().focus().toggleHeading({ level: parseInt(level) }).run();
+                } else if (cmd === 'bold') {
+                    editor.chain().focus().toggleBold().run();
+                } else if (cmd === 'italic') {
+                    editor.chain().focus().toggleItalic().run();
+                } else if (cmd === 'strike') {
+                    editor.chain().focus().toggleStrike().run();
+                } else if (cmd === 'bulletList') {
+                    editor.chain().focus().toggleBulletList().run();
+                } else if (cmd === 'orderedList') {
+                    editor.chain().focus().toggleOrderedList().run();
+                }
+            });
+        });
+
+        toolbar.querySelectorAll('[data-tiptap-highlight]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const highlight = btn.getAttribute('data-tiptap-highlight');
+                if (highlight === 'highlightGray') {
+                    editor.chain().focus().toggleHighlightGray().run();
+                } else if (highlight === 'highlightYellow') {
+                    editor.chain().focus().toggleHighlightYellow().run();
+                } else if (highlight === 'highlightGreen') {
+                    editor.chain().focus().toggleHighlightGreen().run();
+                }
+            });
+        });
+    });
+</script>
