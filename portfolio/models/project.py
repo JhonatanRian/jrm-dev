@@ -14,6 +14,8 @@ class Project(BaseModel):
     )
     description = models.CharField(verbose_name=_("Description"), max_length=500)
     repository = models.URLField(verbose_name=_("Repository"))
+    icon = models.CharField(verbose_name=_("Icon"), max_length=50, default="code", help_text=_("Material symbol outline icon name"))
+    stacks = models.ManyToManyField("portfolio.Stack", related_name="projects", blank=True)
 
     class Meta:
         verbose_name = _("Project")

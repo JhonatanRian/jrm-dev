@@ -13,11 +13,18 @@
                     <h3 class="font-headline-md text-lg md:text-headline-md uppercase text-black font-black">
                         {{ project.title }}
                     </h3>
-                    <span class="project-icon material-symbols-outlined text-2xl md:text-4xl text-neo-green">code</span>
+                    <span class="project-icon material-symbols-outlined text-2xl md:text-4xl text-neo-green">{{ project.icon|default:"code" }}</span>
                 </div>
                 <p class="font-body-md text-sm md:text-body-md mb-md flex-grow text-black">
                     {{ project.description }}
                 </p>
+                <div class="flex flex-wrap gap-xs mb-md">
+                    {% for stack in project.stacks.all %}
+                        <span class="stack-badge-neo font-label-bold text-[10px] uppercase">
+                            {{ stack.name }}
+                        </span>
+                    {% endfor %}
+                </div>
                 <a class="neo-border bg-primary text-white px-sm md:px-md py-xs md:py-sm neo-shadow-mobile md:neo-shadow neo-button uppercase font-label-bold text-xs md:text-label-bold flex items-center justify-center gap-sm self-start text-white hover:text-white" href="{{ project.repository }}" target="_blank">
                     GitHub <span class="material-symbols-outlined text-sm">north_east</span>
                 </a>
