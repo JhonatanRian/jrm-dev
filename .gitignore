@@ -182,4 +182,7 @@ cython_debug/
 # Local AI assistant folder
 /.antigravitycli/
 
+# Design template folder
+/NeoBrutalismeTemplate/
+
 
