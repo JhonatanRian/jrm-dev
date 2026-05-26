@@ -56,12 +56,13 @@ module.exports = {
         "error": "#ba1a1a",
         "on-tertiary-fixed": "#1b1b1b",
         "on-secondary-container": "#772237",
-        "neo-pink": "#FF8DA1",
-        "neo-blue": "#87CEEB",
-        "neo-green": "#32CD32",
+        "neo-pink": "#FBCFE8",
+        "neo-blue": "#BFDBFE",
+        "neo-green": "#BBF7D0",
         "neo-yellow": "#FFD700",
-        "neo-purple": "#DDA0DD",
-        "neo-orange": "#FFA500"
+        "neo-yellow-pastel": "#FEF08A",
+        "neo-purple": "#E9D5FF",
+        "neo-orange": "#FED7AA"
       },
       borderRadius: {
         "DEFAULT": "0.25rem",

@@ -2,32 +2,32 @@
 <!-- --- Seção Projetos --- -->
 <section class="reveal-on-scroll space-y-md md:space-y-lg mt-16" id="projetos">
     <div class="flex justify-center">
-        <h2 class="font-headline-xl text-2xl md:text-headline-xl uppercase bg-primary text-white inline-block px-sm py-xs neo-border transform -rotate-2">
-            Projetos
-        </h2>
+        <h2 class="font-headline-xl text-2xl md:text-headline-xl uppercase bg-primary text-white inline-block px-sm py-xs neo-border transform -rotate-2">Projetos</h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-md md:gap-lg">
         {% for project in portfolio.projects.all %}
-            <div class="project-card neo-border bg-white p-md md:p-lg rounded-lg flex flex-col h-full">
-                <div class="flex justify-between items-start mb-sm md:mb-md">
+            <div class="project-card neo-border bg-white rounded-lg flex flex-col h-full overflow-hidden">
+                <div class="{% cycle 'bg-neo-blue' 'bg-neo-green' 'bg-neo-yellow-pastel' 'bg-neo-purple' 'bg-neo-orange' 'bg-neo-pink' as header_bg silent %} {{ header_bg }} border-b-4 border-black p-sm md:p-md flex justify-between items-center">
                     <h3 class="font-headline-md text-lg md:text-headline-md uppercase text-black font-black">
                         {{ project.title }}
                     </h3>
-                    <span class="project-icon material-symbols-outlined text-2xl md:text-4xl text-neo-green">{{ project.icon|default:"code" }}</span>
+                    <span class="project-icon material-symbols-outlined text-2xl md:text-4xl text-black select-none">{{ project.icon|default:"code" }}</span>
                 </div>
-                <p class="font-body-md text-sm md:text-body-md mb-md flex-grow text-black">
-                    {{ project.description }}
-                </p>
-                <div class="flex flex-wrap gap-xs mb-md">
-                    {% for stack in project.stacks.all %}
-                        <span class="stack-badge-neo font-label-bold text-[10px] uppercase">
-                            {{ stack.name }}
-                        </span>
-                    {% endfor %}
+                <div class="p-md md:p-lg flex flex-col flex-grow">
+                    <p class="font-body-md text-sm md:text-body-md mb-md flex-grow text-black">
+                        {{ project.description }}
+                    </p>
+                    <div class="flex flex-wrap gap-xs mb-md">
+                        {% for stack in project.stacks.all %}
+                            <span class="stack-badge-neo font-label-bold text-[10px] uppercase">
+                                {{ stack.name }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                    <a class="neo-border bg-primary text-white px-sm md:px-md py-xs md:py-sm neo-shadow-mobile md:neo-shadow neo-button uppercase font-label-bold text-xs md:text-label-bold flex items-center justify-center gap-sm self-start text-white hover:text-white" href="{{ project.repository }}" target="_blank">
+                        GitHub <span class="material-symbols-outlined text-sm">north_east</span>
+                    </a>
                 </div>
-                <a class="neo-border bg-primary text-white px-sm md:px-md py-xs md:py-sm neo-shadow-mobile md:neo-shadow neo-button uppercase font-label-bold text-xs md:text-label-bold flex items-center justify-center gap-sm self-start text-white hover:text-white" href="{{ project.repository }}" target="_blank">
-                    GitHub <span class="material-symbols-outlined text-sm">north_east</span>
-                </a>
             </div>
         {% endfor %}
     </div>
