@@ -2,80 +2,45 @@
 {% load crispy_forms_filters %}
 
 {% block title %}
-    {% if form.instance.pk %}Editar Seção{% else %}Nova Seção{% endif %} | Admin
+    {% if form.instance.pk %}
+        Editar Seção
+    {% else %}
+        Nova Seção
+    {% endif %}
+    | Admin
 {% endblock %}
 
 {% block content %}
-<!-- Carregar jQuery antes do django-select2 media -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-{{ form.media }}
+    {{ form.media }}
 
-<div class="mb-8">
-    <a href="{% url 'portfolio:group_stack_list' %}" class="text-black font-bold flex items-center gap-2 hover:underline mb-4">
-        <span class="material-icons">arrow_back</span> Voltar para Seções de Stack
-    </a>
-    <h1 class="text-3xl font-bold bg-neo-pink inline-block px-4 py-2 border-4 border-black neo-shadow transform -rotate-1">
-        {% if form.instance.pk %}Editar Seção: {{ form.instance.title }}{% else %}Nova Seção de Stack{% endif %}
-    </h1>
-</div>
+    <div class="mb-8">
+        <a href="{% url 'portfolio:group_stack_list' %}"
+           class="text-black font-bold flex items-center gap-2 hover:underline mb-4">
+            <span class="material-icons">arrow_back</span> Voltar para Seções de Stack
+        </a>
+        <h1 class="text-3xl font-bold bg-neo-pink inline-block px-4 py-2 border-4 border-black neo-shadow transform -rotate-1">
+            {% if form.instance.pk %}
+                Editar Seção: {{ form.instance.title }}
+            {% else %}
+                Nova Seção de Stack
+            {% endif %}
+        </h1>
+    </div>
 
-<div class="bg-white border-4 border-black rounded-xl p-8 neo-shadow max-w-2xl text-black">
-    <form method="post" class="space-y-6">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <div class="pt-4 flex gap-4">
-            <button type="submit" class="bg-neo-green text-black font-bold px-8 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm">
-                Salvar Seção
-            </button>
-            <a href="{% url 'portfolio:group_stack_list' %}" class="bg-gray-200 text-black font-bold px-8 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm">
-                Cancelar
-            </a>
-        </div>
-    </form>
-</div>
-
-<!-- Custom Select2 Neo-Brutalist styling tweaks -->
-<style>
-    .select2-container--default .select2-selection--multiple {
-        border: 2px solid #000000 !important;
-        border-radius: 8px !important;
-        padding: 4px !important;
-        background-color: #ffffff !important;
-    }
-    .select2-container--default.select2-container--focus .select2-selection--multiple {
-        border-color: #000000 !important;
-        box-shadow: 2px 2px 0px #000000 !important;
-    }
-    .select2-container--default .select2-selection--multiple .select2-selection__choice {
-        background-color: #FFD700 !important; /* Gold / yellow theme tag */
-        border: 2px solid #000000 !important;
-        border-radius: 4px !important;
-        color: #000000 !important;
-        font-weight: bold !important;
-        padding: 2px 8px !important;
-        margin: 2px !important;
-    }
-    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-        color: #000000 !important;
-        font-weight: bold !important;
-        margin-right: 4px !important;
-        border-right: 2px solid #000000 !important;
-        padding-right: 4px !important;
-    }
-    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
-        background-color: #ba1a1a !important;
-        color: #ffffff !important;
-    }
-    .select2-dropdown {
-        border: 2px solid #000000 !important;
-        border-radius: 8px !important;
-        box-shadow: 4px 4px 0px #000000 !important;
-        z-index: 99999 !important;
-    }
-    .select2-container--default .select2-results__option--highlighted[aria-selected] {
-        background-color: #FF8DA1 !important; /* Pink theme selector highlight */
-        color: #000000 !important;
-        font-weight: bold !important;
-    }
-</style>
-{% endblock %}
+    <div class="bg-white border-4 border-black rounded-xl p-8 neo-shadow max-w-2xl text-black">
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="pt-4 flex gap-4">
+                <button type="submit"
+                        class="bg-neo-green text-black font-bold px-8 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm">
+                    Salvar Seção
+                </button>
+                <a href="{% url 'portfolio:group_stack_list' %}"
+                   class="bg-gray-200 text-black font-bold px-8 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

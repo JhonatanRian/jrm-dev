@@ -8,11 +8,11 @@
         Novo Projeto
     {% endif %}
     | Admin
-{% endblock %}
+{% endblock title %}
 
 {% block extra_css %}
     {{ form.media.css }}
-{% endblock %}
+{% endblock extra_css %}
 
 {% block content %}
     <div class="mb-8">
@@ -45,8 +45,8 @@
             </div>
         </form>
     </div>
-{% endblock %}
+{% endblock content %}
 
 {% block extra_js %}
     {{ form.media.js }}
-{% endblock %}
+{% endblock extra_js %}
