@@ -111,3 +111,22 @@
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
+
+/* Nav Links Underline */
+.nav-link {
+    position: relative;
+    text-decoration: none;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 4px;
+    bottom: -4px;
+    left: 0;
+    background-color: #FBCFE8; /* Pastel neo-pink to match the theme */
+    transition: width 0.3s ease;
+}
+.nav-link:hover::after {
+    width: 100%;
+}
