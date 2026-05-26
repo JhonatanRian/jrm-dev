@@ -82,11 +82,11 @@ module.exports = {
         "xs": "4px"
       },
       fontFamily: {
-        "body-lg": ["Outfit"],
+        "body-lg": ["Inter"],
         "label-bold": ["Outfit"],
         "headline-lg-mobile": ["Outfit"],
         "headline-lg": ["Outfit"],
-        "body-md": ["Outfit"],
+        "body-md": ["Inter"],
         "headline-md": ["Outfit"],
         "headline-xl": ["Outfit"]
       },
