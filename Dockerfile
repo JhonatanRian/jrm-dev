@@ -28,8 +28,6 @@ COPY . .
 
 RUN uv sync --group prd --locked
 
-RUN uv run python manage.py collectstatic --no-input
-RUN uv run python manage.py compilemessages
 
 COPY docker-entrypoint.sh ./
 RUN chmod +x ./docker-entrypoint.sh
