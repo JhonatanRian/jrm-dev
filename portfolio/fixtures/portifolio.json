@@ -1,290 +1,352 @@
 [
-{
-  "model": "portfolio.sectionhero",
-  "pk": 1,
-  "fields": {
-    "title": "Jhonatan Rian",
-    "subtitle": "Programador Backend",
-    "description": "3 anos de experiência construindo soluções robustas e escaláveis, com um amor especial por Python e pelo ecossistema Linux."
+  {
+    "model": "portfolio.sectionhero",
+    "pk": 1,
+    "fields": {
+      "title": "Jhonatan Rian",
+      "subtitle": "Programador Backend",
+      "description": "3 anos de experi\u00eancia construindo solu\u00e7\u00f5es robustas e escal\u00e1veis, com um amor especial por Python e pelo ecossistema Linux.",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 1,
+    "fields": {
+      "name": "Python (Principal)",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 2,
+    "fields": {
+      "name": "Node.js",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 3,
+    "fields": {
+      "name": "Java (Iniciante)",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 4,
+    "fields": {
+      "name": "Go (Iniciante)",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 5,
+    "fields": {
+      "name": "TypeScript (Intermedi\u00e1rio)",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 6,
+    "fields": {
+      "name": "Django",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 7,
+    "fields": {
+      "name": "FastAPI",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 8,
+    "fields": {
+      "name": "Celery",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 9,
+    "fields": {
+      "name": "Docker",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 10,
+    "fields": {
+      "name": "Git & GitLab",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 11,
+    "fields": {
+      "name": "Express",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 12,
+    "fields": {
+      "name": "React",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 13,
+    "fields": {
+      "name": "Svelte | Sveltkit",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 15,
+    "fields": {
+      "name": "PostgreSQL",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 16,
+    "fields": {
+      "name": "MySQL",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 17,
+    "fields": {
+      "name": "MongoDB",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 18,
+    "fields": {
+      "name": "RabbitMQ",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 19,
+    "fields": {
+      "name": "Redis",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 20,
+    "fields": {
+      "name": "AWS (S3, EC2, Rekognition)",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 21,
+    "fields": {
+      "name": "CI/CD",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 22,
+    "fields": {
+      "name": "Digibee",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 23,
+    "fields": {
+      "name": "Git & GitLab",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 24,
+    "fields": {
+      "name": "Clean Architecture",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 25,
+    "fields": {
+      "name": "TDD & DDD",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.stack",
+    "pk": 26,
+    "fields": {
+      "name": "Testes Unit\u00e1rios",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.groupstack",
+    "pk": 1,
+    "fields": {
+      "title": "Linguagens",
+      "stacks": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.groupstack",
+    "pk": 2,
+    "fields": {
+      "title": "Frameworks e Ferramentas",
+      "stacks": [
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13
+      ],
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.groupstack",
+    "pk": 3,
+    "fields": {
+      "title": "Bancos de Dados & Mensageria",
+      "stacks": [
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.groupstack",
+    "pk": 4,
+    "fields": {
+      "title": "Cloud & DevOps",
+      "stacks": [
+        10,
+        20,
+        21,
+        22
+      ],
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.groupstack",
+    "pk": 5,
+    "fields": {
+      "title": "Metodologias e Testes",
+      "stacks": [
+        24,
+        25,
+        26
+      ],
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-08-28T18:21:21.812Z",
+      "updated_at": "2025-08-28T18:21:21.812Z",
+      "title": "anonymize-data",
+      "description": "A biblioteca anonymize-data fornece funcionalidade para anonimizar dados confidenciais em diferentes formatos, como strings, listas e dicion\u00e1rios. Esta biblioteca \u00e9 \u00fatil para desenvolvedores que precisam garantir a privacidade dos dados em seus aplicativos.",
+      "repository": "https://github.com/JhonatanRian/anonymize-data"
+    }
+  },
+  {
+    "model": "portfolio.portfolio",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-08-28T18:22:41.324Z",
+      "updated_at": "2025-08-28T18:22:41.324Z",
+      "section_hero": 1,
+      "about": "Ol\u00e1! Sou o Jhonatan, um programador backend de 23 anos. Moro em Laranjal do Jari, Amap\u00e1, e sou um entusiasta de tecnologia.\r\n\r\nCom 2 anos de experi\u00eancia profissional, minha jornada tem sido focada em desenvolver e manter aplica\u00e7\u00f5es backend de alta performance. Tenho uma base em arquiteturas como Clean Architecture, TDD e DDD, aplicando esses conceitos principalmente com Django para garantir a qualidade e manutenibilidade do c\u00f3digo.\r\n\r\nMeu ingl\u00eas t\u00e9cnico me permite consumir e contribuir com documenta\u00e7\u00f5es e comunidades globais, mantendo-me sempre atualizado com as melhores pr\u00e1ticas do mercado.",
+      "linkedin": "https://www.linkedin.com/in/jhonatan-rian/",
+      "github": "https://github.com/JhonatanRian",
+      "active": true,
+      "contact_email": "",
+      "groups_stacks": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "projects": [
+        1
+      ]
+    }
   }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 1,
-  "fields": {
-    "name": "Python (Principal)"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 2,
-  "fields": {
-    "name": "Node.js"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 3,
-  "fields": {
-    "name": "Java (Iniciante)"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 4,
-  "fields": {
-    "name": "Go (Iniciante)"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 5,
-  "fields": {
-    "name": "TypeScript (Intermediário)"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 6,
-  "fields": {
-    "name": "Django"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 7,
-  "fields": {
-    "name": "FastAPI"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 8,
-  "fields": {
-    "name": "Celery"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 9,
-  "fields": {
-    "name": "Docker"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 10,
-  "fields": {
-    "name": "Git & GitLab"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 11,
-  "fields": {
-    "name": "Express"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 12,
-  "fields": {
-    "name": "React"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 13,
-  "fields": {
-    "name": "Svelte | Sveltkit"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 15,
-  "fields": {
-    "name": "PostgreSQL"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 16,
-  "fields": {
-    "name": "MySQL"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 17,
-  "fields": {
-    "name": "MongoDB"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 18,
-  "fields": {
-    "name": "RabbitMQ"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 19,
-  "fields": {
-    "name": "Redis"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 20,
-  "fields": {
-    "name": "AWS (S3, EC2, Rekognition)"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 21,
-  "fields": {
-    "name": "CI/CD"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 22,
-  "fields": {
-    "name": "Digibee"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 23,
-  "fields": {
-    "name": "Git & GitLab"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 24,
-  "fields": {
-    "name": "Clean Architecture"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 25,
-  "fields": {
-    "name": "TDD & DDD"
-  }
-},
-{
-  "model": "portfolio.stack",
-  "pk": 26,
-  "fields": {
-    "name": "Testes Unitários"
-  }
-},
-{
-  "model": "portfolio.groupstack",
-  "pk": 1,
-  "fields": {
-    "title": "Linguagens",
-    "stacks": [
-      1,
-      2,
-      3,
-      4,
-      5
-    ]
-  }
-},
-{
-  "model": "portfolio.groupstack",
-  "pk": 2,
-  "fields": {
-    "title": "Frameworks e Ferramentas",
-    "stacks": [
-      6,
-      7,
-      8,
-      9,
-      11,
-      12,
-      13
-    ]
-  }
-},
-{
-  "model": "portfolio.groupstack",
-  "pk": 3,
-  "fields": {
-    "title": "Bancos de Dados & Mensageria",
-    "stacks": [
-      15,
-      16,
-      17,
-      18,
-      19
-    ]
-  }
-},
-{
-  "model": "portfolio.groupstack",
-  "pk": 4,
-  "fields": {
-    "title": "Cloud & DevOps",
-    "stacks": [
-      10,
-      20,
-      21,
-      22
-    ]
-  }
-},
-{
-  "model": "portfolio.groupstack",
-  "pk": 5,
-  "fields": {
-    "title": "Metodologias e Testes",
-    "stacks": [
-      24,
-      25,
-      26
-    ]
-  }
-},
-{
-  "model": "portfolio.project",
-  "pk": 1,
-  "fields": {
-    "created_at": "2025-08-28T18:21:21.812Z",
-    "updated_at": "2025-08-28T18:21:21.812Z",
-    "title": "anonymize-data",
-    "description": "A biblioteca anonymize-data fornece funcionalidade para anonimizar dados confidenciais em diferentes formatos, como strings, listas e dicionários. Esta biblioteca é útil para desenvolvedores que precisam garantir a privacidade dos dados em seus aplicativos.",
-    "repository": "https://github.com/JhonatanRian/anonymize-data"
-  }
-},
-{
-  "model": "portfolio.portfolio",
-  "pk": 1,
-  "fields": {
-    "created_at": "2025-08-28T18:22:41.324Z",
-    "updated_at": "2025-08-28T18:22:41.324Z",
-    "section_hero": 1,
-    "about": "Olá! Sou o Jhonatan, um programador backend de 23 anos. Moro em Laranjal do Jari, Amapá, e sou um entusiasta de tecnologia.\r\n\r\nCom 2 anos de experiência profissional, minha jornada tem sido focada em desenvolver e manter aplicações backend de alta performance. Tenho uma base em arquiteturas como Clean Architecture, TDD e DDD, aplicando esses conceitos principalmente com Django para garantir a qualidade e manutenibilidade do código.\r\n\r\nMeu inglês técnico me permite consumir e contribuir com documentações e comunidades globais, mantendo-me sempre atualizado com as melhores práticas do mercado.",
-    "linkedin": "https://www.linkedin.com/in/jhonatan-rian/",
-    "github": "https://github.com/JhonatanRian",
-    "active": true,
-    "contact_email": "",
-    "groups_stacks": [
-      1,
-      2,
-      3,
-      4,
-      5
-    ],
-    "projects": [
-      1
-    ]
-  }
-}
 ]
