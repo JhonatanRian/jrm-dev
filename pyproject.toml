@@ -34,6 +34,7 @@ dev = [
   "types-django-filter>=25.2.0.20260508",
   "djlint>=1.36.4",
 ]
+prd = ["uwsgi>=2.0.30"]
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings"
@@ -43,20 +44,6 @@ addopts = "--cov=. --cov-report=term-missing --no-cov-on-fail"
 [tool.coverage.run]
 omit = ["*migrations*", "*tests*", "config/*", "manage.py", "venv/*", ".venv/*"]
 
-prd = ["uwsgi>=2.0.30"]
-
-[tool.mypy]
-python_version = "3.12"
-plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
-disallow_untyped_defs = true
-strict = false
-allow_incomplete_defs = false
-check_untyped_defs = true
-allow_untyped_globals = true
-
-exclude = ["venv/", ".venv/", "migrations/"]
-
-show_error_codes = true
 
 [tool.django-stubs]
 strict_settings = false
