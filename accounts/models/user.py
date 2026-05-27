@@ -28,7 +28,7 @@ class CustomUserManager(UserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    id = models.CharField(max_length=254, null=False, primary_key=True, unique=True)
+    id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=254, null=False, blank=False)
     social_name = models.CharField(
         verbose_name="Nome Social", max_length=255, null=True, blank=True
@@ -56,7 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["name"]
 
     class Meta:
         verbose_name = "User"
