@@ -1,0 +1,45 @@
+{% comment %}
+Componente de Alerta Neo-Brutalista Reutilizável
+Parâmetros:
+- message: O texto do alerta (obrigatório)
+- type: 'success', 'error', 'warning', 'info', 'debug' (padrão: 'info')
+- title: Prefixo em negrito (opcional, ex: 'Sucesso!')
+- with_icon: True/False (padrão: False)
+{% endcomment %}
+
+{% if message %}
+<div class="p-4 border-2 border-black rounded-lg neo-shadow-sm font-semibold
+    {% if type == 'success' %}bg-neo-green text-black
+    {% elif type == 'error' or type == 'danger' %}bg-neo-pink text-black
+    {% elif type == 'warning' %}bg-neo-yellow-pastel text-black
+    {% else %}bg-neo-blue text-black{% endif %}
+    {% if with_icon %}flex items-center{% endif %}">
+    
+    {% if with_icon %}
+        {% if type == 'success' %}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        {% elif type == 'error' or type == 'danger' %}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        {% elif type == 'warning' %}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+        {% else %}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        {% endif %}
+    {% endif %}
+    
+    <div>
+        {% if title %}
+            <span class="font-bold mr-1">{{ title }}</span>
+        {% endif %}
+        <span>{{ message }}</span>
+    </div>
+</div>
+{% endif %}

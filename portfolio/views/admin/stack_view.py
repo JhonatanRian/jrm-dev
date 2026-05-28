@@ -1,12 +1,11 @@
+from django.contrib import messages
 from django.urls import reverse_lazy
-
 from django.views.generic import (
     CreateView,
     DeleteView,
     DetailView,
     UpdateView,
 )
-
 from django_filters.views import FilterView
 
 from core.views.mixins import AdminPermissionMixin
@@ -35,6 +34,10 @@ class StackCreateView(AdminPermissionMixin, CreateView):
     template_name = "portfolio/admin/stack/stack_form.html"
     success_url = reverse_lazy("portfolio:stack_list")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Stack criada com sucesso!")
+        return super().form_valid(form)
+
 
 class StackUpdateView(AdminPermissionMixin, UpdateView):
     model = Stack
@@ -42,8 +45,16 @@ class StackUpdateView(AdminPermissionMixin, UpdateView):
     template_name = "portfolio/admin/stack/stack_form.html"
     success_url = reverse_lazy("portfolio:stack_list")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Stack atualizada com sucesso!")
+        return super().form_valid(form)
+
 
 class StackDeleteView(AdminPermissionMixin, DeleteView):
     model = Stack
     template_name = "portfolio/admin/stack/stack_confirm_delete.html"
     success_url = reverse_lazy("portfolio:stack_list")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Stack excluída com sucesso!")
+        return super().form_valid(form)

@@ -16,15 +16,7 @@
         </h1>
     </div>
 
-    {% if messages %}
-        <div class="mb-6 space-y-2">
-            {% for message in messages %}
-                <div class="p-4 border-4 border-black rounded-lg font-bold neo-shadow-sm {% if message.tags == 'success' %}bg-neo-green text-black{% else %}bg-red-300 text-black{% endif %}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+
 
     <!-- Tabs em Caixa (Boxed Tabs) -->
     <div data-tabs-container class="w-full">

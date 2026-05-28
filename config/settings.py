@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 from environ import Env
+from django.contrib.messages import constants as django_messages
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -145,6 +146,14 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "neobrutalist"
 CRISPY_TEMPLATE_PACK = "neobrutalist"
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
+
+MESSAGE_TAGS = {
+    django_messages.DEBUG: "debug",
+    django_messages.INFO: "info",
+    django_messages.SUCCESS: "success",
+    django_messages.WARNING: "warning",
+    django_messages.ERROR: "error",
+}
 
 # Security & Session Settings
 SECURE_SSL_REDIRECT = env("SECURE_SSL_REDIRECT")
