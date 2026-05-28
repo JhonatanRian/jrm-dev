@@ -32,6 +32,19 @@ class SidebarManager {
 
         const savedState = localStorage.getItem('sidebar-collapsed') === 'true';
         this.setSidebarState(savedState);
+
+        // Auto-expand submenus if they contain an active link and sidebar is not collapsed
+        if (!savedState) {
+            document.querySelectorAll('[data-submenu-list]').forEach(submenu => {
+                const hasActiveLink = submenu.querySelector('.bg-yellow-300') !== null;
+                if (hasActiveLink) {
+                    submenu.classList.remove('hidden');
+                    const trigger = submenu.previousElementSibling;
+                    const icon = trigger.querySelector('[data-submenu-icon]');
+                    if (icon) icon.classList.add('rotate-180');
+                }
+            });
+        }
     }
 
     setSidebarState(isCollapsed) {

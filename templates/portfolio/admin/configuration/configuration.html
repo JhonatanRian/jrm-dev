@@ -5,9 +5,7 @@
 
 {% block extra_css %}{{ form.media.css }}{% endblock %}
 
-{% block extra_js %}
-    {{ form.media.js }}
-{% endblock %}
+{% block extra_js %}{{ form.media.js }}{% endblock %}
 
 {% block content %}
     <div class="mb-8">
@@ -15,7 +13,6 @@
             Configurações do Sistema
         </h1>
     </div>
-
     <!-- Tabs em Caixa (Boxed Tabs) -->
     <div data-tabs-container class="w-full">
         <!-- Abas Cabeçalho -->
