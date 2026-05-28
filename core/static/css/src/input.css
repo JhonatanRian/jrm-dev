@@ -284,26 +284,36 @@ body {
 
 .sidebar-icon-text,
 .sidebar-header-text,
-.sidebar-footer-text,
-.submenu-list {
+.sidebar-footer-text {
     opacity: 1;
-    transition: opacity 0.2s ease-in-out, max-height 0.3s ease-in-out;
-    max-height: 1000px;
+    transition: opacity 0.2s ease-in-out;
 }
 
 .sidebar-collapsed .sidebar-icon-text,
 .sidebar-collapsed .sidebar-header-text,
-.sidebar-collapsed .sidebar-footer-text,
-.sidebar-collapsed .submenu-list {
+.sidebar-collapsed .sidebar-footer-text {
     opacity: 0;
     width: 0;
     overflow: hidden;
-    max-height: 0;
     display: none !important;
 }
 
-.submenu-list.hidden {
+/* Submenu slide animation */
+.submenu-panel {
     max-height: 0;
+    opacity: 0;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.25s ease-in-out;
+}
+
+.submenu-panel.open {
+    max-height: 500px;
+    opacity: 1;
+}
+
+.sidebar-collapsed .submenu-panel {
+    max-height: 0 !important;
+    opacity: 0 !important;
 }
 
 .accordion-content {

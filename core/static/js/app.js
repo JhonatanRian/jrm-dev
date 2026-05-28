@@ -38,7 +38,7 @@ class SidebarManager {
             document.querySelectorAll('[data-submenu-list]').forEach(submenu => {
                 const hasActiveLink = submenu.querySelector('.bg-yellow-300') !== null;
                 if (hasActiveLink) {
-                    submenu.classList.remove('hidden');
+                    submenu.classList.add('open');
                     const trigger = submenu.previousElementSibling;
                     const icon = trigger.querySelector('[data-submenu-icon]');
                     if (icon) icon.classList.add('rotate-180');
@@ -60,7 +60,7 @@ class SidebarManager {
 
         if (isCollapsed) {
             document.querySelectorAll('[data-submenu-list]').forEach(submenu => {
-                submenu.classList.add('hidden');
+                submenu.classList.remove('open');
                 const icon = submenu.previousElementSibling.querySelector('[data-submenu-icon]');
                 if (icon) icon.classList.remove('rotate-180');
             });
@@ -70,12 +70,13 @@ class SidebarManager {
     handleSubmenuToggle(e, trigger) {
         if (this.sidebar.classList.contains('sidebar-collapsed')) {
             this.setSidebarState(false);
+            localStorage.setItem('sidebar-collapsed', false);
         }
 
         const submenuList = trigger.nextElementSibling;
         const submenuIcon = trigger.querySelector('[data-submenu-icon]');
 
-        if (submenuList) submenuList.classList.toggle('hidden');
+        if (submenuList) submenuList.classList.toggle('open');
         if (submenuIcon) submenuIcon.classList.toggle('rotate-180');
     }
 }
