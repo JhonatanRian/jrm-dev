@@ -299,6 +299,7 @@ body {
     width: 0;
     overflow: hidden;
     max-height: 0;
+    display: none !important;
 }
 
 .submenu-list.hidden {

@@ -20,14 +20,18 @@ class SidebarManager {
         if (!this.sidebar || !this.mainContent || !this.sidebarToggle) return;
         
         this.sidebarToggle.addEventListener('click', () => {
-            this.setSidebarState(this.sidebar.classList.contains(this.EXPANDED_WIDTH_CLASS));
+            const isCurrentlyExpanded = this.sidebar.classList.contains(this.EXPANDED_WIDTH_CLASS);
+            const willCollapse = isCurrentlyExpanded;
+            this.setSidebarState(willCollapse);
+            localStorage.setItem('sidebar-collapsed', willCollapse);
         });
 
         document.querySelectorAll('[data-submenu-trigger]').forEach(trigger => {
             trigger.addEventListener('click', (e) => this.handleSubmenuToggle(e, trigger));
         });
 
-        this.setSidebarState(false);
+        const savedState = localStorage.getItem('sidebar-collapsed') === 'true';
+        this.setSidebarState(savedState);
     }
 
     setSidebarState(isCollapsed) {
