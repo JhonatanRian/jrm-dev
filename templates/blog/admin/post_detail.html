@@ -43,7 +43,7 @@
                 <!-- Tag Pills -->
                 <div class="flex flex-wrap gap-2 mb-6">
                     {% for tag in post.tags.all %}
-                        <span class="bg-neo-pink border-2 border-black rounded-md px-3 py-1 text-xs text-black font-bold neo-shadow-sm">{{ tag.name }}</span>
+                        <span class="inline-flex font-bold text-xs text-black bg-neo-pink border-2 border-black rounded-md px-2.5 py-1 neo-shadow-sm">{{ tag.name }}</span>
                     {% empty %}
                         <span class="text-gray-400 text-sm font-normal">Sem tags</span>
                     {% endfor %}
@@ -73,9 +73,9 @@
                         <span class="text-xs text-gray-500 font-bold uppercase block">Status</span>
                         <div class="mt-1">
                             {% if post.published %}
-                                <span class="bg-neo-green text-black border-2 border-black font-bold px-3 py-1.5 rounded-lg text-sm inline-block neo-shadow-sm">Publicado</span>
+                                <span class="inline-flex font-bold text-xs text-black bg-neo-green border-2 border-black rounded-md px-2.5 py-1 neo-shadow-sm">Publicado</span>
                             {% else %}
-                                <span class="bg-neo-orange text-black border-2 border-black font-bold px-3 py-1.5 rounded-lg text-sm inline-block neo-shadow-sm">Rascunho / Despublicado</span>
+                                <span class="inline-flex font-bold text-xs text-black bg-neo-orange border-2 border-black rounded-md px-2.5 py-1 neo-shadow-sm">Rascunho / Despublicado</span>
                             {% endif %}
                         </div>
                     </div>

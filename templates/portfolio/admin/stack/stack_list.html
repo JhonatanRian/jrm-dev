@@ -9,11 +9,28 @@
     {% include "components/admin/page_header.html" with title="Stacks Salvas" add_url=add_url add_label="Nova Stack" %}
 
     <div class="bg-white border-4 border-black rounded-xl p-6 neo-shadow">
+        <!-- Search Filter Form -->
+        {% load crispy_forms_tags %}
+        <form method="get" class="w-full mb-8 flex flex-col sm:flex-row gap-3 max-w-[32rem] items-end">
+            <div class="flex-1 w-full flex-search-wrapper">
+                {{ filter.form.name|as_crispy_field }}
+            </div>
+            <div class="flex gap-2 mb-3">
+                <button type="submit" class="bg-neo-yellow text-black font-bold px-6 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm hover:bg-yellow-400 transition-all whitespace-nowrap h-[54px] flex items-center justify-center">
+                    Buscar
+                </button>
+                {% if request.GET.name %}
+                    <a href="{% url 'portfolio:stack_list' %}" class="bg-gray-200 text-black font-bold px-4 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm flex items-center justify-center hover:bg-gray-300 transition-all h-[54px]">
+                        Limpar
+                    </a>
+                {% endif %}
+            </div>
+        </form>
+
         <div class="overflow-x-auto border-2 border-black rounded-lg neo-shadow-sm">
             <table class="w-full text-left">
                 <thead class="bg-yellow-300 border-b-2 border-black font-bold">
                     <tr>
-                        <th class="p-4">ID</th>
                         <th class="p-4">Nome</th>
                         <th class="p-4">Criado em</th>
                         <th class="p-4 text-center">Ações</th>
@@ -22,7 +39,6 @@
                 <tbody class="font-semibold">
                     {% for stack in stacks %}
                         <tr class="border-b-2 border-gray-200 hover:bg-gray-50">
-                            <td class="p-4">{{ stack.id }}</td>
                             <td class="p-4">{{ stack.name }}</td>
                             <td class="p-4">{{ stack.created_at|date:"d/m/Y" }}</td>
                             <td class="p-4 text-center">
@@ -33,7 +49,7 @@
                         </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="4" class="p-8 text-center text-xl font-bold text-gray-500">Nenhuma stack salva ainda.</td>
+                            <td colspan="3" class="p-8 text-center text-xl font-bold text-gray-500">Nenhuma stack salva ainda.</td>
                         </tr>
                     {% endfor %}
                 </tbody>

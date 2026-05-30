@@ -1,4 +1,5 @@
 {% extends 'core/base_painel.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}
     Artigos do Blog | Admin
@@ -9,28 +10,17 @@
     {% include "components/admin/page_header.html" with title="Artigos do Blog" add_url=add_url add_label="Novo Artigo" %}
 
     <div class="bg-white border-4 border-black rounded-xl p-6 neo-shadow">
-        <!-- Search and Filter Form -->
-        <form method="get" class="mb-6 flex gap-4 flex-wrap items-end bg-[#F1F5F9] border-4 border-black p-4 rounded-xl neo-shadow-sm">
-            <div class="flex-grow min-w-[250px]">
-                <label for="search-input" class="block text-sm font-bold text-black mb-1">Buscar por termo</label>
-                <input type="text" id="search-input" name="search" value="{{ request.GET.search|default:'' }}" placeholder="Buscar no título ou conteúdo..." class="w-full bg-white border-2 border-black px-4 py-2 font-bold rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300">
+        <!-- Search Filter Form -->
+        <form method="get" class="w-full mb-8 flex flex-col sm:flex-row gap-3 max-w-[32rem] items-end">
+            <div class="flex-1 w-full flex-search-wrapper">
+                {{ filter.form.search|as_crispy_field }}
             </div>
-            
-            <div class="w-48">
-                <label for="published-select" class="block text-sm font-bold text-black mb-1">Status</label>
-                <select id="published-select" name="published" class="w-full bg-white border-2 border-black px-3 py-2 font-bold rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300">
-                    <option value="">Todos</option>
-                    <option value="True" {% if request.GET.published == 'True' %}selected{% endif %}>Publicados</option>
-                    <option value="False" {% if request.GET.published == 'False' %}selected{% endif %}>Rascunhos</option>
-                </select>
-            </div>
-
-            <div class="flex gap-2">
-                <button type="submit" class="bg-yellow-300 text-black font-bold px-6 py-2.5 border-2 border-black rounded-lg neo-button neo-shadow-sm active:translate-y-[2px] active:translate-x-[2px] active:shadow-none">
-                    Filtrar
+            <div class="flex gap-2 mb-3">
+                <button type="submit" class="bg-neo-yellow text-black font-bold px-6 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm hover:bg-yellow-400 transition-all whitespace-nowrap h-[54px] flex items-center justify-center">
+                    Buscar
                 </button>
-                {% if request.GET.search or request.GET.published %}
-                    <a href="{% url 'blog:post_list' %}" class="bg-gray-200 text-black font-bold px-6 py-2.5 border-2 border-black rounded-lg neo-button neo-shadow-sm flex items-center justify-center">
+                {% if request.GET.search %}
+                    <a href="{% url 'blog:post_list' %}" class="bg-gray-200 text-black font-bold px-4 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm flex items-center justify-center hover:bg-gray-300 transition-all h-[54px]">
                         Limpar
                     </a>
                 {% endif %}
@@ -41,8 +31,6 @@
             <table class="w-full text-left text-black">
                 <thead class="bg-yellow-300 border-b-2 border-black font-bold">
                     <tr>
-                        <th class="p-4 w-16">ID</th>
-                        <th class="p-4">Capa</th>
                         <th class="p-4">Título</th>
                         <th class="p-4">Tags</th>
                         <th class="p-4 w-40">Status</th>
@@ -53,14 +41,6 @@
                 <tbody class="font-semibold">
                     {% for post in posts %}
                         <tr class="border-b-2 border-gray-200 hover:bg-gray-50">
-                            <td class="p-4">{{ post.id }}</td>
-                            <td class="p-4 w-20">
-                                {% if post.featured_image %}
-                                    <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-12 h-12 object-cover border-2 border-black rounded neo-shadow-sm">
-                                {% else %}
-                                    <div class="w-12 h-12 bg-gray-200 border-2 border-black rounded flex items-center justify-center text-xs text-gray-500 font-bold">Sem foto</div>
-                                {% endif %}
-                            </td>
                             <td class="p-4">
                                 <div class="font-bold text-base text-black">{{ post.title }}</div>
                                 <div class="text-xs text-gray-500 font-mono mt-0.5">{{ post.slug }}</div>
@@ -68,7 +48,7 @@
                             <td class="p-4">
                                 <div class="flex flex-wrap gap-1">
                                     {% for tag in post.tags.all %}
-                                        <span class="bg-neo-pink border border-black rounded px-2 py-0.5 text-xs text-black font-bold">{{ tag.name }}</span>
+                                        <span class="inline-flex font-bold text-xs text-black bg-neo-pink border-2 border-black rounded-md px-2.5 py-1">{{ tag.name }}</span>
                                     {% empty %}
                                         <span class="text-gray-400 text-xs font-normal">Sem tags</span>
                                     {% endfor %}
@@ -76,9 +56,9 @@
                             </td>
                             <td class="p-4">
                                 {% if post.published %}
-                                    <span class="bg-neo-green text-black border-2 border-black font-bold px-2.5 py-1 rounded text-xs inline-block neo-shadow-sm">Publicado</span>
+                                    <span class="inline-flex font-bold text-xs text-black bg-neo-green border-2 border-black rounded-md px-2.5 py-1">Publicado</span>
                                 {% else %}
-                                    <span class="bg-neo-orange text-black border-2 border-black font-bold px-2.5 py-1 rounded text-xs inline-block neo-shadow-sm">Rascunho</span>
+                                    <span class="inline-flex font-bold text-xs text-black bg-neo-orange border-2 border-black rounded-md px-2.5 py-1">Rascunho</span>
                                 {% endif %}
                             </td>
                             <td class="p-4 text-xs space-y-1">
@@ -113,7 +93,7 @@
                         </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="7" class="p-8 text-center text-xl font-bold text-gray-500">Nenhum artigo encontrado.</td>
+                            <td colspan="5" class="p-8 text-center text-xl font-bold text-gray-500">Nenhum artigo encontrado.</td>
                         </tr>
                     {% endfor %}
                 </tbody>

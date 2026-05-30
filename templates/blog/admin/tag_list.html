@@ -1,4 +1,5 @@
 {% extends 'core/base_painel.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}
     Tags Cadastradas | Admin
@@ -10,23 +11,26 @@
 
     <div class="bg-white border-4 border-black rounded-xl p-6 neo-shadow">
         <!-- Search Filter Form -->
-        <form method="get" class="mb-6 flex gap-3 max-w-md">
-            <input type="text" name="name" value="{{ request.GET.name|default:'' }}" placeholder="Buscar tags..." class="flex-grow bg-white border-4 border-black px-4 py-2 font-bold rounded-lg neo-shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-300">
-            <button type="submit" class="bg-yellow-300 text-black font-bold px-6 py-2 border-4 border-black rounded-lg neo-button neo-shadow-sm active:translate-y-[2px] active:translate-x-[2px] active:shadow-none">
-                Buscar
-            </button>
-            {% if request.GET.name %}
-                <a href="{% url 'blog:tag_list' %}" class="bg-gray-200 text-black font-bold px-4 py-2 border-4 border-black rounded-lg neo-button neo-shadow-sm flex items-center justify-center">
-                    Limpar
-                </a>
-            {% endif %}
+        <form method="get" class="w-full mb-8 flex flex-col sm:flex-row gap-3 max-w-[32rem] items-end">
+            <div class="flex-1 w-full flex-search-wrapper">
+                {{ filter.form.search|as_crispy_field }}
+            </div>
+            <div class="flex gap-2 mb-3">
+                <button type="submit" class="bg-neo-yellow text-black font-bold px-6 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm hover:bg-yellow-400 transition-all whitespace-nowrap h-[54px] flex items-center justify-center">
+                    Buscar
+                </button>
+                {% if request.GET.search %}
+                    <a href="{% url 'blog:tag_list' %}" class="bg-gray-200 text-black font-bold px-4 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm flex items-center justify-center hover:bg-gray-300 transition-all h-[54px]">
+                        Limpar
+                    </a>
+                {% endif %}
+            </div>
         </form>
 
         <div class="overflow-x-auto border-2 border-black rounded-lg neo-shadow-sm">
             <table class="w-full text-left text-black">
                 <thead class="bg-yellow-300 border-b-2 border-black font-bold">
                     <tr>
-                        <th class="p-4 w-16">ID</th>
                         <th class="p-4">Nome</th>
                         <th class="p-4">Slug</th>
                         <th class="p-4 w-32">Criado em</th>
@@ -36,9 +40,8 @@
                 <tbody class="font-semibold">
                     {% for tag in tags %}
                         <tr class="border-b-2 border-gray-200 hover:bg-gray-50">
-                            <td class="p-4">{{ tag.id }}</td>
                             <td class="p-4">
-                                <span class="bg-neo-pink border border-black rounded px-2.5 py-1 text-sm text-black neo-shadow-sm font-bold">{{ tag.name }}</span>
+                                {{ tag.name }}
                             </td>
                             <td class="p-4 text-sm font-mono text-gray-600">{{ tag.slug }}</td>
                             <td class="p-4 text-sm text-gray-700">{{ tag.created_at|date:"d/m/Y" }}</td>
@@ -50,7 +53,7 @@
                         </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="5" class="p-8 text-center text-xl font-bold text-gray-500">Nenhuma tag cadastrada ainda.</td>
+                            <td colspan="4" class="p-8 text-center text-xl font-bold text-gray-500">Nenhuma tag cadastrada ainda.</td>
                         </tr>
                     {% endfor %}
                 </tbody>

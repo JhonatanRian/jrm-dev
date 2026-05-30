@@ -1,11 +1,18 @@
 import django_filters
-
+from django import forms
 from blog.models import Tag
 
 
 class TagFilter(django_filters.FilterSet):
-    name = django_filters.CharFilter(lookup_expr="icontains", label="Nome")
+    search = django_filters.CharFilter(
+        field_name="name",
+        lookup_expr="icontains",
+        label="",
+        widget=forms.TextInput(attrs={
+            "placeholder": "Buscar",
+        })
+    )
 
     class Meta:
         model = Tag
-        fields = ["name"]
+        fields = ["search"]

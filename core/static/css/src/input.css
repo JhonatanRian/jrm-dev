@@ -420,6 +420,8 @@ body {
     box-shadow: 3px 3px 0px #000000;
 }
 
-
-
-
+/* Correção para inputs do django-crispy-forms colapsados em containers flexbox inline */
+.flex-search-wrapper > div,
+.flex-search-wrapper > div > div {
+    width: 100% !important;
+}

@@ -9,11 +9,28 @@
     {% include "components/admin/page_header.html" with title="Seções de Stack" add_url=add_url add_label="Nova Seção" %}
 
     <div class="bg-white border-4 border-black rounded-xl p-6 neo-shadow">
+        <!-- Search Filter Form -->
+        {% load crispy_forms_tags %}
+        <form method="get" class="w-full mb-8 flex flex-col sm:flex-row gap-3 max-w-[32rem] items-end">
+            <div class="flex-1 w-full flex-search-wrapper">
+                {{ filter.form.title|as_crispy_field }}
+            </div>
+            <div class="flex gap-2 mb-3">
+                <button type="submit" class="bg-neo-yellow text-black font-bold px-6 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm hover:bg-yellow-400 transition-all whitespace-nowrap h-[54px] flex items-center justify-center">
+                    Buscar
+                </button>
+                {% if request.GET.title %}
+                    <a href="{% url 'portfolio:group_stack_list' %}" class="bg-gray-200 text-black font-bold px-4 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm flex items-center justify-center hover:bg-gray-300 transition-all h-[54px]">
+                        Limpar
+                    </a>
+                {% endif %}
+            </div>
+        </form>
+
         <div class="overflow-x-auto border-2 border-black rounded-lg neo-shadow-sm">
             <table class="w-full text-left">
                 <thead class="bg-yellow-300 border-b-2 border-black font-bold">
                     <tr>
-                        <th class="p-4">ID</th>
                         <th class="p-4">Título</th>
                         <th class="p-4">Stacks Associadas</th>
                         <th class="p-4">Criado em</th>
@@ -23,12 +40,11 @@
                 <tbody class="font-semibold text-black">
                     {% for group_stack in group_stacks %}
                         <tr class="border-b-2 border-gray-200 hover:bg-gray-50">
-                            <td class="p-4">{{ group_stack.id }}</td>
                             <td class="p-4">{{ group_stack.title }}</td>
                             <td class="p-4">
                                 <div class="flex flex-wrap gap-1">
                                     {% for stack in group_stack.stacks.all %}
-                                        <span class="bg-gray-100 border border-black rounded px-2 py-0.5 text-xs text-black">{{ stack.name }}</span>
+                                        <span class="inline-flex font-bold text-xs text-black bg-gray-200 border-2 border-black rounded-md px-2.5 py-1">{{ stack.name }}</span>
                                     {% empty %}
                                         <span class="text-gray-400 text-xs font-normal">Nenhuma stack associada</span>
                                     {% endfor %}
@@ -43,7 +59,7 @@
                         </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="5" class="p-8 text-center text-xl font-bold text-gray-500">Nenhuma seção de stack cadastrada ainda.</td>
+                            <td colspan="4" class="p-8 text-center text-xl font-bold text-gray-500">Nenhuma seção de stack cadastrada ainda.</td>
                         </tr>
                     {% endfor %}
                 </tbody>
