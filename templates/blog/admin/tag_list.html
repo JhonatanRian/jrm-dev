@@ -1,0 +1,62 @@
+{% extends 'core/base_painel.html' %}
+
+{% block title %}
+    Tags Cadastradas | Admin
+{% endblock title %}
+
+{% block content %}
+    {% url "blog:tag_create" as add_url %}
+    {% include "components/admin/page_header.html" with title="Tags Cadastradas" add_url=add_url add_label="Nova Tag" %}
+
+    <div class="bg-white border-4 border-black rounded-xl p-6 neo-shadow">
+        <!-- Search Filter Form -->
+        <form method="get" class="mb-6 flex gap-3 max-w-md">
+            <input type="text" name="name" value="{{ request.GET.name|default:'' }}" placeholder="Buscar tags..." class="flex-grow bg-white border-4 border-black px-4 py-2 font-bold rounded-lg neo-shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-300">
+            <button type="submit" class="bg-yellow-300 text-black font-bold px-6 py-2 border-4 border-black rounded-lg neo-button neo-shadow-sm active:translate-y-[2px] active:translate-x-[2px] active:shadow-none">
+                Buscar
+            </button>
+            {% if request.GET.name %}
+                <a href="{% url 'blog:tag_list' %}" class="bg-gray-200 text-black font-bold px-4 py-2 border-4 border-black rounded-lg neo-button neo-shadow-sm flex items-center justify-center">
+                    Limpar
+                </a>
+            {% endif %}
+        </form>
+
+        <div class="overflow-x-auto border-2 border-black rounded-lg neo-shadow-sm">
+            <table class="w-full text-left text-black">
+                <thead class="bg-yellow-300 border-b-2 border-black font-bold">
+                    <tr>
+                        <th class="p-4 w-16">ID</th>
+                        <th class="p-4">Nome</th>
+                        <th class="p-4">Slug</th>
+                        <th class="p-4 w-32">Criado em</th>
+                        <th class="p-4 w-32 text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody class="font-semibold">
+                    {% for tag in tags %}
+                        <tr class="border-b-2 border-gray-200 hover:bg-gray-50">
+                            <td class="p-4">{{ tag.id }}</td>
+                            <td class="p-4">
+                                <span class="bg-neo-pink border border-black rounded px-2.5 py-1 text-sm text-black neo-shadow-sm font-bold">{{ tag.name }}</span>
+                            </td>
+                            <td class="p-4 text-sm font-mono text-gray-600">{{ tag.slug }}</td>
+                            <td class="p-4 text-sm text-gray-700">{{ tag.created_at|date:"d/m/Y" }}</td>
+                            <td class="p-4 text-center">
+                                {% url "blog:tag_update" tag.pk as edit_url %}
+                                {% url "blog:tag_delete" tag.pk as delete_url %}
+                                {% include "components/admin/table_action_dropdown.html" with edit_url=edit_url delete_url=delete_url %}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="p-8 text-center text-xl font-bold text-gray-500">Nenhuma tag cadastrada ainda.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% include "components/admin/pagination.html" %}
+    </div>
+{% endblock content %}

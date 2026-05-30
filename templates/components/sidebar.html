@@ -47,6 +47,33 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Gatilho do Submenu Blog -->
+            <div>
+                <button type="button" data-submenu-trigger
+                        class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-all duration-200 hover:bg-white/50 cursor-pointer text-black font-bold focus:outline-none">
+                    <div class="flex items-center gap-3">
+                        <i class="material-icons text-[22px]">rss_feed</i>
+                        <span class="font-bold sidebar-icon-text">Blog</span>
+                    </div>
+                    <svg data-submenu-icon class="w-4 h-4 transition-transform duration-300 ease-in-out sidebar-icon-text" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                    </svg>
+                </button>
+                <!-- Lista de Links do Submenu -->
+                <div data-submenu-list class="submenu-panel overflow-hidden">
+                    <div class="ml-5 mt-1 mb-1 pl-3 border-l-3 border-black/30 space-y-0.5">
+                        <a href="{% url 'blog:tag_list' %}" class="flex items-center gap-2.5 px-3 py-2 rounded-md text-sm transition-all duration-200 hover:bg-white/50 {% if 'tag_' in request.resolver_match.url_name %}bg-yellow-300 text-black shadow-[2px_2px_0px_rgba(0,0,0,1)] border-2 border-black font-bold{% else %}text-black/80 font-semibold{% endif %}">
+                            <i class="material-icons text-[18px]">label</i>
+                            <span class="sidebar-icon-text">Tags</span>
+                        </a>
+                        <a href="{% url 'blog:post_list' %}" class="flex items-center gap-2.5 px-3 py-2 rounded-md text-sm transition-all duration-200 hover:bg-white/50 {% if 'post_' in request.resolver_match.url_name %}bg-yellow-300 text-black shadow-[2px_2px_0px_rgba(0,0,0,1)] border-2 border-black font-bold{% else %}text-black/80 font-semibold{% endif %}">
+                            <i class="material-icons text-[18px]">article</i>
+                            <span class="sidebar-icon-text">Posts</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </nav>
         <div class="mt-auto flex-shrink-0 pt-4 border-t-2 border-black/20">
             <a href="#" class="flex items-center gap-3 px-3 py-2.5 font-bold hover:bg-white/50 rounded-lg transition-colors">

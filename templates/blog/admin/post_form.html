@@ -1,0 +1,76 @@
+{% extends 'core/base_painel.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+    {% if form.instance.pk %}
+        Editar Artigo
+    {% else %}
+        Novo Artigo
+    {% endif %}
+    | Admin
+{% endblock title %}
+
+{% block content %}
+    <!-- Include Form Media (Select2, TipTap widgets CSS/JS) -->
+    {{ form.media }}
+
+    <div class="mb-8">
+        <a href="{% url 'blog:post_list' %}"
+           class="text-black font-bold flex items-center gap-2 hover:underline mb-4">
+            <span class="material-icons">arrow_back</span> Voltar para Artigos
+        </a>
+        <h1 class="text-3xl font-bold bg-neo-pink inline-block px-4 py-2 border-4 border-black neo-shadow transform -rotate-1">
+            {% if form.instance.pk %}
+                Editar Artigo: {{ form.instance.title }}
+            {% else %}
+                Novo Artigo
+            {% endif %}
+        </h1>
+    </div>
+
+    <div class="bg-white border-4 border-black rounded-xl p-8 neo-shadow max-w-4xl">
+        <!-- Must include enctype="multipart/form-data" for file/image uploads! -->
+        <form method="post" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Title field -->
+                <div class="md:col-span-1">
+                    {{ form.title|as_crispy_field }}
+                </div>
+            </div>
+
+            <!-- Featured Image Upload -->
+            <div class="border-2 border-dashed border-black p-4 bg-[#F1F5F9] rounded-lg">
+                {{ form.featured_image|as_crispy_field }}
+                {% if form.instance.featured_image %}
+                    <div class="mt-4">
+                        <span class="text-xs font-bold text-gray-500 block mb-2">Capa Atual:</span>
+                        <img src="{{ form.instance.featured_image.url }}" alt="Preview" class="w-32 h-20 object-cover border-2 border-black rounded neo-shadow-sm">
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Tags selector using select2 -->
+            <div>
+                {{ form.tags|as_crispy_field }}
+            </div>
+
+            <!-- Rich text Content field using TipTap -->
+            <div>
+                {{ form.content|as_crispy_field }}
+            </div>
+
+            <div class="pt-4 flex gap-4">
+                <button type="submit"
+                        class="bg-neo-green text-black font-bold px-8 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm">
+                    Salvar Artigo
+                </button>
+                <a href="{% url 'blog:post_list' %}"
+                   class="bg-gray-200 text-black font-bold px-8 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

@@ -12,6 +12,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("jrm/", include("core.urls")),
     path("jrm/", include("portfolio.urls")),
+    path("jrm/blog/", include("blog.urls")),
     path("accounts/", include("accounts.urls")),
 ]
 
