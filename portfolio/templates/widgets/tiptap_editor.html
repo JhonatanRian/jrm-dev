@@ -1,28 +1,71 @@
-{% include "django/forms/widgets/textarea.html" %}
+<div class="tiptap-editor-container">
+    {% include "django/forms/widgets/textarea.html" %}
 
-<div class="tiptap-editor-mount w-full border-4 border-black bg-[#E2E8F0] shadow-[4px_4px_0_0_rgba(0,0,0,1)] rounded-sm overflow-hidden mb-4 mt-2">
-    <!-- Toolbar -->
-    <div class="tiptap-toolbar flex flex-wrap gap-2 p-2 bg-[#F1F5F9] border-b-4 border-black">
-        <button type="button" data-tiptap-cmd="bold" class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">B</button>
-        <button type="button" data-tiptap-cmd="italic" class="px-3 py-1 bg-white border-2 border-black italic shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">I</button>
-        <button type="button" data-tiptap-cmd="strike" class="px-3 py-1 bg-white border-2 border-black line-through shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">S</button>
-        <button type="button" data-tiptap-cmd="heading" data-level="2" class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">H2</button>
-        <button type="button" data-tiptap-cmd="heading" data-level="3" class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">H3</button>
-        <button type="button" data-tiptap-cmd="bulletList" class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">• Lista</button>
-        <button type="button" data-tiptap-cmd="orderedList" class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">1. Lista</button>
+    <div class="tiptap-editor-mount w-full border-4 border-black bg-[#E2E8F0] shadow-[4px_4px_0_0_rgba(0,0,0,1)] rounded-sm overflow-hidden mb-4 mt-2">
+        <!-- Toolbar -->
+        <div class="tiptap-toolbar flex flex-wrap gap-2 p-2 bg-[#F1F5F9] border-b-4 border-black">
+            <button type="button"
+                    data-tiptap-cmd="bold"
+                    class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
+                B
+            </button>
+            <button type="button"
+                    data-tiptap-cmd="italic"
+                    class="px-3 py-1 bg-white border-2 border-black italic shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
+                I
+            </button>
+            <button type="button"
+                    data-tiptap-cmd="strike"
+                    class="px-3 py-1 bg-white border-2 border-black line-through shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
+                S
+            </button>
+            <button type="button"
+                    data-tiptap-cmd="heading"
+                    data-level="2"
+                    class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
+                H2
+            </button>
+            <button type="button"
+                    data-tiptap-cmd="heading"
+                    data-level="3"
+                    class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
+                H3
+            </button>
+            <button type="button"
+                    data-tiptap-cmd="bulletList"
+                    class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
+                • Lista
+            </button>
+            <button type="button"
+                    data-tiptap-cmd="orderedList"
+                    class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
+                1. Lista
+            </button>
 
-        <!-- Highlights Neo-Brutalist -->
-        <span class="border-l-2 border-black mx-1"></span>
-        <button type="button" data-tiptap-highlight="highlightGray" class="px-3 py-1 bg-[#E2E8F0] border-2 border-black text-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">Cinza</button>
-        <button type="button" data-tiptap-highlight="highlightYellow" class="px-3 py-1 bg-[#FEF08A] border-2 border-black text-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">Amarelo</button>
-        <button type="button" data-tiptap-highlight="highlightGreen" class="px-3 py-1 bg-[#BBF7D0] border-2 border-black text-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">Verde</button>
+            <!-- Highlights Neo-Brutalist -->
+            <span class="border-l-2 border-black mx-1"></span>
+            <button type="button"
+                    data-tiptap-highlight="highlightGray"
+                    class="px-3 py-1 bg-[#E2E8F0] border-2 border-black text-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
+                Cinza
+            </button>
+            <button type="button"
+                    data-tiptap-highlight="highlightYellow"
+                    class="px-3 py-1 bg-[#FEF08A] border-2 border-black text-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
+                Amarelo
+            </button>
+            <button type="button"
+                    data-tiptap-highlight="highlightGreen"
+                    class="px-3 py-1 bg-[#BBF7D0] border-2 border-black text-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
+                Verde
+            </button>
+        </div>
+
+        <!-- Editor Content Area -->
+        <div class="tiptap-content-area bg-white min-h-[200px] text-base p-4 focus:outline-none"></div>
     </div>
 
-    <!-- Editor Content Area -->
-    <div class="tiptap-content-area bg-white min-h-[200px] text-base p-4 focus:outline-none"></div>
-</div>
-
-<style>
+    <style>
     /* TipTap styles */
     .tiptap-editor-mount .ProseMirror {
         min-height: 200px;
@@ -61,9 +104,9 @@
         margin-bottom: 1em;
     }
     /* Using highlight-neo-* global classes from app.css */
-</style>
+    </style>
 
-<script type="module">
+    <script type="module">
     import { Editor, Mark, mergeAttributes } from 'https://esm.sh/@tiptap/core';
     import StarterKit from 'https://esm.sh/@tiptap/starter-kit';
     import Placeholder from 'https://esm.sh/@tiptap/extension-placeholder';
@@ -120,7 +163,7 @@
         },
     });
 
-    document.addEventListener("DOMContentLoaded", () => {
+    const initEditor = () => {
         const textareaId = "{{ widget.attrs.id|default:'' }}";
         if (!textareaId) return;
         
@@ -130,7 +173,9 @@
         // Hide textarea as fallback
         textarea.style.display = 'none';
 
-        const editorMount = textarea.nextElementSibling;
+        const container = textarea.closest('.tiptap-editor-container') || textarea.parentElement;
+        const editorMount = container.querySelector('.tiptap-editor-mount');
+        if (!editorMount) return;
         const editorElement = editorMount.querySelector('.tiptap-content-area');
         const toolbar = editorMount.querySelector('.tiptap-toolbar');
 
@@ -235,5 +280,12 @@
                 }
             });
         });
-    });
-</script>
+    };
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initEditor);
+    } else {
+        initEditor();
+    }
+    </script>
+</div>

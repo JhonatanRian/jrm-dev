@@ -1,7 +1,7 @@
 from django import forms
 
 
-class TipTapEditorWidget(forms.Textarea):
+class TipTapEditorWidget(forms.Widget):
     template_name = "widgets/tiptap_editor.html"
 
     class Media:

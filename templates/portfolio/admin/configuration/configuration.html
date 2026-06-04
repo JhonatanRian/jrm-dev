@@ -47,9 +47,7 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="md:col-span-2">
-                            <label class="block font-bold text-sm mb-2 text-black">{{ form.about.label }}</label>
-                            {{ form.about }}
-                            {% if form.about.errors %}<div class="text-red-500 text-xs mt-1 font-bold">{{ form.about.errors }}</div>{% endif %}
+                            {{ form.about|as_crispy_field }}
                         </div>
                         <div>{{ form.contact_email|as_crispy_field }}</div>
                         <div>{{ form.linkedin|as_crispy_field }}</div>

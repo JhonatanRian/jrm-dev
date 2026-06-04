@@ -10,10 +10,11 @@
     | Admin
 {% endblock title %}
 
-{% block content %}
-    <!-- Include Form Media (Select2, TipTap widgets CSS/JS) -->
-    {{ form.media }}
+{% block extra_css %}{{ form.media.css }}{% endblock %}
 
+{% block extra_js %}{{ form.media.js }}{% endblock %}
+
+{% block content %}
     <div class="mb-8">
         <a href="{% url 'blog:post_list' %}"
            class="text-black font-bold flex items-center gap-2 hover:underline mb-4">
@@ -32,12 +33,10 @@
         <!-- Must include enctype="multipart/form-data" for file/image uploads! -->
         <form method="post" enctype="multipart/form-data" class="space-y-6">
             {% csrf_token %}
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Title field -->
-                <div class="md:col-span-1">
-                    {{ form.title|as_crispy_field }}
-                </div>
+                <div class="md:col-span-1">{{ form.title|as_crispy_field }}</div>
             </div>
 
             <!-- Featured Image Upload -->
@@ -46,20 +45,18 @@
                 {% if form.instance.featured_image %}
                     <div class="mt-4">
                         <span class="text-xs font-bold text-gray-500 block mb-2">Capa Atual:</span>
-                        <img src="{{ form.instance.featured_image.url }}" alt="Preview" class="w-32 h-20 object-cover border-2 border-black rounded neo-shadow-sm">
+                        <img src="{{ form.instance.featured_image.url }}"
+                             alt="Preview"
+                             class="w-32 h-20 object-cover border-2 border-black rounded neo-shadow-sm">
                     </div>
                 {% endif %}
             </div>
 
             <!-- Tags selector using select2 -->
-            <div>
-                {{ form.tags|as_crispy_field }}
-            </div>
+            <div>{{ form.tags|as_crispy_field }}</div>
 
             <!-- Rich text Content field using TipTap -->
-            <div>
-                {{ form.content|as_crispy_field }}
-            </div>
+            <div>{{ form.content|as_crispy_field }}</div>
 
             <div class="pt-4 flex gap-4">
                 <button type="submit"
