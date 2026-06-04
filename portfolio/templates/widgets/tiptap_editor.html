@@ -1,7 +1,7 @@
 <div class="tiptap-editor-container">
     {% include "django/forms/widgets/textarea.html" %}
 
-    <div class="tiptap-editor-mount w-full border-4 border-black bg-[#E2E8F0] shadow-[4px_4px_0_0_rgba(0,0,0,1)] rounded-sm overflow-hidden mb-4 mt-2">
+    <div class="tiptap-editor-mount w-full border-4 border-black bg-[#E2E8F0] shadow-[4px_4px_0_0_rgba(0,0,0,1)] rounded-sm mb-4 mt-2">
         <!-- Toolbar -->
         <div class="tiptap-toolbar flex flex-wrap gap-2 p-2 bg-[#F1F5F9] border-b-4 border-black">
             <button type="button"
@@ -42,23 +42,51 @@
                 1. Lista
             </button>
 
-            <!-- Highlights Neo-Brutalist -->
+            <!-- Highlights Neo-Brutalist Dropdown -->
             <span class="border-l-2 border-black mx-1"></span>
-            <button type="button"
-                    data-tiptap-highlight="highlightGray"
-                    class="px-3 py-1 bg-[#E2E8F0] border-2 border-black text-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
-                Cinza
-            </button>
-            <button type="button"
-                    data-tiptap-highlight="highlightYellow"
-                    class="px-3 py-1 bg-[#FEF08A] border-2 border-black text-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
-                Amarelo
-            </button>
-            <button type="button"
-                    data-tiptap-highlight="highlightGreen"
-                    class="px-3 py-1 bg-[#BBF7D0] border-2 border-black text-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
-                Verde
-            </button>
+            <div class="relative inline-block text-left tiptap-dropdown">
+                <button type="button"
+                        id="tiptap-markup-btn-{{ widget.attrs.id }}"
+                        class="tiptap-markup-btn px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all flex items-center gap-2"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                    <span class="tiptap-markup-icon inline-block w-4 h-4 border-2 border-black bg-white rounded-sm"></span>
+                    <span>Marcador</span>
+                    <svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="tiptap-markup-menu-{{ widget.attrs.id }}"
+                     class="tiptap-markup-menu hidden absolute left-0 mt-2 w-44 bg-white border-2 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] z-50 flex flex-col p-1 gap-1">
+                    <button type="button"
+                            data-tiptap-highlight="highlightGray"
+                            class="w-full text-left px-3 py-1.5 hover:bg-[#F1F5F9] transition-colors font-bold flex items-center justify-between text-sm">
+                        <div class="flex items-center gap-2">
+                            <span class="w-4 h-4 bg-[#E2E8F0] border-2 border-black rounded-sm"></span>
+                            <span>Cinza</span>
+                        </div>
+                        <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                    </button>
+                    <button type="button"
+                            data-tiptap-highlight="highlightYellow"
+                            class="w-full text-left px-3 py-1.5 hover:bg-[#F1F5F9] transition-colors font-bold flex items-center justify-between text-sm">
+                        <div class="flex items-center gap-2">
+                            <span class="w-4 h-4 bg-[#FEF08A] border-2 border-black rounded-sm"></span>
+                            <span>Amarelo</span>
+                        </div>
+                        <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                    </button>
+                    <button type="button"
+                            data-tiptap-highlight="highlightGreen"
+                            class="w-full text-left px-3 py-1.5 hover:bg-[#F1F5F9] transition-colors font-bold flex items-center justify-between text-sm">
+                        <div class="flex items-center gap-2">
+                            <span class="w-4 h-4 bg-[#BBF7D0] border-2 border-black rounded-sm"></span>
+                            <span>Verde</span>
+                        </div>
+                        <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                    </button>
+                </div>
+            </div>
         </div>
 
         <!-- Editor Content Area -->
@@ -182,6 +210,8 @@
         // Cache elements for maximum performance
         const cmdButtons = toolbar.querySelectorAll('[data-tiptap-cmd]');
         const highlightButtons = toolbar.querySelectorAll('[data-tiptap-highlight]');
+        const markupBtn = toolbar.querySelector('.tiptap-markup-btn');
+        const markupMenu = toolbar.querySelector('.tiptap-markup-menu');
 
         const updateToolbarState = (editor) => {
             // Update standard command buttons
@@ -205,19 +235,45 @@
                 }
             });
 
-            // Update highlight buttons (visually pressed state)
+            // Update highlight dropdown menu items and main button state
+            let anyHighlightActive = false;
+            let activeColor = '#ffffff'; // default white
+            
             highlightButtons.forEach(btn => {
                 const highlight = btn.getAttribute('data-tiptap-highlight');
                 const isActive = editor.isActive(highlight);
+                const checkElement = btn.querySelector('.tiptap-check');
 
                 if (isActive) {
-                    btn.classList.add('translate-y-[2px]', 'translate-x-[2px]', 'shadow-none', 'ring-2', 'ring-black');
-                    btn.classList.remove('shadow-[2px_2px_0_0_rgba(0,0,0,1)]');
+                    btn.classList.add('bg-slate-100');
+                    if (checkElement) {
+                        checkElement.classList.remove('hidden');
+                    }
+                    anyHighlightActive = true;
+                    if (highlight === 'highlightGray') activeColor = '#E2E8F0';
+                    else if (highlight === 'highlightYellow') activeColor = '#FEF08A';
+                    else if (highlight === 'highlightGreen') activeColor = '#BBF7D0';
                 } else {
-                    btn.classList.remove('translate-y-[2px]', 'translate-x-[2px]', 'shadow-none', 'ring-2', 'ring-black');
-                    btn.classList.add('shadow-[2px_2px_0_0_rgba(0,0,0,1)]');
+                    btn.classList.remove('bg-slate-100');
+                    if (checkElement) {
+                        checkElement.classList.add('hidden');
+                    }
                 }
             });
+
+            // Update main button icon color swatch
+            const markupIcon = markupBtn ? markupBtn.querySelector('.tiptap-markup-icon') : null;
+            if (markupIcon) {
+                markupIcon.style.backgroundColor = activeColor;
+            }
+
+            if (markupBtn) {
+                if (anyHighlightActive) {
+                    markupBtn.classList.add('bg-slate-100');
+                } else {
+                    markupBtn.classList.remove('bg-slate-100');
+                }
+            }
         };
 
         const editor = new Editor({
@@ -267,9 +323,41 @@
             });
         });
 
+        // Setup dropdown toggle logic
+        if (markupBtn && markupMenu) {
+            markupBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const isExpanded = markupBtn.getAttribute('aria-expanded') === 'true';
+                markupBtn.setAttribute('aria-expanded', !isExpanded);
+                markupMenu.classList.toggle('hidden');
+                
+                // Toggle chevron rotation
+                const chevron = markupBtn.querySelector('svg');
+                if (chevron) {
+                    chevron.classList.toggle('rotate-180');
+                }
+            });
+
+            // Close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!markupBtn.contains(e.target) && !markupMenu.contains(e.target)) {
+                    markupBtn.setAttribute('aria-expanded', 'false');
+                    markupMenu.classList.add('hidden');
+                    const chevron = markupBtn.querySelector('svg');
+                    if (chevron) {
+                        chevron.classList.remove('rotate-180');
+                    }
+                }
+            });
+        }
+
         highlightButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
+                e.stopPropagation();
+                
                 const highlight = btn.getAttribute('data-tiptap-highlight');
                 if (highlight === 'highlightGray') {
                     editor.chain().focus().toggleHighlightGray().run();
@@ -277,6 +365,16 @@
                     editor.chain().focus().toggleHighlightYellow().run();
                 } else if (highlight === 'highlightGreen') {
                     editor.chain().focus().toggleHighlightGreen().run();
+                }
+
+                // Close dropdown after selection
+                if (markupBtn && markupMenu) {
+                    markupBtn.setAttribute('aria-expanded', 'false');
+                    markupMenu.classList.add('hidden');
+                    const chevron = markupBtn.querySelector('svg');
+                    if (chevron) {
+                        chevron.classList.remove('rotate-180');
+                    }
                 }
             });
         });
