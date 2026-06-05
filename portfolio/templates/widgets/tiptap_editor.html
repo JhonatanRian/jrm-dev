@@ -191,6 +191,14 @@
                         <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-2.638 3.995-5.17h-4v-10.679h9.983zm14.017 0v7.391c0 5.704-3.748 9.57-9 10.609l-.996-2.151c2.433-.917 3.996-2.638 3.996-5.17h-4v-10.679h10z"/>
                     </svg>
                 </button>
+                <button type="button"
+                        data-tiptap-cmd="codeBlock"
+                        title="Bloco de Código"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"></path>
+                    </svg>
+                </button>
 
                 <!-- Highlights Dropdown -->
                 <div class="relative inline-block text-left tiptap-dropdown">
@@ -435,6 +443,116 @@
     import { TextStyle } from 'https://esm.sh/@tiptap/extension-text-style';
     import { FontFamily } from 'https://esm.sh/@tiptap/extension-font-family';
     import { TextAlign } from 'https://esm.sh/@tiptap/extension-text-align';
+    import { CodeBlockLowlight } from 'https://esm.sh/@tiptap/extension-code-block-lowlight';
+    import { common, createLowlight } from 'https://esm.sh/lowlight';
+
+    const lowlight = createLowlight(common);
+
+    // NeoCodeBlock: CodeBlockLowlight com NodeView customizado, mas com a ordem
+    // de elementos corrigida (code antes de select) para não quebrar o parseHTML
+    // do TipTap, garantindo que o lowlight e o autoDetect não resetem a linguagem.
+    const NeoCodeBlock = CodeBlockLowlight.extend({
+        addNodeView() {
+            return ({ node, getPos, editor }) => {
+                const pre = document.createElement('pre');
+                pre.className = 'neo-mac-codeblock';
+
+                const select = document.createElement('select');
+                select.contentEditable = 'false';
+                select.className = 'absolute top-1.5 right-2 z-10 text-[10px] uppercase tracking-wider font-bold bg-[#E2E8F0] border-2 border-black text-black px-1.5 py-0.5 rounded-sm cursor-pointer shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:bg-[#FEF08A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all outline-none';
+                
+                const languages = [
+                    { value: 'null',       label: 'Texto Puro' },
+                    // Web
+                    { value: 'html',       label: 'HTML' },
+                    { value: 'xml',        label: 'XML' },
+                    { value: 'css',        label: 'CSS' },
+                    { value: 'scss',       label: 'SCSS' },
+                    { value: 'javascript', label: 'JavaScript' },
+                    { value: 'typescript', label: 'TypeScript' },
+                    // Backend & Scripting
+                    { value: 'python',     label: 'Python' },
+                    { value: 'django',     label: 'Django / Jinja' },
+                    { value: 'bash',       label: 'Bash / Shell' },
+                    { value: 'shell',      label: 'Shell' },
+                    { value: 'powershell', label: 'PowerShell' },
+                    { value: 'php',        label: 'PHP' },
+                    { value: 'ruby',       label: 'Ruby' },
+                    { value: 'go',         label: 'Go' },
+                    { value: 'rust',       label: 'Rust' },
+                    { value: 'java',       label: 'Java' },
+                    { value: 'kotlin',     label: 'Kotlin' },
+                    { value: 'swift',      label: 'Swift' },
+                    { value: 'c',          label: 'C' },
+                    { value: 'cpp',        label: 'C++' },
+                    { value: 'csharp',     label: 'C#' },
+                    // Data & Config
+                    { value: 'sql',        label: 'SQL' },
+                    { value: 'json',       label: 'JSON' },
+                    { value: 'yaml',       label: 'YAML' },
+                    { value: 'toml',       label: 'TOML' },
+                    { value: 'ini',        label: 'INI / Config' },
+                    { value: 'markdown',   label: 'Markdown' },
+                    { value: 'diff',       label: 'Diff / Patch' },
+                    { value: 'dockerfile', label: 'Dockerfile' },
+                    { value: 'nginx',      label: 'Nginx' },
+                    { value: 'graphql',    label: 'GraphQL' },
+                ];
+
+                languages.forEach(lang => {
+                    const option = document.createElement('option');
+                    option.value = lang.value;
+                    option.innerText = lang.label;
+                    select.appendChild(option);
+                });
+
+                select.addEventListener('mousedown', event => event.stopPropagation());
+                select.addEventListener('change', event => {
+                    const val = event.target.value === 'null' ? null : event.target.value;
+                    if (typeof getPos === 'function') {
+                        editor.view.dispatch(editor.state.tr.setNodeMarkup(getPos(), undefined, { language: val }));
+                    }
+                });
+
+                const code = document.createElement('code');
+                code.setAttribute('spellcheck', 'false');
+                code.setAttribute('autocorrect', 'off');
+                code.setAttribute('autocomplete', 'off');
+                code.setAttribute('autocapitalize', 'off');
+                
+                // IMPORTANTE: 'code' DEVE ser o primeiro filho de 'pre' para que a regra 
+                // parseHTML do TipTap consiga ler a classe 'language-*'
+                pre.appendChild(code);
+                pre.appendChild(select);
+
+                return {
+                    dom: pre,
+                    contentDOM: code,
+                    ignoreMutation(mutation) {
+                        return !code.contains(mutation.target);
+                    },
+                    update(updatedNode) {
+                        if (updatedNode.type !== node.type) {
+                            return false;
+                        }
+                        
+                        if (updatedNode.attrs.language) {
+                            code.className = `language-${updatedNode.attrs.language}`;
+                        } else {
+                            code.className = '';
+                        }
+                        
+                        const lang = updatedNode.attrs.language || 'null';
+                        if (select.value !== lang) {
+                            select.value = lang;
+                        }
+                        
+                        return true;
+                    }
+                };
+            };
+        },
+    });
 
     // 1. Custom Line Height Extension
     const LineHeight = Extension.create({
@@ -896,7 +1014,13 @@
         const editor = new Editor({
             element: editorElement,
             extensions: [
-                StarterKit,
+                StarterKit.configure({
+                    codeBlock: false,
+                }),
+                NeoCodeBlock.configure({
+                    lowlight,
+                    defaultLanguage: null,
+                }),
                 Placeholder.configure({
                     placeholder: 'Escreva algo incrível...',
                 }),
@@ -948,6 +1072,8 @@
                     editor.chain().focus().toggleStrike().run();
                 } else if (cmd === 'blockquote') {
                     editor.chain().focus().toggleBlockquote().run();
+                } else if (cmd === 'codeBlock') {
+                    editor.chain().focus().toggleCodeBlock().run();
                 } else if (cmd === 'bulletList') {
                     editor.chain().focus().toggleBulletList().run();
                 } else if (cmd === 'orderedList') {

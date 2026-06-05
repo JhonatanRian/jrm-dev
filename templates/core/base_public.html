@@ -25,5 +25,65 @@
 {% endblock %}
 {% block js %}
 {% endblock %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const LANG_LABELS = {
+            'html': 'HTML', 'xml': 'XML', 'css': 'CSS', 'scss': 'SCSS',
+            'javascript': 'JS', 'typescript': 'TS', 'python': 'Python',
+            'django': 'Django', 'bash': 'Bash', 'shell': 'Shell',
+            'powershell': 'PowerShell', 'php': 'PHP', 'ruby': 'Ruby',
+            'go': 'Go', 'rust': 'Rust', 'java': 'Java', 'kotlin': 'Kotlin',
+            'swift': 'Swift', 'c': 'C', 'cpp': 'C++', 'csharp': 'C#',
+            'sql': 'SQL', 'json': 'JSON', 'yaml': 'YAML', 'toml': 'TOML',
+            'ini': 'INI', 'markdown': 'Markdown', 'diff': 'Diff',
+            'dockerfile': 'Docker', 'nginx': 'Nginx', 'graphql': 'GraphQL',
+        };
+
+        const codeBlocks = document.querySelectorAll("pre.neo-mac-codeblock");
+        codeBlocks.forEach(pre => {
+            const code = pre.querySelector("code");
+            if (!code) return;
+
+            // Extract language from class name
+            let langKey = null;
+            code.classList.forEach(cls => {
+                if (cls.startsWith('language-')) langKey = cls.replace('language-', '');
+            });
+            const labelText = langKey ? (LANG_LABELS[langKey] || langKey.toUpperCase()) : 'TEXTO';
+
+            // Build copy button
+            const btn = document.createElement("button");
+            btn.className = "absolute top-1.5 right-2 z-10 text-[10px] uppercase tracking-wider font-bold bg-[#E2E8F0] border-2 border-black text-black px-2 py-0.5 rounded-sm cursor-pointer shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:bg-[#FEF08A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all";
+            btn.innerText = labelText;
+            btn.title = "Copiar código";
+
+            btn.addEventListener("click", () => {
+                navigator.clipboard.writeText(code.innerText).then(() => {
+                    const originalText = btn.innerText;
+                    btn.innerText = "Copiado ✓";
+                    btn.classList.add("!bg-[#BBF7D0]");
+                    setTimeout(() => {
+                        btn.innerText = originalText;
+                        btn.classList.remove("!bg-[#BBF7D0]");
+                    }, 2000);
+                }).catch(() => {
+                    // Fallback for older browsers
+                    const ta = document.createElement('textarea');
+                    ta.value = code.innerText;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.focus(); ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                    btn.innerText = "Copiado ✓";
+                    setTimeout(() => { btn.innerText = labelText; }, 2000);
+                });
+            });
+
+            pre.appendChild(btn);
+        });
+    });
+</script>
 </body>
 </html>

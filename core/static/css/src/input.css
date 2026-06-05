@@ -433,6 +433,207 @@ body {
 }
 
 /* ==========================================================================
+   Bloco de Código (Estilo MacOS Neo-Brutalista)
+   ========================================================================== */
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock,
+#sobre pre.neo-mac-codeblock {
+    background: #0d1117;
+    border: 4px solid #000000;
+    position: relative;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+    padding-top: 2.25rem;
+    overflow: hidden;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock::before,
+#sobre pre.neo-mac-codeblock::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2.25rem;
+    background-color: #ffffff;
+    border-bottom: 4px solid #000000;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock::after,
+#sobre pre.neo-mac-codeblock::after {
+    content: '';
+    position: absolute;
+    top: 0.65rem;
+    left: 1rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: #ff5f56;
+    border: 2px solid #000000;
+    box-shadow: 
+        1.25rem 0 0 -2px #ffbd2e,
+        1.25rem 0 0 0 #000000,
+        2.5rem 0 0 -2px #27c93f,
+        2.5rem 0 0 0 #000000;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock code,
+#sobre pre.neo-mac-codeblock code {
+    display: block;
+    overflow-x: auto;
+    padding: 1rem 1.25rem;
+    color: #e6edf3;
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    tab-size: 4;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    white-space: pre;
+}
+
+/* ==========================================================================
+   Highlight.js Token Colors – GitHub Dark (inline, sem CDN externo)
+   ========================================================================== */
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-comment,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-quote,
+#sobre pre.neo-mac-codeblock .hljs-comment,
+#sobre pre.neo-mac-codeblock .hljs-quote {
+    color: #8b949e;
+    font-style: italic;
+    text-decoration: none !important;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-keyword,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-selector-tag,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-addition,
+#sobre pre.neo-mac-codeblock .hljs-keyword,
+#sobre pre.neo-mac-codeblock .hljs-selector-tag,
+#sobre pre.neo-mac-codeblock .hljs-addition {
+    color: #ff7b72;
+    text-decoration: none !important;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-built_in,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-type,
+#sobre pre.neo-mac-codeblock .hljs-built_in,
+#sobre pre.neo-mac-codeblock .hljs-type {
+    color: #ffa657;
+    text-decoration: none !important;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-number,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-literal,
+#sobre pre.neo-mac-codeblock .hljs-number,
+#sobre pre.neo-mac-codeblock .hljs-literal {
+    color: #79c0ff;
+    text-decoration: none !important;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-string,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-doctag,
+#sobre pre.neo-mac-codeblock .hljs-string,
+#sobre pre.neo-mac-codeblock .hljs-doctag {
+    color: #a5d6ff;
+    text-decoration: none !important;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-title,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-section,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-selector-id,
+#sobre pre.neo-mac-codeblock .hljs-title,
+#sobre pre.neo-mac-codeblock .hljs-section,
+#sobre pre.neo-mac-codeblock .hljs-selector-id {
+    color: #d2a8ff;
+    text-decoration: none !important;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-variable,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-template-variable,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-class .hljs-title,
+#sobre pre.neo-mac-codeblock .hljs-variable,
+#sobre pre.neo-mac-codeblock .hljs-template-variable,
+#sobre pre.neo-mac-codeblock .hljs-class .hljs-title {
+    color: #ffa657;
+    text-decoration: none !important;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-attr,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-attribute,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-tag .hljs-attr,
+#sobre pre.neo-mac-codeblock .hljs-attr,
+#sobre pre.neo-mac-codeblock .hljs-attribute,
+#sobre pre.neo-mac-codeblock .hljs-tag .hljs-attr {
+    color: #79c0ff;
+    text-decoration: none !important;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-tag,
+#sobre pre.neo-mac-codeblock .hljs-tag {
+    color: #7ee787;
+    text-decoration: none !important;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-name,
+#sobre pre.neo-mac-codeblock .hljs-name {
+    color: #7ee787;
+    text-decoration: none !important;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-regexp,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-link,
+#sobre pre.neo-mac-codeblock .hljs-regexp,
+#sobre pre.neo-mac-codeblock .hljs-link {
+    color: #a5d6ff;
+    text-decoration: none !important;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-bullet,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-symbol,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-code,
+#sobre pre.neo-mac-codeblock .hljs-bullet,
+#sobre pre.neo-mac-codeblock .hljs-symbol,
+#sobre pre.neo-mac-codeblock .hljs-code {
+    color: #7ee787;
+    text-decoration: none !important;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-deletion,
+#sobre pre.neo-mac-codeblock .hljs-deletion {
+    color: #ffa198;
+    text-decoration: none !important;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-meta,
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-meta .hljs-keyword,
+#sobre pre.neo-mac-codeblock .hljs-meta,
+#sobre pre.neo-mac-codeblock .hljs-meta .hljs-keyword {
+    color: #ffa657;
+    text-decoration: none !important;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-emphasis,
+#sobre pre.neo-mac-codeblock .hljs-emphasis {
+    font-style: italic;
+    text-decoration: none !important;
+}
+
+.tiptap-editor-mount .ProseMirror pre.neo-mac-codeblock .hljs-strong,
+#sobre pre.neo-mac-codeblock .hljs-strong {
+    font-weight: bold;
+    text-decoration: none !important;
+}
+
+/* Garante que nenhum span de highlight carregue underline/decoration */
+.neo-mac-codeblock span,
+.neo-mac-codeblock code,
+.neo-mac-codeblock .hljs-subst {
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+/* ==========================================================================
    Emblemas de Stacks (Stack Badges)
    ========================================================================== */
 
