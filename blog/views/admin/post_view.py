@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -16,50 +17,62 @@ from core.views.mixins import AdminPermissionMixin
 
 
 class PostListView(AdminPermissionMixin, FilterView):
+    """View to list blog posts in the admin panel with filtering and pagination."""
+
     model = Post
-    template_name = "blog/admin/post_list.html"
+    queryset = Post.objects.select_related("author").prefetch_related("tags")
+    template_name = "blog/admin/post/post_list.html"
     context_object_name = "posts"
     filterset_class = PostFilter
     paginate_by = 10
 
 
 class PostDetailView(AdminPermissionMixin, DetailView):
+    """View to display details of a specific blog post in the admin panel."""
+
     model = Post
-    template_name = "blog/admin/post_detail.html"
+    template_name = "blog/admin/post/post_detail.html"
     context_object_name = "post"
 
 
 class PostCreateView(AdminPermissionMixin, CreateView):
+    """View to create a new blog post."""
+
     model = Post
     form_class = PostForm
-    template_name = "blog/admin/post_form.html"
+    template_name = "blog/admin/post/post_form.html"
     success_url = reverse_lazy("blog:post_list")
 
-    def form_valid(self, form):
+    def form_valid(self, form: PostForm) -> HttpResponse:
         form.instance.author = self.request.user
         messages.success(self.request, "Post criado como rascunho com sucesso!")
         return super().form_valid(form)
 
 
 class PostUpdateView(AdminPermissionMixin, UpdateView):
+    """View to update an existing blog post."""
+
     model = Post
     form_class = PostForm
-    template_name = "blog/admin/post_form.html"
+    template_name = "blog/admin/post/post_form.html"
     success_url = reverse_lazy("blog:post_list")
 
-    def form_valid(self, form):
+    def form_valid(self, form: PostForm) -> HttpResponse:
         messages.success(self.request, "Post atualizado com sucesso!")
         return super().form_valid(form)
 
 
 class PostTogglePublishView(AdminPermissionMixin, View):
-    def post(self, request, pk, *args, **kwargs):
+    """View to toggle the published state of a blog post."""
+
+    def post(self, request: HttpRequest, pk: int, *args, **kwargs) -> HttpResponse:
         post_obj = get_object_or_404(Post, pk=pk)
-        if post_obj.published:
-            post_obj.published = False
-            messages.success(request, f"Post '{post_obj.title}' despublicado com sucesso!")
-        else:
-            post_obj.published = True
-            messages.success(request, f"Post '{post_obj.title}' publicado com sucesso!")
+        post_obj.published = not post_obj.published
         post_obj.save()
+
+        status_msg = "publicado" if post_obj.published else "despublicado"
+        messages.success(
+            request, f"Post '{post_obj.title}' {status_msg} com sucesso!"
+        )
         return redirect("blog:post_list")
+

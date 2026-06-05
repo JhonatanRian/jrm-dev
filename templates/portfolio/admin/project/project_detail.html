@@ -1,0 +1,105 @@
+{% extends 'core/base_painel.html' %}
+
+{% block title %}
+    {{ project.title }} | Admin
+{% endblock title %}
+
+{% block content %}
+    <div class="mb-8 flex flex-wrap justify-between items-center gap-4">
+        <div>
+            <a href="{% url 'portfolio:project_list' %}"
+               class="text-black font-bold flex items-center gap-2 hover:underline mb-4">
+                <span class="material-icons">arrow_back</span> Voltar para Projetos
+            </a>
+            <h1 class="text-3xl font-bold bg-[#E2E8F0] inline-block px-4 py-2 border-4 border-black neo-shadow transform -rotate-1">
+                Visualizar Projeto
+            </h1>
+        </div>
+
+        <div class="flex gap-3">
+            <a href="{% url 'portfolio:project_update' project.pk %}"
+               class="bg-yellow-300 text-black font-bold px-6 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm flex items-center gap-2">
+                <span class="material-icons text-[20px]">edit</span> Editar Projeto
+            </a>
+            
+            <a href="{% url 'portfolio:project_delete' project.pk %}"
+               class="bg-neo-red text-black font-bold px-6 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm flex items-center gap-2">
+                <span class="material-icons text-[20px]">delete</span> Excluir
+            </a>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Content Column -->
+        <div class="lg:col-span-2 space-y-6">
+            <div class="bg-white border-4 border-black rounded-xl p-8 neo-shadow">
+                <!-- Header with Icon and Title -->
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-neo-yellow border-4 border-black rounded-xl p-3 neo-shadow-sm flex items-center justify-center">
+                        <span class="material-icons text-3xl text-black">{{ project.icon|default:"code" }}</span>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-black leading-tight text-black">{{ project.title }}</h2>
+                        <span class="text-xs text-gray-500 font-mono block mt-1">Slug: {{ project.slug }}</span>
+                    </div>
+                </div>
+                
+                <!-- Description -->
+                <div class="mb-6 pt-4 border-t-2 border-black">
+                    <span class="text-xs text-gray-500 font-bold uppercase block mb-2">Descrição</span>
+                    <p class="text-black font-semibold text-lg leading-relaxed">{{ project.description }}</p>
+                </div>
+
+                <!-- Stacks List -->
+                <div class="pt-4 border-t-2 border-black">
+                    <span class="text-xs text-gray-500 font-bold uppercase block mb-3">Stacks Utilizadas</span>
+                    <div class="flex flex-wrap gap-2">
+                        {% for stack in project.stacks.all %}
+                            <span class="inline-flex font-bold text-sm text-black bg-gray-200 border-2 border-black rounded-md px-3 py-1.5 neo-shadow-sm">{{ stack.name }}</span>
+                        {% empty %}
+                            <span class="text-gray-400 text-sm font-normal">Nenhuma stack vinculada a este projeto.</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Metadata Column -->
+        <div class="space-y-6">
+            <div class="bg-white border-4 border-black rounded-xl p-6 neo-shadow">
+                <h3 class="text-xl font-bold border-b-4 border-black pb-2 mb-4">Informações</h3>
+                
+                <div class="space-y-4">
+                    <div>
+                        <span class="text-xs text-gray-500 font-bold uppercase block">Repositório</span>
+                        <div class="mt-1">
+                            {% if project.repository %}
+                                <a href="{{ project.repository }}"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="text-blue-600 hover:underline inline-flex items-center gap-1 font-semibold text-sm">
+                                    {{ project.repository }}
+                                    <span class="material-icons text-sm">open_in_new</span>
+                                </a>
+                            {% else %}
+                                <span class="text-gray-400 text-sm font-normal">Nenhum repositório cadastrado.</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-200 pt-4 space-y-3">
+                        <div>
+                            <span class="text-xs text-gray-500 font-bold uppercase block">Data de Criação</span>
+                            <div class="font-semibold text-gray-800">{{ project.created_at|date:"d/m/Y H:i" }}</div>
+                        </div>
+
+                        <div>
+                            <span class="text-xs text-gray-500 font-bold uppercase block">Última Atualização</span>
+                            <div class="font-semibold text-gray-800">{{ project.updated_at|date:"d/m/Y H:i" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

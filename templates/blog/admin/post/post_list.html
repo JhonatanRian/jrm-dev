@@ -32,7 +32,6 @@
                 <thead class="bg-yellow-300 border-b-2 border-black font-bold">
                     <tr>
                         <th class="p-4">Título</th>
-                        <th class="p-4">Tags</th>
                         <th class="p-4 w-40">Status</th>
                         <th class="p-4 w-44">Datas</th>
                         <th class="p-4 w-32 text-center">Ações</th>
@@ -44,15 +43,6 @@
                             <td class="p-4">
                                 <div class="font-bold text-base text-black">{{ post.title }}</div>
                                 <div class="text-xs text-gray-500 font-mono mt-0.5">{{ post.slug }}</div>
-                            </td>
-                            <td class="p-4">
-                                <div class="flex flex-wrap gap-1">
-                                    {% for tag in post.tags.all %}
-                                        <span class="inline-flex font-bold text-xs text-black bg-neo-pink border-2 border-black rounded-md px-2.5 py-1">{{ tag.name }}</span>
-                                    {% empty %}
-                                        <span class="text-gray-400 text-xs font-normal">Sem tags</span>
-                                    {% endfor %}
-                                </div>
                             </td>
                             <td class="p-4">
                                 {% if post.published %}
@@ -93,7 +83,7 @@
                         </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="5" class="p-8 text-center text-xl font-bold text-gray-500">Nenhum artigo encontrado.</td>
+                            <td colspan="4" class="p-8 text-center text-xl font-bold text-gray-500">Nenhum artigo encontrado.</td>
                         </tr>
                     {% endfor %}
                 </tbody>

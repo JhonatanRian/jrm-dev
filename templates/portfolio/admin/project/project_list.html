@@ -11,16 +11,17 @@
     <div class="bg-white border-4 border-black rounded-xl p-6 neo-shadow">
         <!-- Search Filter Form -->
         {% load crispy_forms_tags %}
-        <form method="get" class="w-full mb-8 flex flex-col sm:flex-row gap-3 max-w-[32rem] items-end">
-            <div class="flex-1 w-full flex-search-wrapper">
-                {{ filter.form.title|as_crispy_field }}
-            </div>
+        <form method="get"
+              class="w-full mb-8 flex flex-col sm:flex-row gap-3 max-w-[32rem] items-end">
+            <div class="flex-1 w-full flex-search-wrapper">{{ filter.form.title|as_crispy_field }}</div>
             <div class="flex gap-2 mb-3">
-                <button type="submit" class="bg-neo-yellow text-black font-bold px-6 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm hover:bg-yellow-400 transition-all whitespace-nowrap h-[54px] flex items-center justify-center">
+                <button type="submit"
+                        class="bg-neo-yellow text-black font-bold px-6 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm hover:bg-yellow-400 transition-all whitespace-nowrap h-[54px] flex items-center justify-center">
                     Buscar
                 </button>
                 {% if request.GET.title %}
-                    <a href="{% url 'portfolio:project_list' %}" class="bg-gray-200 text-black font-bold px-4 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm flex items-center justify-center hover:bg-gray-300 transition-all h-[54px]">
+                    <a href="{% url 'portfolio:project_list' %}"
+                       class="bg-gray-200 text-black font-bold px-4 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm flex items-center justify-center hover:bg-gray-300 transition-all h-[54px]">
                         Limpar
                     </a>
                 {% endif %}
@@ -59,6 +60,7 @@
                                 {% if project.repository %}
                                     <a href="{{ project.repository }}"
                                        target="_blank"
+                                       rel="noopener noreferrer"
                                        class="text-blue-600 hover:underline inline-flex items-center gap-1 font-semibold text-sm">
                                         Link
                                         <svg class="w-3.5 h-3.5"

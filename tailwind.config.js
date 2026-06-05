@@ -62,7 +62,8 @@ module.exports = {
         "neo-yellow": "#FFD700",
         "neo-yellow-pastel": "#FEF08A",
         "neo-purple": "#E9D5FF",
-        "neo-orange": "#FED7AA"
+        "neo-orange": "#FED7AA",
+        "neo-red": "#FCA5A5"
       },
       borderRadius: {
         "DEFAULT": "0.25rem",
