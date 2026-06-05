@@ -379,6 +379,13 @@ body {
     margin-bottom: 1rem;
 }
 
+#sobre h1 {
+    font-size: 1.875rem;
+    font-weight: 900;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+}
+
 #sobre h2 {
     font-size: 1.5rem;
     font-weight: 900;
@@ -393,8 +400,31 @@ body {
     margin-bottom: 0.5rem;
 }
 
+#sobre h4 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-top: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+
+#sobre h5 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
 #sobre p {
     margin-bottom: 1rem;
+}
+
+#sobre blockquote {
+    border-left: 4px solid #000000;
+    padding-left: 1rem;
+    font-style: italic;
+    margin: 1.5rem 0;
+    background-color: #F8FAFC;
+    border-radius: 2px;
 }
 
 /* ==========================================================================
@@ -425,3 +455,18 @@ body {
 .flex-search-wrapper > div > div {
     width: 100% !important;
 }
+
+/* Font Families Customizadas */
+.font-outfit {
+    font-family: 'Outfit', sans-serif;
+}
+.font-inter {
+    font-family: 'Inter', sans-serif;
+}
+.font-space-grotesk {
+    font-family: 'Space Grotesk', sans-serif;
+}
+.font-jetbrains-mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+

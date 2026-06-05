@@ -1,106 +1,367 @@
 <div class="tiptap-editor-container">
     {% include "django/forms/widgets/textarea.html" %}
 
-    <div class="tiptap-editor-mount w-full border-4 border-black bg-[#E2E8F0] shadow-[4px_4px_0_0_rgba(0,0,0,1)] rounded-sm mb-4 mt-2">
-        <!-- Toolbar -->
-        <div class="tiptap-toolbar flex flex-wrap gap-2 p-2 bg-[#F1F5F9] border-b-4 border-black">
-            <button type="button"
-                    data-tiptap-cmd="bold"
-                    class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
-                B
-            </button>
-            <button type="button"
-                    data-tiptap-cmd="italic"
-                    class="px-3 py-1 bg-white border-2 border-black italic shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
-                I
-            </button>
-            <button type="button"
-                    data-tiptap-cmd="strike"
-                    class="px-3 py-1 bg-white border-2 border-black line-through shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
-                S
-            </button>
-            <button type="button"
-                    data-tiptap-cmd="heading"
-                    data-level="2"
-                    class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
-                H2
-            </button>
-            <button type="button"
-                    data-tiptap-cmd="heading"
-                    data-level="3"
-                    class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
-                H3
-            </button>
-            <button type="button"
-                    data-tiptap-cmd="bulletList"
-                    class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
-                • Lista
-            </button>
-            <button type="button"
-                    data-tiptap-cmd="orderedList"
-                    class="px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
-                1. Lista
-            </button>
+    <!-- Google Fonts for Editor Preview -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;600;700;900&family=Outfit:wght@400;500;800;900&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-            <!-- Highlights Neo-Brutalist Dropdown -->
-            <span class="border-l-2 border-black mx-1"></span>
-            <div class="relative inline-block text-left tiptap-dropdown">
+    <!-- Modal Dialog for Link Insertion/Editing -->
+    <dialog id="tiptap-link-modal-{{ widget.attrs.id }}"
+            class="border-4 border-black p-6 w-96 max-w-[90vw] bg-white shadow-[8px_8px_0_0_rgba(0,0,0,1)] rounded-sm focus:outline-none backdrop:bg-black/40 backdrop:backdrop-blur-sm z-50">
+        <div class="flex flex-col gap-4">
+            <h3 class="font-black text-lg border-b-2 border-black pb-2 text-black">Inserir / Editar Link</h3>
+            <div class="flex flex-col gap-1">
+                <label for="tiptap-link-text-{{ widget.attrs.id }}" class="font-bold text-xs text-black uppercase tracking-wider">Texto a Exibir</label>
+                <input type="text"
+                       id="tiptap-link-text-{{ widget.attrs.id }}"
+                       class="border-2 border-black p-2 font-semibold text-sm focus:outline-none focus:bg-[#FEF08A] bg-white text-black rounded-sm"
+                       placeholder="Texto do link">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label for="tiptap-link-url-{{ widget.attrs.id }}" class="font-bold text-xs text-black uppercase tracking-wider">URL do Link</label>
+                <input type="text"
+                       id="tiptap-link-url-{{ widget.attrs.id }}"
+                       class="border-2 border-black p-2 font-semibold text-sm focus:outline-none focus:bg-[#FEF08A] bg-white text-black rounded-sm"
+                       placeholder="https://exemplo.com">
+            </div>
+            <div class="flex gap-2 justify-end mt-2">
                 <button type="button"
-                        id="tiptap-markup-btn-{{ widget.attrs.id }}"
-                        class="tiptap-markup-btn px-3 py-1 bg-white border-2 border-black font-bold shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all flex items-center gap-2"
-                        aria-haspopup="true"
-                        aria-expanded="false">
-                    <span class="tiptap-markup-icon inline-block w-4 h-4 border-2 border-black bg-white rounded-sm"></span>
-                    <span>Marcador</span>
-                    <svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        id="tiptap-link-cancel-{{ widget.attrs.id }}"
+                        class="px-4 py-2 border-2 border-black font-bold text-xs bg-white text-black shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[1px] active:translate-x-[1px] active:shadow-none transition-all rounded-sm">
+                    Cancelar
+                </button>
+                <button type="button"
+                        id="tiptap-link-save-{{ widget.attrs.id }}"
+                        class="px-4 py-2 border-2 border-black font-bold text-xs bg-[#BBF7D0] text-black shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-y-[1px] active:translate-x-[1px] active:shadow-none transition-all rounded-sm">
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </dialog>
+
+    <div class="tiptap-editor-mount w-full border-4 border-black bg-[#E2E8F0] shadow-[4px_4px_0_0_rgba(0,0,0,1)] rounded-sm mb-4 mt-2">
+        <!-- Compact Toolbar -->
+        <div class="tiptap-toolbar flex flex-wrap items-center gap-1.5 p-1.5 bg-[#F1F5F9] border-b-4 border-black select-none">
+            
+            <!-- Group 1: History (Undo/Redo) -->
+            <div class="flex items-center gap-1">
+                <button type="button"
+                        data-tiptap-cmd="undo"
+                        title="Desfazer (Ctrl+Z)"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"></path>
                     </svg>
                 </button>
-                <div id="tiptap-markup-menu-{{ widget.attrs.id }}"
-                     class="tiptap-markup-menu hidden absolute left-0 mt-2 w-44 bg-white border-2 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] z-50 flex flex-col p-1 gap-1">
+                <button type="button"
+                        data-tiptap-cmd="redo"
+                        title="Refazer (Ctrl+Y)"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <span class="w-[2px] h-6 bg-black/20 self-center mx-0.5"></span>
+
+            <!-- Group 2: Format & Font Dropdowns -->
+            <div class="flex items-center gap-1.5">
+                <!-- Block Dropdown -->
+                <div class="relative inline-block text-left tiptap-dropdown">
                     <button type="button"
-                            data-tiptap-highlight="highlightGray"
-                            class="w-full text-left px-3 py-1.5 hover:bg-[#F1F5F9] transition-colors font-bold flex items-center justify-between text-sm">
-                        <div class="flex items-center gap-2">
-                            <span class="w-4 h-4 bg-[#E2E8F0] border-2 border-black rounded-sm"></span>
-                            <span>Cinza</span>
-                        </div>
-                        <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                            id="tiptap-block-btn-{{ widget.attrs.id }}"
+                            class="tiptap-block-btn min-w-[110px] px-2.5 py-1.5 bg-white border-2 border-black font-bold text-xs text-black shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-between gap-1"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                        <span class="tiptap-block-label">Parágrafo</span>
+                        <svg class="tiptap-chevron w-3 h-3 text-black transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        </svg>
                     </button>
+                    <div id="tiptap-block-menu-{{ widget.attrs.id }}"
+                         class="tiptap-dropdown-menu hidden absolute left-0 mt-1 w-36 bg-white border-2 border-black shadow-[3px_3px_0_0_rgba(0,0,0,1)] z-50 flex flex-col p-1 gap-1">
+                        <button type="button" data-tiptap-block="paragraph" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center">
+                            <span>Parágrafo</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-block="h1" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center">
+                            <span>Título 1</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-block="h2" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center">
+                            <span>Título 2</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-block="h3" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center">
+                            <span>Título 3</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-block="h4" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center">
+                            <span>Título 4</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-block="h5" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center">
+                            <span>Título 5</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Font Dropdown -->
+                <div class="relative inline-block text-left tiptap-dropdown">
                     <button type="button"
-                            data-tiptap-highlight="highlightYellow"
-                            class="w-full text-left px-3 py-1.5 hover:bg-[#F1F5F9] transition-colors font-bold flex items-center justify-between text-sm">
-                        <div class="flex items-center gap-2">
-                            <span class="w-4 h-4 bg-[#FEF08A] border-2 border-black rounded-sm"></span>
-                            <span>Amarelo</span>
-                        </div>
-                        <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                            id="tiptap-font-btn-{{ widget.attrs.id }}"
+                            class="tiptap-font-btn min-w-[120px] px-2.5 py-1.5 bg-white border-2 border-black font-bold text-xs text-black shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-between gap-1"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                        <span class="tiptap-font-label">Fonte Padrão</span>
+                        <svg class="tiptap-chevron w-3 h-3 text-black transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        </svg>
                     </button>
-                    <button type="button"
-                            data-tiptap-highlight="highlightGreen"
-                            class="w-full text-left px-3 py-1.5 hover:bg-[#F1F5F9] transition-colors font-bold flex items-center justify-between text-sm">
-                        <div class="flex items-center gap-2">
-                            <span class="w-4 h-4 bg-[#BBF7D0] border-2 border-black rounded-sm"></span>
-                            <span>Verde</span>
-                        </div>
-                        <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
-                    </button>
+                    <div id="tiptap-font-menu-{{ widget.attrs.id }}"
+                         class="tiptap-dropdown-menu hidden absolute left-0 mt-1 w-44 bg-white border-2 border-black shadow-[3px_3px_0_0_rgba(0,0,0,1)] z-50 flex flex-col p-1 gap-1">
+                        <button type="button" data-tiptap-font="default" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center font-sans">
+                            <span>Padrão</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-font="Outfit" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center" style="font-family: 'Outfit', sans-serif;">
+                            <span>Outfit (Neo)</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-font="Inter" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center" style="font-family: 'Inter', sans-serif;">
+                            <span>Inter (Explicar)</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-font="Space Grotesk" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center" style="font-family: 'Space Grotesk', sans-serif;">
+                            <span>Space Grotesk</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-font="JetBrains Mono" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center" style="font-family: 'JetBrains Mono', monospace;">
+                            <span>JetBrains (Código)</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            <span class="w-[2px] h-6 bg-black/20 self-center mx-0.5"></span>
+
+            <!-- Group 3: Formatting Marks (Bold, Italic, Strike, Link, Highlight, Blockquote) -->
+            <div class="flex items-center gap-1">
+                <button type="button"
+                        data-tiptap-cmd="bold"
+                        title="Negrito (Ctrl+B)"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3.75h6.75a3.75 3.75 0 010 7.5H6.75m0-7.5v16.5m0-16.5h7.5a3.75 3.75 0 010 7.5H6.75m0 0h8.25a3.75 3.75 0 010 7.5H6.75"></path>
+                    </svg>
+                </button>
+                <button type="button"
+                        data-tiptap-cmd="italic"
+                        title="Itálico (Ctrl+I)"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 4.5h-10m6 15h-10m7.5-15l-3 15"></path>
+                    </svg>
+                </button>
+                <button type="button"
+                        data-tiptap-cmd="strike"
+                        title="Tachado"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 9c0-1.5 1.5-3 3-3s3 1.5 3 3-1.5 3-3 3M9 15c0-1.5 1.5-3 3-3s3 1.5 3 3-1.5 3-3 3m-9-3h18"></path>
+                    </svg>
+                </button>
+                <button type="button"
+                        data-tiptap-link-trigger
+                        title="Inserir/Editar Link (Ctrl+K)"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"></path>
+                    </svg>
+                </button>
+                <button type="button"
+                        data-tiptap-cmd="blockquote"
+                        title="Citação"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-2.638 3.995-5.17h-4v-10.679h9.983zm14.017 0v7.391c0 5.704-3.748 9.57-9 10.609l-.996-2.151c2.433-.917 3.996-2.638 3.996-5.17h-4v-10.679h10z"/>
+                    </svg>
+                </button>
+
+                <!-- Highlights Dropdown -->
+                <div class="relative inline-block text-left tiptap-dropdown">
+                    <button type="button"
+                            id="tiptap-markup-btn-{{ widget.attrs.id }}"
+                            class="tiptap-markup-btn px-2.5 py-1.5 bg-white border-2 border-black font-bold text-xs text-black shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center gap-1"
+                            title="Marcador"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                        <span class="tiptap-markup-icon inline-block w-3.5 h-3.5 border-2 border-black bg-white rounded-sm"></span>
+                        <svg class="tiptap-chevron w-3 h-3 text-black transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="tiptap-markup-menu-{{ widget.attrs.id }}"
+                         class="tiptap-dropdown-menu hidden absolute left-0 mt-1 w-36 bg-white border-2 border-black shadow-[3px_3px_0_0_rgba(0,0,0,1)] z-50 flex flex-col p-1 gap-1">
+                        <button type="button" data-tiptap-highlight="highlightGray" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold flex items-center justify-between text-xs text-black">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 bg-[#E2E8F0] border border-black rounded-sm"></span>
+                                <span>Cinza</span>
+                            </div>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-highlight="highlightYellow" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold flex items-center justify-between text-xs text-black">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 bg-[#FEF08A] border border-black rounded-sm"></span>
+                                <span>Amarelo</span>
+                            </div>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-highlight="highlightGreen" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold flex items-center justify-between text-xs text-black">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 bg-[#BBF7D0] border border-black rounded-sm"></span>
+                                <span>Verde</span>
+                            </div>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <span class="w-[2px] h-6 bg-black/20 self-center mx-0.5"></span>
+
+            <!-- Group 4: Align & Line Height -->
+            <div class="flex items-center gap-1">
+                <button type="button"
+                        data-tiptap-align="left"
+                        title="Alinhar à Esquerda"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h12m-12 5.25h16.5"></path>
+                    </svg>
+                </button>
+                <button type="button"
+                        data-tiptap-align="center"
+                        title="Centralizar"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M5.25 12h13.5m-13.5 5.25h13.5"></path>
+                    </svg>
+                </button>
+                <button type="button"
+                        data-tiptap-align="right"
+                        title="Alinhar à Direita"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M7.5 12h12.75m-12.75 5.25h12.75"></path>
+                    </svg>
+                </button>
+                <button type="button"
+                        data-tiptap-align="justify"
+                        title="Justificar"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+                    </svg>
+                </button>
+
+                <!-- Line Height Dropdown -->
+                <div class="relative inline-block text-left tiptap-dropdown">
+                    <button type="button"
+                            id="tiptap-lineheight-btn-{{ widget.attrs.id }}"
+                            class="tiptap-lineheight-btn px-2.5 py-1.5 bg-white border-2 border-black font-bold text-xs text-black shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center gap-1"
+                            title="Altura da Linha"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                        <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 18h18M3 6h18M8 12h8m-8 0l3-3m-3 3l3 3m5-3l-3-3m3 3l-3 3"></path>
+                        </svg>
+                        <svg class="tiptap-chevron w-3 h-3 text-black transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="tiptap-lineheight-menu-{{ widget.attrs.id }}"
+                         class="tiptap-dropdown-menu hidden absolute left-0 mt-1 w-32 bg-white border-2 border-black shadow-[3px_3px_0_0_rgba(0,0,0,1)] z-50 flex flex-col p-1 gap-1">
+                        <button type="button" data-tiptap-lineheight="normal" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center">
+                            <span>Normal (Padrão)</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-lineheight="1.25" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center">
+                            <span>1.25 (Compacto)</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-lineheight="1.5" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center">
+                            <span>1.50 (Médio)</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-lineheight="1.75" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center">
+                            <span>1.75 (Largo)</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-lineheight="2.0" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold text-xs text-black flex justify-between items-center">
+                            <span>2.00 (Duplo)</span>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <span class="w-[2px] h-6 bg-black/20 self-center mx-0.5"></span>
+
+            <!-- Group 5: Lists & Indentation -->
+            <div class="flex items-center gap-1">
+                <button type="button"
+                        data-tiptap-cmd="bulletList"
+                        title="Lista de Marcadores"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm0 5.25h.007v.008H3.75V12zm0 5.25h.007v.008H3.75v-.008z"></path>
+                    </svg>
+                </button>
+                <button type="button"
+                        data-tiptap-cmd="orderedList"
+                        title="Lista Numerada"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6H5.25v3h-1.5M3.75 11.25h1.5v3h-1.5M3.75 16.5h1.5v3h-1.5"></path>
+                    </svg>
+                </button>
+                <button type="button"
+                        data-tiptap-indent="outdent"
+                        title="Diminuir Recuo"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M7.5 12h12.75M10.5 9l-3 3 3 3M3.75 17.25h16.5"></path>
+                    </svg>
+                </button>
+                <button type="button"
+                        data-tiptap-indent="indent"
+                        title="Aumentar Recuo"
+                        class="tiptap-btn p-1.5 bg-white border-2 border-black rounded-sm shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center justify-center">
+                    <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h10.5m-3-3l3 3-3 3M3.75 17.25h16.5"></path>
+                    </svg>
+                </button>
+            </div>
+
         </div>
 
         <!-- Editor Content Area -->
-        <div class="tiptap-content-area bg-white min-h-[200px] text-base p-4 focus:outline-none"></div>
+        <div class="tiptap-content-area bg-white min-h-[220px] text-base p-4 focus:outline-none"></div>
     </div>
 
     <style>
-    /* TipTap styles */
+    /* TipTap styles in Editor Mount */
     .tiptap-editor-mount .ProseMirror {
-        min-height: 200px;
+        min-height: 220px;
         outline: none;
     }
     .tiptap-editor-mount .ProseMirror p {
-        margin-bottom: 1em;
+        margin-bottom: 0.75rem;
     }
     .tiptap-editor-mount .ProseMirror p.is-editor-empty:first-child::before {
         color: #9CA3AF;
@@ -108,38 +369,192 @@
         float: left;
         height: 0;
         pointer-events: none;
+        font-family: inherit;
+    }
+    .tiptap-editor-mount .ProseMirror h1 {
+        font-size: 1.875rem;
+        font-weight: 900;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
     }
     .tiptap-editor-mount .ProseMirror h2 {
-        font-size: 1.5em;
-        font-weight: bold;
-        margin-top: 1em;
-        margin-bottom: 0.5em;
+        font-size: 1.5rem;
+        font-weight: 900;
+        margin-top: 1.25rem;
+        margin-bottom: 0.5rem;
     }
     .tiptap-editor-mount .ProseMirror h3 {
-        font-size: 1.17em;
-        font-weight: bold;
-        margin-top: 1em;
-        margin-bottom: 0.5em;
+        font-size: 1.25rem;
+        font-weight: 800;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    .tiptap-editor-mount .ProseMirror h4 {
+        font-size: 1.125rem;
+        font-weight: 700;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    .tiptap-editor-mount .ProseMirror h5 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
     }
     .tiptap-editor-mount .ProseMirror ul {
         list-style-type: disc;
-        padding-left: 1.5em;
-        margin-bottom: 1em;
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
     }
     .tiptap-editor-mount .ProseMirror ol {
         list-style-type: decimal;
-        padding-left: 1.5em;
-        margin-bottom: 1em;
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
     }
-    /* Using highlight-neo-* global classes from app.css */
+    .tiptap-editor-mount .ProseMirror blockquote {
+        border-left: 4px solid #000000;
+        padding-left: 1rem;
+        font-style: italic;
+        margin: 1.5rem 0;
+        background-color: #F8FAFC;
+        border-radius: 2px;
+    }
+    .tiptap-editor-mount .ProseMirror a {
+        color: #2563EB;
+        text-decoration: underline;
+        font-weight: 600;
+        cursor: pointer;
+    }
     </style>
 
     <script type="module">
-    import { Editor, Mark, mergeAttributes } from 'https://esm.sh/@tiptap/core';
-    import StarterKit from 'https://esm.sh/@tiptap/starter-kit';
-    import Placeholder from 'https://esm.sh/@tiptap/extension-placeholder';
+    import { Editor, Mark, mergeAttributes, Extension } from 'https://esm.sh/@tiptap/core';
+    import { StarterKit } from 'https://esm.sh/@tiptap/starter-kit';
+    import { Placeholder } from 'https://esm.sh/@tiptap/extension-placeholder';
+    import { Link } from 'https://esm.sh/@tiptap/extension-link';
+    import { TextStyle } from 'https://esm.sh/@tiptap/extension-text-style';
+    import { FontFamily } from 'https://esm.sh/@tiptap/extension-font-family';
+    import { TextAlign } from 'https://esm.sh/@tiptap/extension-text-align';
 
-    // Custom Highlights Marks
+    // 1. Custom Line Height Extension
+    const LineHeight = Extension.create({
+        name: 'lineHeight',
+        addOptions() {
+            return {
+                types: ['paragraph', 'heading'],
+                defaultLineHeight: 'normal',
+            }
+        },
+        addGlobalAttributes() {
+            return [
+                {
+                    types: this.options.types,
+                    attributes: {
+                        lineHeight: {
+                            default: this.options.defaultLineHeight,
+                            parseHTML: element => element.style.lineHeight || this.options.defaultLineHeight,
+                            renderHTML: attributes => {
+                                if (!attributes.lineHeight || attributes.lineHeight === this.options.defaultLineHeight) {
+                                    return {};
+                                }
+                                return { style: `line-height: ${attributes.lineHeight}` };
+                            },
+                        },
+                    },
+                },
+            ]
+        },
+        addCommands() {
+            return {
+                setLineHeight: (lineHeight) => ({ commands }) => {
+                    return this.options.types.every((type) => commands.updateAttributes(type, { lineHeight }))
+                },
+                unsetLineHeight: () => ({ commands }) => {
+                    return this.options.types.every((type) => commands.updateAttributes(type, { lineHeight: this.options.defaultLineHeight }))
+                },
+            }
+        },
+    });
+
+    // 2. Custom Indent Extension (padding-left in levels of 24px)
+    const Indent = Extension.create({
+        name: 'indent',
+        addOptions() {
+            return {
+                types: ['paragraph', 'heading', 'blockquote'],
+                minLevel: 0,
+                maxLevel: 8,
+                indentSize: 24, // px
+            }
+        },
+        addGlobalAttributes() {
+            return [
+                {
+                    types: this.options.types,
+                    attributes: {
+                        indent: {
+                            default: 0,
+                            parseHTML: element => {
+                                const paddingLeft = element.style.paddingLeft || '0px';
+                                const val = parseInt(paddingLeft, 10);
+                                return isNaN(val) ? 0 : Math.round(val / this.options.indentSize);
+                            },
+                            renderHTML: attributes => {
+                                if (!attributes.indent) {
+                                    return {};
+                                }
+                                return { style: `padding-left: ${attributes.indent * this.options.indentSize}px` };
+                            },
+                        },
+                    },
+                },
+            ]
+        },
+        addCommands() {
+            return {
+                indent: () => ({ tr, state, dispatch }) => {
+                    const { selection } = state;
+                    tr = tr.setSelection(selection);
+                    let updated = false;
+                    state.doc.nodesBetween(selection.from, selection.to, (node, pos) => {
+                        if (this.options.types.includes(node.type.name)) {
+                            const currentIndent = node.attrs.indent || 0;
+                            if (currentIndent < this.options.maxLevel) {
+                                tr = tr.setNodeMarkup(pos, undefined, {
+                                    ...node.attrs,
+                                    indent: currentIndent + 1,
+                                });
+                                updated = true;
+                            }
+                        }
+                    });
+                    if (dispatch) dispatch(tr);
+                    return updated;
+                },
+                outdent: () => ({ tr, state, dispatch }) => {
+                    const { selection } = state;
+                    tr = tr.setSelection(selection);
+                    let updated = false;
+                    state.doc.nodesBetween(selection.from, selection.to, (node, pos) => {
+                        if (this.options.types.includes(node.type.name)) {
+                            const currentIndent = node.attrs.indent || 0;
+                            if (currentIndent > this.options.minLevel) {
+                                tr = tr.setNodeMarkup(pos, undefined, {
+                                    ...node.attrs,
+                                    indent: currentIndent - 1,
+                                });
+                                updated = true;
+                            }
+                        }
+                    });
+                    if (dispatch) dispatch(tr);
+                    return updated;
+                },
+            }
+        },
+    });
+
+    // Custom Highlights Marks (from original file)
     const HighlightGray = Mark.create({
         name: 'highlightGray',
         parseHTML() {
@@ -194,11 +609,11 @@
     const initEditor = () => {
         const textareaId = "{{ widget.attrs.id|default:'' }}";
         if (!textareaId) return;
-        
+
         const textarea = document.getElementById(textareaId);
         if (!textarea) return;
-        
-        // Hide textarea as fallback
+
+        // Hide original textarea
         textarea.style.display = 'none';
 
         const container = textarea.closest('.tiptap-editor-container') || textarea.parentElement;
@@ -207,38 +622,245 @@
         const editorElement = editorMount.querySelector('.tiptap-content-area');
         const toolbar = editorMount.querySelector('.tiptap-toolbar');
 
-        // Cache elements for maximum performance
+        // Elements caching
         const cmdButtons = toolbar.querySelectorAll('[data-tiptap-cmd]');
-        const highlightButtons = toolbar.querySelectorAll('[data-tiptap-highlight]');
+        const alignButtons = toolbar.querySelectorAll('[data-tiptap-align]');
+        const indentButtons = toolbar.querySelectorAll('[data-tiptap-indent]');
+        
+        // Dropdown elements
+        const blockBtn = toolbar.querySelector('.tiptap-block-btn');
+        const blockMenu = toolbar.querySelector(`#tiptap-block-menu-${textareaId}`);
+        const fontBtn = toolbar.querySelector('.tiptap-font-btn');
+        const fontMenu = toolbar.querySelector(`#tiptap-font-menu-${textareaId}`);
+        const lhBtn = toolbar.querySelector('.tiptap-lineheight-btn');
+        const lhMenu = toolbar.querySelector(`#tiptap-lineheight-menu-${textareaId}`);
         const markupBtn = toolbar.querySelector('.tiptap-markup-btn');
-        const markupMenu = toolbar.querySelector('.tiptap-markup-menu');
+        const markupMenu = toolbar.querySelector(`#tiptap-markup-menu-${textareaId}`);
 
-        const updateToolbarState = (editor) => {
-            // Update standard command buttons
-            cmdButtons.forEach(btn => {
-                const cmd = btn.getAttribute('data-tiptap-cmd');
-                const level = btn.getAttribute('data-level');
-                
-                let isActive = false;
-                if (level) {
-                    isActive = editor.isActive(cmd, { level: parseInt(level) });
-                } else {
-                    isActive = editor.isActive(cmd);
-                }
+        // Link modal elements
+        const linkModal = container.querySelector(`#tiptap-link-modal-${textareaId}`);
+        const linkText = container.querySelector(`#tiptap-link-text-${textareaId}`);
+        const linkUrl = container.querySelector(`#tiptap-link-url-${textareaId}`);
+        const linkCancel = container.querySelector(`#tiptap-link-cancel-${textareaId}`);
+        const linkSave = container.querySelector(`#tiptap-link-save-${textareaId}`);
+        const linkTrigger = toolbar.querySelector('[data-tiptap-link-trigger]');
 
-                if (isActive) {
-                    btn.classList.add('bg-black', 'text-white');
-                    btn.classList.remove('bg-white', 'text-black');
-                } else {
-                    btn.classList.remove('bg-black', 'text-white');
-                    btn.classList.add('bg-white', 'text-black');
+        // Reusable Dropdown Manager
+        const setupDropdown = (btn, menu) => {
+            if (!btn || !menu) return;
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Close other menus
+                toolbar.querySelectorAll('.tiptap-dropdown-menu').forEach(otherMenu => {
+                    if (otherMenu !== menu) {
+                        otherMenu.classList.add('hidden');
+                        const otherBtn = otherMenu.previousElementSibling;
+                        if (otherBtn) {
+                            otherBtn.setAttribute('aria-expanded', 'false');
+                            const chevron = otherBtn.querySelector('.tiptap-chevron');
+                            if (chevron) chevron.classList.remove('rotate-180');
+                        }
+                    }
+                });
+
+                const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+                btn.setAttribute('aria-expanded', !isExpanded);
+                menu.classList.toggle('hidden');
+
+                const chevron = btn.querySelector('.tiptap-chevron');
+                if (chevron) {
+                    chevron.classList.toggle('rotate-180');
                 }
             });
 
-            // Update highlight dropdown menu items and main button state
-            let anyHighlightActive = false;
-            let activeColor = '#ffffff'; // default white
+            // Close dropdowns on document click
+            document.addEventListener('click', (e) => {
+                if (!btn.contains(e.target) && !menu.contains(e.target)) {
+                    btn.setAttribute('aria-expanded', 'false');
+                    menu.classList.add('hidden');
+                    const chevron = btn.querySelector('.tiptap-chevron');
+                    if (chevron) {
+                        chevron.classList.remove('rotate-180');
+                    }
+                }
+            });
+        };
+
+        setupDropdown(blockBtn, blockMenu);
+        setupDropdown(fontBtn, fontMenu);
+        setupDropdown(lhBtn, lhMenu);
+        setupDropdown(markupBtn, markupMenu);
+
+        // Update active classes and dropdown labels
+        const updateToolbarState = (editor) => {
+            // 1. Standard Commands
+            cmdButtons.forEach(btn => {
+                const cmd = btn.getAttribute('data-tiptap-cmd');
+                let isActive = false;
+                
+                if (cmd === 'undo') {
+                    isActive = false;
+                    if (!editor.can().undo()) {
+                        btn.classList.add('opacity-40', 'pointer-events-none');
+                    } else {
+                        btn.classList.remove('opacity-40', 'pointer-events-none');
+                    }
+                } else if (cmd === 'redo') {
+                    isActive = false;
+                    if (!editor.can().redo()) {
+                        btn.classList.add('opacity-40', 'pointer-events-none');
+                    } else {
+                        btn.classList.remove('opacity-40', 'pointer-events-none');
+                    }
+                } else {
+                    isActive = editor.isActive(cmd);
+                    if (isActive) {
+                        btn.classList.add('bg-black', 'text-white');
+                        btn.classList.remove('bg-white', 'text-black');
+                        btn.querySelector('svg')?.classList.remove('text-black');
+                        btn.querySelector('svg')?.classList.add('text-white');
+                    } else {
+                        btn.classList.remove('bg-black', 'text-white');
+                        btn.classList.add('bg-white', 'text-black');
+                        btn.querySelector('svg')?.classList.remove('text-white');
+                        btn.querySelector('svg')?.classList.add('text-black');
+                    }
+                }
+            });
+
+            // 2. Alignment Buttons
+            alignButtons.forEach(btn => {
+                const align = btn.getAttribute('data-tiptap-align');
+                const isActive = editor.isActive({ textAlign: align });
+                if (isActive) {
+                    btn.classList.add('bg-black', 'text-white');
+                    btn.classList.remove('bg-white', 'text-black');
+                    btn.querySelector('svg')?.classList.remove('text-black');
+                    btn.querySelector('svg')?.classList.add('text-white');
+                } else {
+                    btn.classList.remove('bg-black', 'text-white');
+                    btn.classList.add('bg-white', 'text-black');
+                    btn.querySelector('svg')?.classList.remove('text-white');
+                    btn.querySelector('svg')?.classList.add('text-black');
+                }
+            });
+
+            // 3. Link Button
+            if (linkTrigger) {
+                const isLink = editor.isActive('link');
+                if (isLink) {
+                    linkTrigger.classList.add('bg-black', 'text-white');
+                    linkTrigger.classList.remove('bg-white', 'text-black');
+                    linkTrigger.querySelector('svg')?.classList.remove('text-black');
+                    linkTrigger.querySelector('svg')?.classList.add('text-white');
+                } else {
+                    linkTrigger.classList.remove('bg-black', 'text-white');
+                    linkTrigger.classList.add('bg-white', 'text-black');
+                    linkTrigger.querySelector('svg')?.classList.remove('text-white');
+                    linkTrigger.querySelector('svg')?.classList.add('text-black');
+                }
+            }
+
+            // 4. Block Selector dropdown
+            let activeBlockLabel = 'Parágrafo';
+            let activeBlockValue = 'paragraph';
+            const blockItems = blockMenu.querySelectorAll('[data-tiptap-block]');
             
+            if (editor.isActive('heading', { level: 1 })) {
+                activeBlockLabel = 'Título 1';
+                activeBlockValue = 'h1';
+            } else if (editor.isActive('heading', { level: 2 })) {
+                activeBlockLabel = 'Título 2';
+                activeBlockValue = 'h2';
+            } else if (editor.isActive('heading', { level: 3 })) {
+                activeBlockLabel = 'Título 3';
+                activeBlockValue = 'h3';
+            } else if (editor.isActive('heading', { level: 4 })) {
+                activeBlockLabel = 'Título 4';
+                activeBlockValue = 'h4';
+            } else if (editor.isActive('heading', { level: 5 })) {
+                activeBlockLabel = 'Título 5';
+                activeBlockValue = 'h5';
+            }
+            
+            if (blockBtn) {
+                const labelEl = blockBtn.querySelector('.tiptap-block-label');
+                if (labelEl) labelEl.textContent = activeBlockLabel;
+            }
+
+            blockItems.forEach(item => {
+                const val = item.getAttribute('data-tiptap-block');
+                const check = item.querySelector('.tiptap-check');
+                if (val === activeBlockValue) {
+                    item.classList.add('bg-slate-100');
+                    check?.classList.remove('hidden');
+                } else {
+                    item.classList.remove('bg-slate-100');
+                    check?.classList.add('hidden');
+                }
+            });
+
+            // 5. Font Selector dropdown
+            let activeFontLabel = 'Padrão';
+            let activeFontValue = 'default';
+            const fontItems = fontMenu.querySelectorAll('[data-tiptap-font]');
+            
+            const currentFont = editor.getAttributes('textStyle').fontFamily;
+            if (currentFont) {
+                activeFontValue = currentFont;
+                if (currentFont === 'Outfit') activeFontLabel = 'Outfit (Neo)';
+                else if (currentFont === 'Inter') activeFontLabel = 'Inter (Explicar)';
+                else if (currentFont === 'Space Grotesk') activeFontLabel = 'Space Grotesk';
+                else if (currentFont === 'JetBrains Mono') activeFontLabel = 'JetBrains';
+            }
+
+            if (fontBtn) {
+                const labelEl = fontBtn.querySelector('.tiptap-font-label');
+                if (labelEl) labelEl.textContent = activeFontLabel;
+            }
+
+            fontItems.forEach(item => {
+                const val = item.getAttribute('data-tiptap-font');
+                const check = item.querySelector('.tiptap-check');
+                if (val === activeFontValue) {
+                    item.classList.add('bg-slate-100');
+                    check?.classList.remove('hidden');
+                } else {
+                    item.classList.remove('bg-slate-100');
+                    check?.classList.add('hidden');
+                }
+            });
+
+            // 6. Line Height Selector dropdown
+            let activeLhValue = 'normal';
+            const lhItems = lhMenu.querySelectorAll('[data-tiptap-lineheight]');
+            
+            const { selection } = editor.state;
+            editor.state.doc.nodesBetween(selection.from, selection.to, (node) => {
+                if (node.attrs && node.attrs.lineHeight) {
+                    activeLhValue = node.attrs.lineHeight;
+                }
+            });
+
+            lhItems.forEach(item => {
+                const val = item.getAttribute('data-tiptap-lineheight');
+                const check = item.querySelector('.tiptap-check');
+                if (val === activeLhValue) {
+                    item.classList.add('bg-slate-100');
+                    check?.classList.remove('hidden');
+                } else {
+                    item.classList.remove('bg-slate-100');
+                    check?.classList.add('hidden');
+                }
+            });
+
+            // 7. Highlights dropdown
+            let anyHighlightActive = false;
+            let activeColor = '#ffffff';
+            const highlightButtons = toolbar.querySelectorAll('[data-tiptap-highlight]');
+
             highlightButtons.forEach(btn => {
                 const highlight = btn.getAttribute('data-tiptap-highlight');
                 const isActive = editor.isActive(highlight);
@@ -246,27 +868,21 @@
 
                 if (isActive) {
                     btn.classList.add('bg-slate-100');
-                    if (checkElement) {
-                        checkElement.classList.remove('hidden');
-                    }
+                    checkElement?.classList.remove('hidden');
                     anyHighlightActive = true;
                     if (highlight === 'highlightGray') activeColor = '#E2E8F0';
                     else if (highlight === 'highlightYellow') activeColor = '#FEF08A';
                     else if (highlight === 'highlightGreen') activeColor = '#BBF7D0';
                 } else {
                     btn.classList.remove('bg-slate-100');
-                    if (checkElement) {
-                        checkElement.classList.add('hidden');
-                    }
+                    checkElement?.classList.add('hidden');
                 }
             });
 
-            // Update main button icon color swatch
-            const markupIcon = markupBtn ? markupBtn.querySelector('.tiptap-markup-icon') : null;
+            const markupIcon = markupBtn?.querySelector('.tiptap-markup-icon');
             if (markupIcon) {
                 markupIcon.style.backgroundColor = activeColor;
             }
-
             if (markupBtn) {
                 if (anyHighlightActive) {
                     markupBtn.classList.add('bg-slate-100');
@@ -276,6 +892,7 @@
             }
         };
 
+        // Initialize TipTap Editor
         const editor = new Editor({
             element: editorElement,
             extensions: [
@@ -283,9 +900,22 @@
                 Placeholder.configure({
                     placeholder: 'Escreva algo incrível...',
                 }),
+                Link.configure({
+                    openOnClick: false,
+                    HTMLAttributes: {
+                        class: 'text-blue-600 underline font-semibold',
+                    },
+                }),
+                TextStyle,
+                FontFamily,
+                TextAlign.configure({
+                    types: ['heading', 'paragraph'],
+                }),
                 HighlightGray,
                 HighlightYellow,
                 HighlightGreen,
+                LineHeight,
+                Indent,
             ],
             content: textarea.value,
             onUpdate: ({ editor }) => {
@@ -300,21 +930,24 @@
             }
         });
 
-        // Setup toolbar actions
+        // 1. Setup Toolbar Commands Listeners
         cmdButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const cmd = btn.getAttribute('data-tiptap-cmd');
-                const level = btn.getAttribute('data-level');
 
-                if (cmd === 'heading') {
-                    editor.chain().focus().toggleHeading({ level: parseInt(level) }).run();
+                if (cmd === 'undo') {
+                    editor.chain().focus().undo().run();
+                } else if (cmd === 'redo') {
+                    editor.chain().focus().redo().run();
                 } else if (cmd === 'bold') {
                     editor.chain().focus().toggleBold().run();
                 } else if (cmd === 'italic') {
                     editor.chain().focus().toggleItalic().run();
                 } else if (cmd === 'strike') {
                     editor.chain().focus().toggleStrike().run();
+                } else if (cmd === 'blockquote') {
+                    editor.chain().focus().toggleBlockquote().run();
                 } else if (cmd === 'bulletList') {
                     editor.chain().focus().toggleBulletList().run();
                 } else if (cmd === 'orderedList') {
@@ -323,42 +956,85 @@
             });
         });
 
-        // Setup dropdown toggle logic
-        if (markupBtn && markupMenu) {
-            markupBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const isExpanded = markupBtn.getAttribute('aria-expanded') === 'true';
-                markupBtn.setAttribute('aria-expanded', !isExpanded);
-                markupMenu.classList.toggle('hidden');
-                
-                // Toggle chevron rotation
-                const chevron = markupBtn.querySelector('svg');
-                if (chevron) {
-                    chevron.classList.toggle('rotate-180');
-                }
-            });
-
-            // Close when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!markupBtn.contains(e.target) && !markupMenu.contains(e.target)) {
-                    markupBtn.setAttribute('aria-expanded', 'false');
-                    markupMenu.classList.add('hidden');
-                    const chevron = markupBtn.querySelector('svg');
-                    if (chevron) {
-                        chevron.classList.remove('rotate-180');
-                    }
-                }
-            });
-        }
-
-        highlightButtons.forEach(btn => {
+        // 2. Setup Alignment Commands Listeners
+        alignButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                e.stopPropagation();
+                const align = btn.getAttribute('data-tiptap-align');
+                editor.chain().focus().setTextAlign(align).run();
+            });
+        });
+
+        // 3. Setup Indentation Commands Listeners
+        indentButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const type = btn.getAttribute('data-tiptap-indent');
+                if (type === 'indent') {
+                    editor.chain().focus().indent().run();
+                } else {
+                    editor.chain().focus().outdent().run();
+                }
+            });
+        });
+
+        // 4. Setup Block Dropdown Actions
+        blockMenu.querySelectorAll('[data-tiptap-block]').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const val = item.getAttribute('data-tiptap-block');
                 
-                const highlight = btn.getAttribute('data-tiptap-highlight');
+                if (val === 'paragraph') {
+                    editor.chain().focus().setParagraph().run();
+                } else {
+                    const level = parseInt(val.replace('h', ''));
+                    editor.chain().focus().toggleHeading({ level }).run();
+                }
+                blockMenu.classList.add('hidden');
+                blockBtn.setAttribute('aria-expanded', 'false');
+                blockBtn.querySelector('.tiptap-chevron')?.classList.remove('rotate-180');
+            });
+        });
+
+        // 5. Setup Font Dropdown Actions
+        fontMenu.querySelectorAll('[data-tiptap-font]').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const val = item.getAttribute('data-tiptap-font');
+                
+                if (val === 'default') {
+                    editor.chain().focus().unsetFontFamily().run();
+                } else {
+                    editor.chain().focus().setFontFamily(val).run();
+                }
+                fontMenu.classList.add('hidden');
+                fontBtn.setAttribute('aria-expanded', 'false');
+                fontBtn.querySelector('.tiptap-chevron')?.classList.remove('rotate-180');
+            });
+        });
+
+        // 6. Setup Line Height Dropdown Actions
+        lhMenu.querySelectorAll('[data-tiptap-lineheight]').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const val = item.getAttribute('data-tiptap-lineheight');
+                
+                if (val === 'normal') {
+                    editor.chain().focus().unsetLineHeight().run();
+                } else {
+                    editor.chain().focus().setLineHeight(val).run();
+                }
+                lhMenu.classList.add('hidden');
+                lhBtn.setAttribute('aria-expanded', 'false');
+                lhBtn.querySelector('.tiptap-chevron')?.classList.remove('rotate-180');
+            });
+        });
+
+        // 7. Setup Highlight Menu Actions
+        toolbar.querySelectorAll('[data-tiptap-highlight]').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const highlight = item.getAttribute('data-tiptap-highlight');
                 if (highlight === 'highlightGray') {
                     editor.chain().focus().toggleHighlightGray().run();
                 } else if (highlight === 'highlightYellow') {
@@ -366,17 +1042,117 @@
                 } else if (highlight === 'highlightGreen') {
                     editor.chain().focus().toggleHighlightGreen().run();
                 }
+                markupMenu.classList.add('hidden');
+                markupBtn.setAttribute('aria-expanded', 'false');
+                markupBtn.querySelector('.tiptap-chevron')?.classList.remove('rotate-180');
+            });
+        });
 
-                // Close dropdown after selection
-                if (markupBtn && markupMenu) {
-                    markupBtn.setAttribute('aria-expanded', 'false');
-                    markupMenu.classList.add('hidden');
-                    const chevron = markupBtn.querySelector('svg');
-                    if (chevron) {
-                        chevron.classList.remove('rotate-180');
+        // 8. Link Dialog Logic
+        const openLinkModal = () => {
+            const { state } = editor;
+            const { from, to } = state.selection;
+            const selectedText = state.doc.textBetween(from, to, ' ');
+            
+            let url = '';
+            const isLinkActive = editor.isActive('link');
+            if (isLinkActive) {
+                url = editor.getAttributes('link').href || '';
+            }
+            
+            linkText.value = selectedText;
+            linkUrl.value = url;
+            
+            linkModal.showModal();
+            // Automatically focus URL input
+            setTimeout(() => linkUrl.focus(), 50);
+        };
+
+        const closeLinkModal = () => {
+            linkModal.close();
+            editor.commands.focus();
+        };
+
+        if (linkTrigger) {
+            linkTrigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                openLinkModal();
+            });
+        }
+
+        if (linkCancel) {
+            linkCancel.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeLinkModal();
+            });
+        }
+
+        // Handle Escape natively on the dialog, but let's register keydown on input elements for better UX
+        linkModal.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLinkModal();
+            }
+        });
+
+        // Form Submit / Save link
+        if (linkSave) {
+            linkSave.addEventListener('click', (e) => {
+                e.preventDefault();
+                const text = linkText.value.trim();
+                let url = linkUrl.value.trim();
+                
+                if (!url) {
+                    editor.chain().focus().unsetLink().run();
+                    closeLinkModal();
+                    return;
+                }
+                
+                // Prepend https:// if no protocol is given, but allow relative paths
+                if (!/^https?:\/\//i.test(url) && !/^\//.test(url) && !/^mailto:/i.test(url) && !/^tel:/i.test(url)) {
+                    url = 'https://' + url;
+                }
+                
+                const { state } = editor;
+                const { from, to } = state.selection;
+                const selectedText = state.doc.textBetween(from, to, ' ');
+                
+                if (from === to) {
+                    const display = text || url;
+                    editor.chain().focus().insertContent(`<a href="${url}">${display}</a>`).run();
+                } else {
+                    if (text && text !== selectedText) {
+                        editor.chain().focus().insertContentAt({ from, to }, `<a href="${url}">${text}</a>`).run();
+                    } else {
+                        editor.chain().focus().setLink({ href: url }).run();
                     }
                 }
+                closeLinkModal();
             });
+        }
+
+        // Close on backdrop click (Light dismiss fallback)
+        if (!('closedBy' in HTMLDialogElement.prototype)) {
+            linkModal.addEventListener('click', (event) => {
+                if (event.target !== linkModal) return;
+                const rect = linkModal.getBoundingClientRect();
+                const isDialogContent = (
+                    rect.top <= event.clientY &&
+                    event.clientY <= rect.top + rect.height &&
+                    rect.left <= event.clientX &&
+                    event.clientX <= rect.left + rect.width
+                );
+                if (!isDialogContent) {
+                    closeLinkModal();
+                }
+            });
+        }
+
+        // 9. Keyboard shortcut Ctrl+K / Cmd+K inside the editor
+        editorElement.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                openLinkModal();
+            }
         });
     };
 
