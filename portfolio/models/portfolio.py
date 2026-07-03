@@ -4,14 +4,13 @@ from django.utils.translation import gettext_lazy as _
 
 from core.models.base_model import BaseModel
 
-from .hero import SectionHero
 from .project import Project
 from .group_stack import GroupStack
 
 
 class Portfolio(BaseModel):
     section_hero = models.OneToOneField(
-        SectionHero, on_delete=models.CASCADE, null=False
+        "portfolio.SectionHero", on_delete=models.CASCADE, null=False
     )
     about = models.TextField()
     groups_stacks = models.ManyToManyField(GroupStack)

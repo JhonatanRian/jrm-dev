@@ -7,7 +7,7 @@
 {% block content %}
     <div class="mb-8 flex flex-wrap justify-between items-center gap-4">
         <div>
-            <a href="{% url 'blog:post_list' %}"
+            <a href="{% url 'blog_admin:post_list' %}"
                class="text-black font-bold flex items-center gap-2 hover:underline mb-4">
                 <span class="material-icons">arrow_back</span> Voltar para Artigos
             </a>
@@ -17,12 +17,12 @@
         </div>
 
         <div class="flex gap-3">
-            <a href="{% url 'blog:post_update' post.pk %}"
+            <a href="{% url 'blog_admin:post_update' post.pk %}"
                class="bg-yellow-300 text-black font-bold px-6 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm flex items-center gap-2">
                 <span class="material-icons text-[20px]">edit</span> Editar Artigo
             </a>
             
-            <form method="post" action="{% url 'blog:post_toggle_publish' post.pk %}">
+            <form method="post" action="{% url 'blog_admin:post_toggle_publish' post.pk %}">
                 {% csrf_token %}
                 <button type="submit"
                         class="{% if post.published %}bg-neo-orange{% else %}bg-neo-green{% endif %} text-black font-bold px-6 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm flex items-center gap-2">

@@ -6,7 +6,7 @@
 
 {% block content %}
     <div class="mb-8">
-        <a href="{% url 'blog:tag_list' %}"
+        <a href="{% url 'blog_admin:tag_list' %}"
            class="text-black font-bold flex items-center gap-2 hover:underline mb-4">
             <span class="material-icons">arrow_back</span> Voltar para Tags
         </a>
@@ -27,7 +27,7 @@
                     class="bg-red-500 text-white font-bold px-8 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm">
                 Sim, Excluir
             </button>
-            <a href="{% url 'blog:tag_list' %}"
+            <a href="{% url 'blog_admin:tag_list' %}"
                class="bg-gray-200 text-black font-bold px-8 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm">
                 Cancelar
             </a>

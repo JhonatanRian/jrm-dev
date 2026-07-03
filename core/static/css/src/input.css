@@ -1,6 +1,30 @@
 @import "tailwindcss";
 @config "../../../../tailwind.config.js";
 
+@theme {
+  --spacing-shadow-offset: 8px;
+  --spacing-md: 24px;
+  --spacing-xl: 80px;
+  --spacing-shadow-offset-sm: 4px;
+  --spacing-base: 8px;
+  --spacing-sm: 12px;
+  --spacing-border-width: 4px;
+  --spacing-lg: 48px;
+  --spacing-xs: 4px;
+
+  --max-width-xs: 20rem;
+  --max-width-sm: 24rem;
+  --max-width-md: 28rem;
+  --max-width-lg: 32rem;
+  --max-width-xl: 36rem;
+  --max-width-2xl: 42rem;
+  --max-width-3xl: 48rem;
+  --max-width-4xl: 56rem;
+  --max-width-5xl: 64rem;
+  --max-width-6xl: 72rem;
+  --max-width-7xl: 80rem;
+}
+
 /* ==========================================================================
    Estilos Customizados do Neo-Brutalismo
    ========================================================================== */
@@ -34,7 +58,9 @@ body {
 }
 
 .neo-button,
-.neo-button-sm {
+.neo-button-sm,
+.btn-neo,
+.btn-neo-sm {
     transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translate(0, 0);
 }
@@ -116,7 +142,7 @@ body {
 
 .neo-button.bg-neo-red:hover,
 .neo-button-sm.bg-neo-red:hover {
-    background-color: #f87171 !important; /* Red 400 */
+    background-color: #FF7F96 !important; /* Red 400 */
 }
 
 .neo-button.bg-neo-purple:hover,
@@ -675,4 +701,400 @@ body {
 .font-jetbrains-mono {
     font-family: 'JetBrains Mono', monospace;
 }
+
+/* ==========================================================================
+   Prose Neo — Estilos para conteúdo gerado pelo TipTap no Blog Público
+   ========================================================================== */
+
+.prose-neo {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #1b1b1b;
+}
+
+.prose-neo > * + * {
+    margin-top: 1.25rem;
+}
+
+/* Headings */
+.prose-neo h1,
+.prose-neo h2,
+.prose-neo h3,
+.prose-neo h4,
+.prose-neo h5,
+.prose-neo h6 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #000000;
+    line-height: 1.15;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+}
+
+.prose-neo h1 { font-size: 2.25rem; border-left: 6px solid #000; padding-left: 0.75rem; background-color: #BFDBFE; }
+.prose-neo h2 { font-size: 1.75rem; border-left: 4px solid #000; padding-left: 0.75rem; }
+.prose-neo h3 { font-size: 1.375rem; border-left: 4px solid #FFD700; padding-left: 0.75rem; }
+.prose-neo h4 { font-size: 1.125rem; }
+.prose-neo h5 { font-size: 1rem; }
+.prose-neo h6 { font-size: 0.875rem; }
+
+/* Parágrafos */
+.prose-neo p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 400;
+    color: #1b1b1b;
+}
+
+/* Links */
+.prose-neo a {
+    color: #000000;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 2px;
+    transition: background-color 0.15s ease;
+    padding: 0 2px;
+}
+.prose-neo a:hover {
+    background-color: #FEF08A;
+    text-decoration: none;
+}
+
+/* Strong & Em */
+.prose-neo strong { font-weight: 900; }
+.prose-neo em { font-style: italic; }
+
+/* Blockquote — Neo-Brutal style (Stitch design: thick left border) */
+.prose-neo blockquote {
+    border-left: 12px solid #000000;
+    background-color: #eeeeee;
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.125rem;
+    line-height: 1.6;
+}
+.prose-neo blockquote p { margin-bottom: 0; }
+
+/* Dropcap — primeiro parágrafo com letra capitular, como no design do Stitch */
+.prose-neo-dropcap > p:first-of-type::first-letter {
+    font-family: 'Outfit', sans-serif;
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 0.85;
+    float: left;
+    margin-right: 0.15em;
+    margin-top: 0.05em;
+    color: #000000;
+}
+
+/* Listas */
+.prose-neo ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+.prose-neo ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+.prose-neo li { margin-bottom: 0.375rem; }
+.prose-neo li::marker { font-weight: 900; }
+
+/* Separador horizontal */
+.prose-neo hr {
+    border: none;
+    border-top: 4px solid #000000;
+    margin: 2rem 0;
+}
+
+/* Imagens */
+.prose-neo img {
+    border: 3px solid #000000;
+    box-shadow: 4px 4px 0px #000000;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem 0;
+}
+
+/* Código inline */
+.prose-neo code:not(pre code) {
+    background-color: #e2e2e2;
+    color: #000000;
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+    font-size: 0.85em;
+    font-weight: 700;
+    padding: 0.1em 0.35em;
+    border: 1.5px solid #000;
+    border-radius: 2px;
+}
+
+/* Tabelas */
+.prose-neo table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 3px solid #000;
+    margin: 1.5rem 0;
+}
+.prose-neo th {
+    background-color: #000;
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.625rem 0.875rem;
+    text-align: left;
+    border: 1px solid #333;
+}
+.prose-neo td {
+    padding: 0.625rem 0.875rem;
+    border: 2px solid #000;
+    font-size: 0.9375rem;
+}
+.prose-neo tr:nth-child(even) td {
+    background-color: #f3f4f6;
+}
+
+/* ==========================================================================
+   neo-mac-codeblock dentro de .prose-neo
+   ========================================================================== */
+
+.prose-neo pre.neo-mac-codeblock {
+    background: #0d1117;
+    border: 4px solid #000000;
+    position: relative;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+    padding-top: 2.25rem;
+    overflow: hidden;
+}
+
+.prose-neo pre.neo-mac-codeblock::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2.25rem;
+    background-color: #ffffff;
+    border-bottom: 4px solid #000000;
+}
+
+.prose-neo pre.neo-mac-codeblock::after {
+    content: '';
+    position: absolute;
+    top: 0.65rem;
+    left: 1rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: #ff5f56;
+    border: 2px solid #000000;
+    box-shadow:
+        1.25rem 0 0 -2px #ffbd2e,
+        1.25rem 0 0 0 #000000,
+        2.5rem 0 0 -2px #27c93f,
+        2.5rem 0 0 0 #000000;
+}
+
+.prose-neo pre.neo-mac-codeblock code {
+    display: block;
+    overflow-x: auto;
+    padding: 1rem 1.25rem;
+    color: #e6edf3;
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    tab-size: 4;
+    text-decoration: none;
+    white-space: pre;
+}
+
+/* Highlight.js tokens dentro de .prose-neo */
+.prose-neo pre.neo-mac-codeblock .hljs-comment,
+.prose-neo pre.neo-mac-codeblock .hljs-quote { color: #8b949e; font-style: italic; text-decoration: none !important; }
+.prose-neo pre.neo-mac-codeblock .hljs-keyword,
+.prose-neo pre.neo-mac-codeblock .hljs-selector-tag,
+.prose-neo pre.neo-mac-codeblock .hljs-addition { color: #ff7b72; text-decoration: none !important; }
+.prose-neo pre.neo-mac-codeblock .hljs-built_in,
+.prose-neo pre.neo-mac-codeblock .hljs-type { color: #ffa657; text-decoration: none !important; }
+.prose-neo pre.neo-mac-codeblock .hljs-number,
+.prose-neo pre.neo-mac-codeblock .hljs-literal { color: #79c0ff; text-decoration: none !important; }
+.prose-neo pre.neo-mac-codeblock .hljs-string,
+.prose-neo pre.neo-mac-codeblock .hljs-doctag { color: #a5d6ff; text-decoration: none !important; }
+.prose-neo pre.neo-mac-codeblock .hljs-title,
+.prose-neo pre.neo-mac-codeblock .hljs-section,
+.prose-neo pre.neo-mac-codeblock .hljs-selector-id { color: #d2a8ff; text-decoration: none !important; }
+.prose-neo pre.neo-mac-codeblock .hljs-variable,
+.prose-neo pre.neo-mac-codeblock .hljs-template-variable,
+.prose-neo pre.neo-mac-codeblock .hljs-class .hljs-title { color: #ffa657; text-decoration: none !important; }
+.prose-neo pre.neo-mac-codeblock .hljs-attr,
+.prose-neo pre.neo-mac-codeblock .hljs-attribute { color: #79c0ff; text-decoration: none !important; }
+.prose-neo pre.neo-mac-codeblock .hljs-tag { color: #7ee787; text-decoration: none !important; }
+.prose-neo pre.neo-mac-codeblock .hljs-name { color: #7ee787; text-decoration: none !important; }
+.prose-neo pre.neo-mac-codeblock .hljs-regexp,
+.prose-neo pre.neo-mac-codeblock .hljs-link { color: #a5d6ff; text-decoration: none !important; }
+.prose-neo pre.neo-mac-codeblock .hljs-bullet,
+.prose-neo pre.neo-mac-codeblock .hljs-symbol,
+.prose-neo pre.neo-mac-codeblock .hljs-code { color: #7ee787; text-decoration: none !important; }
+.prose-neo pre.neo-mac-codeblock .hljs-deletion { color: #ffa198; text-decoration: none !important; }
+.prose-neo pre.neo-mac-codeblock .hljs-meta,
+.prose-neo pre.neo-mac-codeblock .hljs-meta .hljs-keyword { color: #ffa657; text-decoration: none !important; }
+.prose-neo pre.neo-mac-codeblock .hljs-emphasis { font-style: italic; text-decoration: none !important; }
+.prose-neo pre.neo-mac-codeblock .hljs-strong { font-weight: bold; text-decoration: none !important; }
+
+/* ==========================================================================
+   Classes de Componentes Neo-Brutalistas
+   ========================================================================== */
+
+/* --- Botões Reutilizáveis --- */
+.btn-neo,
+.btn-neo-yellow,
+.btn-neo-green,
+.btn-neo-pink,
+.btn-neo-blue,
+.btn-neo-orange,
+.btn-neo-red,
+.btn-neo-purple,
+.btn-neo-gray,
+.btn-neo-white {
+    @apply inline-flex items-center justify-center font-bold border-4 border-black rounded-lg px-6 py-2.5 transition-all duration-150 cursor-pointer select-none text-black hover:text-black;
+    box-shadow: 2px 2px 0px var(--neo-shadow-color);
+}
+
+.btn-neo-sm,
+.btn-neo-sm-yellow,
+.btn-neo-sm-green,
+.btn-neo-sm-gray,
+.btn-neo-sm-white {
+    @apply inline-flex items-center justify-center font-bold border-2 border-black rounded-md px-4 py-1.5 text-sm transition-all duration-150 cursor-pointer select-none text-black hover:text-black;
+}
+
+/* Variantes de cores para Botões */
+.btn-neo-yellow, .btn-neo-sm-yellow { @apply bg-neo-yellow; }
+.btn-neo-green, .btn-neo-sm-green  { @apply bg-neo-green; }
+.btn-neo-pink    { @apply bg-neo-pink; }
+.btn-neo-blue    { @apply bg-neo-blue; }
+.btn-neo-orange  { @apply bg-neo-orange; }
+.btn-neo-red     { @apply bg-neo-red; }
+.btn-neo-purple  { @apply bg-neo-purple; }
+.btn-neo-gray, .btn-neo-sm-gray   { @apply bg-gray-200; }
+.btn-neo-white, .btn-neo-sm-white  { @apply bg-white; }
+.btn-neo-black   {
+    @apply inline-flex items-center justify-center font-bold border-4 border-black rounded-lg px-6 py-2.5 transition-all duration-150 cursor-pointer select-none bg-primary text-white hover:text-white border-black;
+    box-shadow: 2px 2px 0px var(--neo-shadow-color);
+}
+
+/* Hover/Active states for button groups */
+.btn-neo:hover,
+.btn-neo-yellow:hover,
+.btn-neo-green:hover,
+.btn-neo-pink:hover,
+.btn-neo-blue:hover,
+.btn-neo-orange:hover,
+.btn-neo-red:hover,
+.btn-neo-purple:hover,
+.btn-neo-gray:hover,
+.btn-neo-white:hover,
+.btn-neo-black:hover {
+    transform: translate(0, 0) !important;
+    box-shadow: 2px 2px 0px var(--neo-shadow-color) !important;
+}
+
+@media (min-width: 640px) {
+    .btn-neo:hover,
+    .btn-neo-yellow:hover,
+    .btn-neo-green:hover,
+    .btn-neo-pink:hover,
+    .btn-neo-blue:hover,
+    .btn-neo-orange:hover,
+    .btn-neo-red:hover,
+    .btn-neo-purple:hover,
+    .btn-neo-gray:hover,
+    .btn-neo-white:hover,
+    .btn-neo-black:hover {
+        box-shadow: 3px 3px 0px var(--neo-shadow-color) !important;
+    }
+}
+
+.btn-neo:active:not(:disabled),
+.btn-neo-yellow:active:not(:disabled),
+.btn-neo-green:active:not(:disabled),
+.btn-neo-pink:active:not(:disabled),
+.btn-neo-blue:active:not(:disabled),
+.btn-neo-orange:active:not(:disabled),
+.btn-neo-red:active:not(:disabled),
+.btn-neo-purple:active:not(:disabled),
+.btn-neo-gray:active:not(:disabled),
+.btn-neo-white:active:not(:disabled),
+.btn-neo-black:active:not(:disabled) {
+    transition: none !important;
+    transform: translate(2px, 2px) !important;
+    box-shadow: 0px 0px 0px var(--neo-shadow-color) !important;
+}
+
+@media (min-width: 640px) {
+    .btn-neo:active:not(:disabled),
+    .btn-neo-yellow:active:not(:disabled),
+    .btn-neo-green:active:not(:disabled),
+    .btn-neo-pink:active:not(:disabled),
+    .btn-neo-blue:active:not(:disabled),
+    .btn-neo-orange:active:not(:disabled),
+    .btn-neo-red:active:not(:disabled),
+    .btn-neo-purple:active:not(:disabled),
+    .btn-neo-gray:active:not(:disabled),
+    .btn-neo-white:active:not(:disabled),
+    .btn-neo-black:active:not(:disabled) {
+        transform: translate(3px, 3px) !important;
+        box-shadow: 0px 0px 0px var(--neo-shadow-color) !important;
+    }
+}
+
+.btn-neo-sm:hover,
+.btn-neo-sm-yellow:hover,
+.btn-neo-sm-green:hover,
+.btn-neo-sm-gray:hover,
+.btn-neo-sm-white:hover {
+    transform: translate(0, 0) !important;
+}
+
+.btn-neo-sm:active:not(:disabled),
+.btn-neo-sm-yellow:active:not(:disabled),
+.btn-neo-sm-green:active:not(:disabled),
+.btn-neo-sm-gray:active:not(:disabled),
+.btn-neo-sm-white:active:not(:disabled) {
+    transition: none !important;
+    transform: translate(2px, 2px) !important;
+    box-shadow: 0px 0px 0px var(--neo-shadow-color) !important;
+}
+
+/* --- Cards --- */
+.card-neo {
+    @apply border-4 border-black rounded-xl bg-white shadow-neo p-6 flex flex-col;
+}
+
+/* --- Links da Sidebar --- */
+.sidebar-link {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 hover:bg-white/50 text-black/80 font-semibold;
+}
+
+.sidebar-link-active {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 hover:bg-white/50 bg-neo-yellow-pastel text-black shadow-[2px_2px_0px_rgba(0,0,0,1)] border-2 border-black font-bold;
+}
+
+/* --- Cabeçalhos Slanted (Inclinados) --- */
+.heading-neo-slanted {
+    @apply font-bold px-4 py-2 border-4 border-black shadow-neo transform inline-block text-black;
+}
+
+
 

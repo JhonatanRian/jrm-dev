@@ -6,7 +6,7 @@
 {% endblock title %}
 
 {% block content %}
-    {% url "blog:post_create" as add_url %}
+    {% url "blog_admin:post_create" as add_url %}
     {% include "components/admin/page_header.html" with title="Artigos do Blog" add_url=add_url add_label="Novo Artigo" %}
 
     <div class="bg-white border-4 border-black rounded-xl p-6 neo-shadow">
@@ -20,7 +20,7 @@
                     Buscar
                 </button>
                 {% if request.GET.search %}
-                    <a href="{% url 'blog:post_list' %}" class="bg-gray-200 text-black font-bold px-4 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm flex items-center justify-center hover:bg-gray-300 transition-all h-[54px]">
+                    <a href="{% url 'blog_admin:post_list' %}" class="bg-gray-200 text-black font-bold px-4 py-3 border-4 border-black rounded-lg neo-button neo-shadow-sm flex items-center justify-center hover:bg-gray-300 transition-all h-[54px]">
                         Limpar
                     </a>
                 {% endif %}
@@ -67,10 +67,10 @@
                                     </button>
                                     <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-lg neo-shadow border-2 border-black bg-white hidden z-50" data-dropdown-menu>
                                         <div class="py-1" role="menu" aria-orientation="vertical">
-                                            <a href="{% url 'blog:post_detail' post.pk %}" class="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100" role="menuitem">Visualizar</a>
-                                            <a href="{% url 'blog:post_update' post.pk %}" class="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-blue-100" role="menuitem">Editar</a>
+                                            <a href="{% url 'blog_admin:post_detail' post.pk %}" class="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100" role="menuitem">Visualizar</a>
+                                            <a href="{% url 'blog_admin:post_update' post.pk %}" class="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-blue-100" role="menuitem">Editar</a>
                                             
-                                            <form method="post" action="{% url 'blog:post_toggle_publish' post.pk %}" class="block w-full">
+                                            <form method="post" action="{% url 'blog_admin:post_toggle_publish' post.pk %}" class="block w-full">
                                                 {% csrf_token %}
                                                 <button type="submit" class="block w-full text-left px-4 py-2 text-sm font-bold border-t border-gray-100 {% if post.published %}text-amber-600 hover:bg-amber-100{% else %}text-emerald-600 hover:bg-emerald-100{% endif %}" role="menuitem">
                                                     {% if post.published %}Despublicar{% else %}Publicar{% endif %}

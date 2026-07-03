@@ -27,7 +27,7 @@ class Post(BaseModel):
     )
 
     tags = models.ManyToManyField(
-        "Tag",
+        "blog.Tag",
         blank=True,
         verbose_name="Tags",
         related_name="posts"

@@ -2,25 +2,27 @@
 <!-- --- Cabeçalho (Header) --- -->
 <nav class="bg-background w-full sticky top-0 z-50 border-b-border-width border-primary" id="header-nav">
     <div class="header-inner flex justify-between items-center w-full px-sm md:px-md py-sm max-w-7xl mx-auto">
-        <a class="font-headline-md text-xl md:text-headline-md font-black tracking-tighter text-primary uppercase" href="#">
+        <a class="font-headline-md text-xl md:text-headline-md font-black tracking-tighter text-primary uppercase" href="/">
             Jhonatan Rian
         </a>
         
         <!-- Desktop Nav & Actions -->
         <div class="hidden md:flex gap-md font-label-bold text-label-bold uppercase text-primary items-center">
-            <a class="nav-link hover:text-neo-pink transition-colors text-black" href="#sobre">{% translate 'About' %}</a>
-            <a class="nav-link hover:text-neo-pink transition-colors text-black" href="#stack">{% translate 'Skills' %}</a>
-            <a class="nav-link hover:text-neo-pink transition-colors text-black" href="#projetos">{% translate 'Projects' %}</a>
+            <a class="nav-link hover:text-neo-pink transition-colors text-black" href="/#sobre">{% translate 'About' %}</a>
+            <a class="nav-link hover:text-neo-pink transition-colors text-black" href="/#stack">{% translate 'Skills' %}</a>
+            <a class="nav-link hover:text-neo-pink transition-colors text-black" href="/#projetos">{% translate 'Projects' %}</a>
+            <a class="nav-link hover:text-neo-pink transition-colors text-black" href="{% url 'blog:public_list' %}">Blog</a>
 
             <!-- Contato CTA Desktop -->
-            <a class="neo-border bg-neo-yellow px-md py-sm neo-shadow neo-button uppercase font-label-bold text-label-bold text-black" href="#contato">
+            <a class="neo-border bg-neo-red px-md py-sm neo-shadow neo-button uppercase font-label-bold text-label-bold text-black" href="/#contato">
                 {% translate 'Contact' %}
             </a>
         </div>
         
         <!-- Mobile Actions -->
         <div class="flex md:hidden items-center gap-sm">
-            <a class="neo-border bg-neo-yellow px-sm py-xs neo-shadow-mobile neo-button uppercase font-label-bold text-xs text-black" href="#contato">
+            <a class="nav-link hover:text-neo-pink transition-colors text-black font-label-bold text-xs uppercase" href="{% url 'blog:public_list' %}">Blog</a>
+            <a class="neo-border bg-neo-red px-sm py-xs neo-shadow-mobile neo-button uppercase font-label-bold text-xs text-black" href="/#contato">
                 {% translate 'Contact' %}
             </a>
         </div>

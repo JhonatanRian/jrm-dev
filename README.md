@@ -4,49 +4,54 @@ This is a personal portfolio project built with Django. It's designed to showcas
 
 ## Features
 
-*   **Dynamic Portfolio:** Easily update projects, skills, and personal information through the Django admin.
-*   **User Authentication:** Secure user registration and login functionality.
+* **Dynamic Portfolio:** Easily update projects, skills, and personal information through the Django admin.
+* **User Authentication:** Secure user registration and login functionality.
 
 ## Tech Stack
 
-*   **Backend:** [Django](https://www.djangoproject.com/)
-*   **Frontend:** HTML, CSS, JavaScript (with Django Templates)
-*   **Database:** SQLite (for development)
-*   **Dependency Management:** [uv](https://github.com/astral-sh/uv)
-*   **Python Version:** 3.12+
+* **Backend:** [Django](https://www.djangoproject.com/)
+* **Frontend:** HTML, CSS, JavaScript (with Django Templates)
+* **Database:** SQLite (for development)
+* **Dependency Management:** [uv](https://github.com/astral-sh/uv)
+* **Python Version:** 3.12+
 
 ## Getting Started
 
 ### Prerequisites
 
-*   Python 3.12 or higher
-*   `uv` installed (`pip install uv`)
+* Python 3.12 or higher
+* `uv` installed (`pip install uv`)
 
 ### Installation
 
-1.  **Clone the repository:**
+1. **Clone the repository:**
+
     ```bash
     git clone https://github.com/your-username/jrm_dev.git
     cd jrm_dev
     ```
 
-2.  **Create a virtual environment and install dependencies:**
+2. **Create a virtual environment and install dependencies:**
+
     ```bash
     uv venv
     uv pip install -r requirements.txt
     ```
 
-3.  **Apply migrations:**
+3. **Apply migrations:**
+
     ```bash
     python manage.py migrate
     ```
 
-4.  **Create a superuser:**
+4. **Create a superuser:**
+
     ```bash
     python manage.py createsuperuser
     ```
 
-5.  **Run the development server:**
+5. **Run the development server:**
+
     ```bash
     python manage.py runserver
     ```
@@ -55,9 +60,9 @@ This is a personal portfolio project built with Django. It's designed to showcas
 
 The project is organized into the following Django apps:
 
-*   `accounts`: Manages user authentication and registration.
-*   `core`: Contains core functionalities, base models, and utilities shared across the project.
-*   `portfolio`: Manages the content of the portfolio, including projects, skills, and personal information.
+* `accounts`: Manages user authentication and registration.
+* `core`: Contains core functionalities, base models, and utilities shared across the project.
+* `portfolio`: Manages the content of the portfolio, including projects, skills, and personal information.
 
 ## Contributing
 

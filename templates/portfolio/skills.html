@@ -5,7 +5,7 @@
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-md md:gap-lg">
         {% for group_stack in portfolio.groups_stacks.all %}
-            {% cycle 'bg-neo-blue' 'bg-neo-green' 'bg-neo-yellow-pastel' 'bg-neo-purple' 'bg-neo-orange' 'bg-neo-pink' as bg_color silent %}
+            {% cycle 'bg-neo-red' 'bg-neo-green' 'bg-neo-yellow-pastel' 'bg-neo-purple' 'bg-neo-orange' 'bg-neo-pink' as bg_color silent %}
             {% include 'portfolio/group_stack.html' with group_stack=group_stack bg_color=bg_color %}
         {% endfor %}
     </div>

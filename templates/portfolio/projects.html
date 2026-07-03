@@ -7,7 +7,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-md md:gap-lg">
         {% for project in portfolio.projects.all %}
             <div class="project-card neo-border bg-white rounded-lg flex flex-col h-full overflow-hidden">
-                <div class="{% cycle 'bg-neo-blue' 'bg-neo-green' 'bg-neo-yellow-pastel' 'bg-neo-purple' 'bg-neo-orange' 'bg-neo-pink' as header_bg silent %} {{ header_bg }} border-b-4 border-black p-sm md:p-md flex justify-between items-center">
+                <div class="{% cycle 'bg-neo-red' 'bg-neo-green' 'bg-neo-yellow-pastel' 'bg-neo-purple' 'bg-neo-orange' 'bg-neo-pink' as header_bg silent %} {{ header_bg }} border-b-4 border-black p-sm md:p-md flex justify-between items-center">
                     <h3 class="font-headline-md text-lg md:text-headline-md uppercase text-black font-black">
                         {{ project.title }}
                     </h3>

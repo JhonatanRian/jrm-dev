@@ -9,6 +9,7 @@ from .admin import (
     TagListView,
     TagUpdateView,
 )
+from .public import BlogDetailView, BlogListView
 
 __all__ = [
     "TagListView",
@@ -20,4 +21,7 @@ __all__ = [
     "PostCreateView",
     "PostUpdateView",
     "PostTogglePublishView",
+    "BlogListView",
+    "BlogDetailView",
 ]
+

@@ -30,7 +30,7 @@ class TagCreateView(AdminPermissionMixin, CreateView):
     model = Tag
     form_class = TagForm
     template_name = "blog/admin/tag/tag_form.html"
-    success_url = reverse_lazy("blog:tag_list")
+    success_url = reverse_lazy("blog_admin:tag_list")
 
     def form_valid(self, form: TagForm) -> HttpResponse:
         messages.success(self.request, "Tag criada com sucesso!")
@@ -43,7 +43,7 @@ class TagUpdateView(AdminPermissionMixin, UpdateView):
     model = Tag
     form_class = TagForm
     template_name = "blog/admin/tag/tag_form.html"
-    success_url = reverse_lazy("blog:tag_list")
+    success_url = reverse_lazy("blog_admin:tag_list")
 
     def form_valid(self, form: TagForm) -> HttpResponse:
         messages.success(self.request, "Tag atualizada com sucesso!")
@@ -55,7 +55,7 @@ class TagDeleteView(AdminPermissionMixin, DeleteView):
 
     model = Tag
     template_name = "blog/admin/tag/tag_confirm_delete.html"
-    success_url = reverse_lazy("blog:tag_list")
+    success_url = reverse_lazy("blog_admin:tag_list")
 
     def form_valid(self, form: TagForm) -> HttpResponse:
         messages.success(self.request, "Tag excluída com sucesso!")

@@ -63,24 +63,16 @@ module.exports = {
         "neo-yellow-pastel": "#FEF08A",
         "neo-purple": "#E9D5FF",
         "neo-orange": "#FED7AA",
-        "neo-red": "#FCA5A5"
+        "neo-red": "#FF7F96",
+        "neo-beige": "#faebd7",
+        "neo-rose": "#FFD1DC",
+        "neo-gray": "#E2E8F0"
       },
       borderRadius: {
         "DEFAULT": "0.25rem",
         "lg": "0.5rem",
         "xl": "0.75rem",
         "full": "9999px"
-      },
-      spacing: {
-        "shadow-offset": "8px",
-        "md": "24px",
-        "xl": "80px",
-        "shadow-offset-sm": "4px",
-        "base": "8px",
-        "sm": "12px",
-        "border-width": "4px",
-        "lg": "48px",
-        "xs": "4px"
       },
       fontFamily: {
         "body-lg": ["Inter"],

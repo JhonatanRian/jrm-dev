@@ -108,8 +108,25 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+INTERNAL_IPS = env.list("INTERNAL_IPS", default=["127.0.0.1", "::1"])
 
-INTERNAL_IPS = env.list("INTERNAL_IPS")
+if DEBUG:
+    # Ensure local loopbacks are present
+    if "127.0.0.1" not in INTERNAL_IPS:
+        INTERNAL_IPS.append("127.0.0.1")
+    if "::1" not in INTERNAL_IPS:
+        INTERNAL_IPS.append("::1")
+
+    # Discover Docker gateway IP for development inside containers
+    import socket
+    try:
+        hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+        for ip in ips:
+            gateway_ip = ip[: ip.rfind(".")] + ".1"
+            if gateway_ip not in INTERNAL_IPS:
+                INTERNAL_IPS.append(gateway_ip)
+    except Exception:
+        pass
 
 LOG_FOLDER = BASE_DIR / "logs"
 

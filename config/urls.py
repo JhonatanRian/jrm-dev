@@ -9,10 +9,11 @@ from portfolio import views
 
 urlpatterns = [
     path("", views.PortfolioView.as_view(), name="portfolio"),
+    path("blog/", include("blog.urls")),
     path("admin/", admin.site.urls),
     path("jrm/", include("core.urls")),
     path("jrm/", include("portfolio.urls")),
-    path("jrm/blog/", include("blog.urls")),
+    path("jrm/blog/", include("blog.admin_urls")),
     path("accounts/", include("accounts.urls")),
 ]
 

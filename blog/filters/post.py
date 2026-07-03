@@ -1,3 +1,4 @@
+from django.db.models import QuerySet
 import django_filters
 from django import forms
 from django.db import connection
@@ -19,16 +20,10 @@ class PostFilter(django_filters.FilterSet):
         model = Post
         fields = ["search"]
 
-    def filter_search(self, queryset, name, value):
+    def filter_search(self, queryset: QuerySet[Post], name, value):
         if not value:
-            return queryset
+            return queryset.filter()
 
-        # Use native full-text search if PostgreSQL is the database
-        if connection.vendor == "postgresql":
-            from django.contrib.postgres.search import SearchQuery
-            return queryset.filter(search_vector=SearchQuery(value))
-
-        # Otherwise fallback gracefully to case-insensitive LIKE search
         return queryset.filter(
             Q(title__icontains=value) | Q(content__icontains=value)
         )

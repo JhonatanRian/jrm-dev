@@ -1,0 +1,209 @@
+{% extends 'core/base_public.html' %}
+{% load static %}
+
+{% block title %}Blog — Jhonatan Rian{% endblock %}
+
+{% block content %}
+    {% include 'portfolio/header.html' %}
+
+    <main class="max-w-7xl mx-auto px-sm md:px-md py-xl">
+
+        {# ── Header da Listagem (Stitch style) ─────────────────────────────── #}
+        <div class="mb-xl">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-md border-b-[4px] border-black pb-md">
+
+                {# Título + Descrição #}
+                <div class="max-w-xl">
+                    <h1 class="font-headline-xl text-5xl md:text-headline-xl font-black uppercase leading-none tracking-tighter text-black mb-sm">
+                        Blog
+                    </h1>
+                    <p class="font-body-lg text-body-lg text-black/60 max-w-md">
+                        Artigos, notas e reflexões sobre desenvolvimento backend, arquitetura e o dia a dia de quem vive de terminal.
+                    </p>
+                </div>
+
+                {# Search integrada #}
+                <form method="get" id="blog-filter-form" class="w-full md:w-80 flex-shrink-0">
+                    <div class="flex flex-col gap-sm">
+                        <div class="relative neo-border bg-white neo-shadow focus-within:shadow-none focus-within:translate-x-xs focus-within:translate-y-xs transition-all">
+                            <span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-black text-base pointer-events-none">search</span>
+                            <input
+                                type="text"
+                                name="search"
+                                id="blog-search-input"
+                                value="{{ search_query }}"
+                                placeholder="BUSCAR POSTS..."
+                                class="w-full pl-lg pr-sm py-sm font-label-bold text-label-bold uppercase bg-transparent border-none focus:ring-0 focus:outline-none text-black placeholder:text-black/40"
+                            >
+                        </div>
+
+                        {# Tags Pills inline com a busca #}
+                        {% if all_tags %}
+                        <div class="flex flex-wrap gap-xs">
+                            <a href="{% url 'blog:public_list' %}{% if search_query %}?search={{ search_query }}{% endif %}"
+                               class="neo-button neo-border border-[2px] px-sm py-xs font-label-bold text-[11px] uppercase {% if not active_tag_slug %}bg-primary text-white neo-shadow{% else %}bg-white text-black{% endif %}">
+                                Todos
+                            </a>
+                            {% for tag in all_tags %}
+                                <a href="?tag={{ tag.slug }}{% if search_query %}&search={{ search_query }}{% endif %}"
+                                   class="neo-button neo-border border-[2px] px-sm py-xs font-label-bold text-[11px] uppercase {% if active_tag_slug == tag.slug %}bg-primary text-white neo-shadow{% else %}bg-white text-black{% endif %}">
+                                    {{ tag.name }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        {% if search_query or active_tag_slug %}
+                        <a href="{% url 'blog:public_list' %}" class="font-label-bold text-[11px] uppercase text-black/50 hover:text-black transition-colors">
+                            ✕ Limpar filtros
+                        </a>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {# ── Grid de Posts ────────────────────────────────────────────────── #}
+        {% if posts %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg mb-lg" id="blog-post-grid">
+                {% for post in posts %}
+                    {# Cores accent ciclicas para as tags, como no design do Stitch #}
+                    {% with accent_classes="bg-neo-yellow-pastel,bg-neo-pink,bg-neo-blue,bg-neo-green,bg-neo-orange,bg-neo-purple" %}
+                    <article class="flex flex-col bg-white neo-border neo-shadow neo-card overflow-hidden group">
+
+                        {# Card Image — grayscale com hover colorido, como no design do Stitch #}
+                        {% if post.featured_image %}
+                            <div class="h-52 neo-border border-t-0 border-l-0 border-r-0 overflow-hidden">
+                                <img
+                                    src="{{ post.featured_image.url }}"
+                                    alt="{{ post.title }}"
+                                    class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                >
+                            </div>
+                        {% else %}
+                            <div class="{% cycle 'bg-neo-yellow-pastel' 'bg-neo-pink' 'bg-neo-blue' 'bg-neo-green' 'bg-neo-orange' 'bg-neo-purple' %} neo-border border-t-0 border-l-0 border-r-0 h-28 flex items-center justify-between px-md">
+                                <span class="material-symbols-outlined text-[48px] text-black opacity-30" style="font-variation-settings: 'FILL' 1;">article</span>
+                                <span class="font-label-bold text-xs uppercase text-black/50">
+                                    {{ post.published_at|date:"d M Y" }}
+                                </span>
+                            </div>
+                        {% endif %}
+
+                        {# Card Body #}
+                        <div class="p-md flex flex-col flex-grow gap-sm">
+
+                            {# Tag + Data #}
+                            <div class="flex items-center justify-between">
+                                {% if post.tags.all %}
+                                    {% with first_tag=post.tags.all|first %}
+                                    <a href="?tag={{ first_tag.slug }}"
+                                       class="neo-border border-[2px] px-xs py-[2px] font-label-bold text-[10px] uppercase {% cycle 'bg-neo-yellow-pastel' 'bg-neo-pink' 'bg-neo-blue' 'bg-neo-green' %} text-black hover:opacity-80 transition-opacity">
+                                        {{ first_tag.name }}
+                                    </a>
+                                    {% endwith %}
+                                {% else %}
+                                    <span></span>
+                                {% endif %}
+                                <time class="font-label-bold text-[11px] uppercase text-black/50">
+                                    {{ post.published_at|date:"d M, Y" }}
+                                </time>
+                            </div>
+
+                            {# Título #}
+                            <h2 class="font-headline-md text-xl md:text-headline-md font-black uppercase text-black leading-tight">
+                                <a href="{% url 'blog:public_detail' slug=post.slug %}" class="hover:underline decoration-2 underline-offset-4">
+                                    {{ post.title }}
+                                </a>
+                            </h2>
+
+                            {# Excerto #}
+                            <p class="font-body-md text-sm text-black/60 flex-grow leading-relaxed">
+                                {{ post.content|striptags|truncatechars:140 }}
+                            </p>
+
+                            {# Botão Read More — estilo Stitch #}
+                            <a class="group/btn mt-auto flex items-center justify-between font-label-bold text-label-bold uppercase py-sm px-md neo-border bg-secondary-container text-black neo-shadow neo-button hover:translate-x-xs hover:translate-y-xs hover:shadow-none transition-all"
+                               href="{% url 'blog:public_detail' slug=post.slug %}">
+                                <span>Ler Artigo</span>
+                                <span class="material-symbols-outlined group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                            </a>
+                        </div>
+
+                    </article>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+
+            {# ── Paginação — estilo Stitch ─────────────────────────────────── #}
+            {% if is_paginated %}
+            <nav aria-label="Paginação do blog" class="flex justify-center items-center gap-md mt-xl mb-md">
+
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if active_tag_slug %}&tag={{ active_tag_slug }}{% endif %}"
+                       class="neo-border p-sm bg-white neo-shadow neo-button flex items-center justify-center">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </a>
+                {% else %}
+                    <button disabled class="neo-border p-sm bg-white opacity-30 flex items-center justify-center cursor-not-allowed">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </button>
+                {% endif %}
+
+                <div class="flex gap-sm">
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <span class="neo-border px-md py-sm bg-primary text-white font-label-bold text-label-bold">
+                                {{ num }}
+                            </span>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <a href="?page={{ num }}{% if search_query %}&search={{ search_query }}{% endif %}{% if active_tag_slug %}&tag={{ active_tag_slug }}{% endif %}"
+                               class="neo-border px-md py-sm bg-white font-label-bold text-label-bold neo-button hover:bg-surface-variant transition-colors">
+                                {{ num }}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if active_tag_slug %}&tag={{ active_tag_slug }}{% endif %}"
+                       class="neo-border p-sm bg-white neo-shadow neo-button flex items-center justify-center">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </a>
+                {% else %}
+                    <button disabled class="neo-border p-sm bg-white opacity-30 flex items-center justify-center cursor-not-allowed">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
+                {% endif %}
+
+            </nav>
+            {% endif %}
+
+        {% else %}
+            {# Estado vazio #}
+            <div class="neo-border bg-neo-yellow-pastel neo-shadow p-xl text-center">
+                <span class="material-symbols-outlined text-[80px] text-black opacity-40 block mb-md" style="font-variation-settings: 'FILL' 1;">
+                    edit_off
+                </span>
+                <h2 class="font-headline-md text-headline-md font-black uppercase text-black mb-sm">
+                    Nenhum post encontrado
+                </h2>
+                <p class="font-body-md text-body-md text-black/70 mb-md">
+                    {% if search_query or active_tag_slug %}
+                        Tente outros termos ou remova os filtros.
+                    {% else %}
+                        Em breve, novos artigos por aqui.
+                    {% endif %}
+                </p>
+                {% if search_query or active_tag_slug %}
+                    <a href="{% url 'blog:public_list' %}"
+                       class="neo-border bg-primary text-white px-md py-sm neo-shadow neo-button font-label-bold text-label-bold uppercase inline-flex items-center gap-sm">
+                        Ver todos os posts
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+
+    </main>
+
+    {% include 'portfolio/footer.html' %}
+{% endblock %}

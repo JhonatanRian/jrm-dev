@@ -36,7 +36,7 @@ class SidebarManager {
         // Auto-expand submenus if they contain an active link and sidebar is not collapsed
         if (!savedState) {
             document.querySelectorAll('[data-submenu-list]').forEach(submenu => {
-                const hasActiveLink = submenu.querySelector('.bg-yellow-300') !== null;
+                const hasActiveLink = submenu.querySelector('.sidebar-link-active') !== null;
                 if (hasActiveLink) {
                     submenu.classList.add('open');
                     const trigger = submenu.previousElementSibling;

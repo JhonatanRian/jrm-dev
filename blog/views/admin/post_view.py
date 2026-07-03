@@ -41,7 +41,7 @@ class PostCreateView(AdminPermissionMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = "blog/admin/post/post_form.html"
-    success_url = reverse_lazy("blog:post_list")
+    success_url = reverse_lazy("blog_admin:post_list")
 
     def form_valid(self, form: PostForm) -> HttpResponse:
         form.instance.author = self.request.user
@@ -55,7 +55,7 @@ class PostUpdateView(AdminPermissionMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = "blog/admin/post/post_form.html"
-    success_url = reverse_lazy("blog:post_list")
+    success_url = reverse_lazy("blog_admin:post_list")
 
     def form_valid(self, form: PostForm) -> HttpResponse:
         messages.success(self.request, "Post atualizado com sucesso!")
@@ -74,5 +74,5 @@ class PostTogglePublishView(AdminPermissionMixin, View):
         messages.success(
             request, f"Post '{post_obj.title}' {status_msg} com sucesso!"
         )
-        return redirect("blog:post_list")
+        return redirect("blog_admin:post_list")
 
