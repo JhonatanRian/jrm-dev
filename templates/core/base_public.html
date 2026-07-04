@@ -25,6 +25,7 @@
 {% endblock %}
 {% block js %}
 {% endblock %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const LANG_LABELS = {
@@ -39,10 +40,15 @@
             'dockerfile': 'Docker', 'nginx': 'Nginx', 'graphql': 'GraphQL',
         };
 
-        const codeBlocks = document.querySelectorAll("pre.neo-mac-codeblock");
+        const codeBlocks = document.querySelectorAll(".prose-neo pre, pre.neo-mac-codeblock");
         codeBlocks.forEach(pre => {
             const code = pre.querySelector("code");
             if (!code) return;
+
+            // Run highlight.js on the code element
+            if (typeof hljs !== 'undefined') {
+                hljs.highlightElement(code);
+            }
 
             // Extract language from class name
             let langKey = null;

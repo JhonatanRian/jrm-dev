@@ -725,20 +725,51 @@ body {
 .prose-neo h5,
 .prose-neo h6 {
     font-family: 'Outfit', sans-serif;
-    font-weight: 900;
-    text-transform: uppercase;
     color: #000000;
     line-height: 1.15;
-    margin-top: 2rem;
+}
+
+.prose-neo h1 {
+    font-size: 1.875rem;
+    font-weight: 900;
+    margin-top: 1.5rem;
     margin-bottom: 0.75rem;
 }
 
-.prose-neo h1 { font-size: 2.25rem; border-left: 6px solid #000; padding-left: 0.75rem; background-color: #BFDBFE; }
-.prose-neo h2 { font-size: 1.75rem; border-left: 4px solid #000; padding-left: 0.75rem; }
-.prose-neo h3 { font-size: 1.375rem; border-left: 4px solid #FFD700; padding-left: 0.75rem; }
-.prose-neo h4 { font-size: 1.125rem; }
-.prose-neo h5 { font-size: 1rem; }
-.prose-neo h6 { font-size: 0.875rem; }
+.prose-neo h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.prose-neo h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.prose-neo h4 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.prose-neo h5 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.prose-neo h6 {
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
 
 /* Parágrafos */
 .prose-neo p {
@@ -770,14 +801,12 @@ body {
 
 /* Blockquote — Neo-Brutal style (Stitch design: thick left border) */
 .prose-neo blockquote {
-    border-left: 12px solid #000000;
-    background-color: #eeeeee;
-    padding: 1rem 1.5rem;
-    margin: 2rem 0;
+    border-left: 4px solid #000000;
+    padding-left: 1rem;
     font-style: italic;
-    font-weight: 500;
-    font-size: 1.125rem;
-    line-height: 1.6;
+    margin: 1.5rem 0;
+    background-color: #F8FAFC;
+    border-radius: 2px;
 }
 .prose-neo blockquote p { margin-bottom: 0; }
 
@@ -868,6 +897,7 @@ body {
    neo-mac-codeblock dentro de .prose-neo
    ========================================================================== */
 
+.prose-neo pre,
 .prose-neo pre.neo-mac-codeblock {
     background: #0d1117;
     border: 4px solid #000000;
@@ -878,6 +908,7 @@ body {
     overflow: hidden;
 }
 
+.prose-neo pre::before,
 .prose-neo pre.neo-mac-codeblock::before {
     content: '';
     position: absolute;
@@ -889,6 +920,7 @@ body {
     border-bottom: 4px solid #000000;
 }
 
+.prose-neo pre::after,
 .prose-neo pre.neo-mac-codeblock::after {
     content: '';
     position: absolute;
@@ -906,6 +938,7 @@ body {
         2.5rem 0 0 0 #000000;
 }
 
+.prose-neo pre code,
 .prose-neo pre.neo-mac-codeblock code {
     display: block;
     overflow-x: auto;
@@ -920,37 +953,37 @@ body {
 }
 
 /* Highlight.js tokens dentro de .prose-neo */
-.prose-neo pre.neo-mac-codeblock .hljs-comment,
-.prose-neo pre.neo-mac-codeblock .hljs-quote { color: #8b949e; font-style: italic; text-decoration: none !important; }
-.prose-neo pre.neo-mac-codeblock .hljs-keyword,
-.prose-neo pre.neo-mac-codeblock .hljs-selector-tag,
-.prose-neo pre.neo-mac-codeblock .hljs-addition { color: #ff7b72; text-decoration: none !important; }
-.prose-neo pre.neo-mac-codeblock .hljs-built_in,
-.prose-neo pre.neo-mac-codeblock .hljs-type { color: #ffa657; text-decoration: none !important; }
-.prose-neo pre.neo-mac-codeblock .hljs-number,
-.prose-neo pre.neo-mac-codeblock .hljs-literal { color: #79c0ff; text-decoration: none !important; }
-.prose-neo pre.neo-mac-codeblock .hljs-string,
-.prose-neo pre.neo-mac-codeblock .hljs-doctag { color: #a5d6ff; text-decoration: none !important; }
-.prose-neo pre.neo-mac-codeblock .hljs-title,
-.prose-neo pre.neo-mac-codeblock .hljs-section,
-.prose-neo pre.neo-mac-codeblock .hljs-selector-id { color: #d2a8ff; text-decoration: none !important; }
-.prose-neo pre.neo-mac-codeblock .hljs-variable,
-.prose-neo pre.neo-mac-codeblock .hljs-template-variable,
-.prose-neo pre.neo-mac-codeblock .hljs-class .hljs-title { color: #ffa657; text-decoration: none !important; }
-.prose-neo pre.neo-mac-codeblock .hljs-attr,
-.prose-neo pre.neo-mac-codeblock .hljs-attribute { color: #79c0ff; text-decoration: none !important; }
-.prose-neo pre.neo-mac-codeblock .hljs-tag { color: #7ee787; text-decoration: none !important; }
-.prose-neo pre.neo-mac-codeblock .hljs-name { color: #7ee787; text-decoration: none !important; }
-.prose-neo pre.neo-mac-codeblock .hljs-regexp,
-.prose-neo pre.neo-mac-codeblock .hljs-link { color: #a5d6ff; text-decoration: none !important; }
-.prose-neo pre.neo-mac-codeblock .hljs-bullet,
-.prose-neo pre.neo-mac-codeblock .hljs-symbol,
-.prose-neo pre.neo-mac-codeblock .hljs-code { color: #7ee787; text-decoration: none !important; }
-.prose-neo pre.neo-mac-codeblock .hljs-deletion { color: #ffa198; text-decoration: none !important; }
-.prose-neo pre.neo-mac-codeblock .hljs-meta,
-.prose-neo pre.neo-mac-codeblock .hljs-meta .hljs-keyword { color: #ffa657; text-decoration: none !important; }
-.prose-neo pre.neo-mac-codeblock .hljs-emphasis { font-style: italic; text-decoration: none !important; }
-.prose-neo pre.neo-mac-codeblock .hljs-strong { font-weight: bold; text-decoration: none !important; }
+.prose-neo pre .hljs-comment,
+.prose-neo pre .hljs-quote { color: #8b949e; font-style: italic; text-decoration: none !important; }
+.prose-neo pre .hljs-keyword,
+.prose-neo pre .hljs-selector-tag,
+.prose-neo pre .hljs-addition { color: #ff7b72; text-decoration: none !important; }
+.prose-neo pre .hljs-built_in,
+.prose-neo pre .hljs-type { color: #ffa657; text-decoration: none !important; }
+.prose-neo pre .hljs-number,
+.prose-neo pre .hljs-literal { color: #79c0ff; text-decoration: none !important; }
+.prose-neo pre .hljs-string,
+.prose-neo pre .hljs-doctag { color: #a5d6ff; text-decoration: none !important; }
+.prose-neo pre .hljs-title,
+.prose-neo pre .hljs-section,
+.prose-neo pre .hljs-selector-id { color: #d2a8ff; text-decoration: none !important; }
+.prose-neo pre .hljs-variable,
+.prose-neo pre .hljs-template-variable,
+.prose-neo pre .hljs-class .hljs-title { color: #ffa657; text-decoration: none !important; }
+.prose-neo pre .hljs-attr,
+.prose-neo pre .hljs-attribute { color: #79c0ff; text-decoration: none !important; }
+.prose-neo pre .hljs-tag { color: #7ee787; text-decoration: none !important; }
+.prose-neo pre .hljs-name { color: #7ee787; text-decoration: none !important; }
+.prose-neo pre .hljs-regexp,
+.prose-neo pre .hljs-link { color: #a5d6ff; text-decoration: none !important; }
+.prose-neo pre .hljs-bullet,
+.prose-neo pre .hljs-symbol,
+.prose-neo pre .hljs-code { color: #7ee787; text-decoration: none !important; }
+.prose-neo pre .hljs-deletion { color: #ffa198; text-decoration: none !important; }
+.prose-neo pre .hljs-meta,
+.prose-neo pre .hljs-meta .hljs-keyword { color: #ffa657; text-decoration: none !important; }
+.prose-neo pre .hljs-emphasis { font-style: italic; text-decoration: none !important; }
+.prose-neo pre .hljs-strong { font-weight: bold; text-decoration: none !important; }
 
 /* ==========================================================================
    Classes de Componentes Neo-Brutalistas

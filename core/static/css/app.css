@@ -2760,37 +2760,44 @@ body {
 }
 .prose-neo h1, .prose-neo h2, .prose-neo h3, .prose-neo h4, .prose-neo h5, .prose-neo h6 {
   font-family: 'Outfit', sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
   color: #000000;
   line-height: 1.15;
-  margin-top: 2rem;
-  margin-bottom: 0.75rem;
 }
 .prose-neo h1 {
-  font-size: 2.25rem;
-  border-left: 6px solid #000;
-  padding-left: 0.75rem;
-  background-color: #BFDBFE;
+  font-size: 1.875rem;
+  font-weight: 900;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 .prose-neo h2 {
-  font-size: 1.75rem;
-  border-left: 4px solid #000;
-  padding-left: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
 }
 .prose-neo h3 {
-  font-size: 1.375rem;
-  border-left: 4px solid #FFD700;
-  padding-left: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 .prose-neo h4 {
   font-size: 1.125rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 .prose-neo h5 {
   font-size: 1rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 .prose-neo h6 {
   font-size: 0.875rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 .prose-neo p {
   margin-bottom: 1rem;
@@ -2819,14 +2826,12 @@ body {
   font-style: italic;
 }
 .prose-neo blockquote {
-  border-left: 12px solid #000000;
-  background-color: #eeeeee;
-  padding: 1rem 1.5rem;
-  margin: 2rem 0;
+  border-left: 4px solid #000000;
+  padding-left: 1rem;
   font-style: italic;
-  font-weight: 500;
-  font-size: 1.125rem;
-  line-height: 1.6;
+  margin: 1.5rem 0;
+  background-color: #F8FAFC;
+  border-radius: 2px;
 }
 .prose-neo blockquote p {
   margin-bottom: 0;
@@ -2906,7 +2911,7 @@ body {
 .prose-neo tr:nth-child(even) td {
   background-color: #f3f4f6;
 }
-.prose-neo pre.neo-mac-codeblock {
+.prose-neo pre, .prose-neo pre.neo-mac-codeblock {
   background: #0d1117;
   border: 4px solid #000000;
   position: relative;
@@ -2915,7 +2920,7 @@ body {
   padding-top: 2.25rem;
   overflow: hidden;
 }
-.prose-neo pre.neo-mac-codeblock::before {
+.prose-neo pre::before, .prose-neo pre.neo-mac-codeblock::before {
   content: '';
   position: absolute;
   top: 0;
@@ -2925,7 +2930,7 @@ body {
   background-color: #ffffff;
   border-bottom: 4px solid #000000;
 }
-.prose-neo pre.neo-mac-codeblock::after {
+.prose-neo pre::after, .prose-neo pre.neo-mac-codeblock::after {
   content: '';
   position: absolute;
   top: 0.65rem;
@@ -2937,7 +2942,7 @@ body {
   border: 2px solid #000000;
   box-shadow: 1.25rem 0 0 -2px #ffbd2e, 1.25rem 0 0 0 #000000, 2.5rem 0 0 -2px #27c93f, 2.5rem 0 0 0 #000000;
 }
-.prose-neo pre.neo-mac-codeblock code {
+.prose-neo pre code, .prose-neo pre.neo-mac-codeblock code {
   display: block;
   overflow-x: auto;
   padding: 1rem 1.25rem;
@@ -2949,68 +2954,68 @@ body {
   text-decoration: none;
   white-space: pre;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-comment, .prose-neo pre.neo-mac-codeblock .hljs-quote {
+.prose-neo pre .hljs-comment, .prose-neo pre .hljs-quote {
   color: #8b949e;
   font-style: italic;
   text-decoration: none !important;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-keyword, .prose-neo pre.neo-mac-codeblock .hljs-selector-tag, .prose-neo pre.neo-mac-codeblock .hljs-addition {
+.prose-neo pre .hljs-keyword, .prose-neo pre .hljs-selector-tag, .prose-neo pre .hljs-addition {
   color: #ff7b72;
   text-decoration: none !important;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-built_in, .prose-neo pre.neo-mac-codeblock .hljs-type {
+.prose-neo pre .hljs-built_in, .prose-neo pre .hljs-type {
   color: #ffa657;
   text-decoration: none !important;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-number, .prose-neo pre.neo-mac-codeblock .hljs-literal {
+.prose-neo pre .hljs-number, .prose-neo pre .hljs-literal {
   color: #79c0ff;
   text-decoration: none !important;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-string, .prose-neo pre.neo-mac-codeblock .hljs-doctag {
+.prose-neo pre .hljs-string, .prose-neo pre .hljs-doctag {
   color: #a5d6ff;
   text-decoration: none !important;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-title, .prose-neo pre.neo-mac-codeblock .hljs-section, .prose-neo pre.neo-mac-codeblock .hljs-selector-id {
+.prose-neo pre .hljs-title, .prose-neo pre .hljs-section, .prose-neo pre .hljs-selector-id {
   color: #d2a8ff;
   text-decoration: none !important;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-variable, .prose-neo pre.neo-mac-codeblock .hljs-template-variable, .prose-neo pre.neo-mac-codeblock .hljs-class .hljs-title {
+.prose-neo pre .hljs-variable, .prose-neo pre .hljs-template-variable, .prose-neo pre .hljs-class .hljs-title {
   color: #ffa657;
   text-decoration: none !important;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-attr, .prose-neo pre.neo-mac-codeblock .hljs-attribute {
+.prose-neo pre .hljs-attr, .prose-neo pre .hljs-attribute {
   color: #79c0ff;
   text-decoration: none !important;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-tag {
+.prose-neo pre .hljs-tag {
   color: #7ee787;
   text-decoration: none !important;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-name {
+.prose-neo pre .hljs-name {
   color: #7ee787;
   text-decoration: none !important;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-regexp, .prose-neo pre.neo-mac-codeblock .hljs-link {
+.prose-neo pre .hljs-regexp, .prose-neo pre .hljs-link {
   color: #a5d6ff;
   text-decoration: none !important;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-bullet, .prose-neo pre.neo-mac-codeblock .hljs-symbol, .prose-neo pre.neo-mac-codeblock .hljs-code {
+.prose-neo pre .hljs-bullet, .prose-neo pre .hljs-symbol, .prose-neo pre .hljs-code {
   color: #7ee787;
   text-decoration: none !important;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-deletion {
+.prose-neo pre .hljs-deletion {
   color: #ffa198;
   text-decoration: none !important;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-meta, .prose-neo pre.neo-mac-codeblock .hljs-meta .hljs-keyword {
+.prose-neo pre .hljs-meta, .prose-neo pre .hljs-meta .hljs-keyword {
   color: #ffa657;
   text-decoration: none !important;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-emphasis {
+.prose-neo pre .hljs-emphasis {
   font-style: italic;
   text-decoration: none !important;
 }
-.prose-neo pre.neo-mac-codeblock .hljs-strong {
+.prose-neo pre .hljs-strong {
   font-weight: bold;
   text-decoration: none !important;
 }

@@ -452,6 +452,9 @@
     // de elementos corrigida (code antes de select) para não quebrar o parseHTML
     // do TipTap, garantindo que o lowlight e o autoDetect não resetem a linguagem.
     const NeoCodeBlock = CodeBlockLowlight.extend({
+        renderHTML({ HTMLAttributes }) {
+            return ['pre', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, { class: 'neo-mac-codeblock' }), ['code', {}, 0]]
+        },
         addNodeView() {
             return ({ node, getPos, editor }) => {
                 const pre = document.createElement('pre');
