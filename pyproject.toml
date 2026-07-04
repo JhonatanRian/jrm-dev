@@ -98,3 +98,20 @@ preset = "legacy"
 
 [tool.djlint]
 max_blank_lines = 1 
+
+[tool.mypy]
+plugins = ["mypy_django_plugin.main"]
+ignore_missing_imports = true
+disable_error_code = ["var-annotated"]
+
+[[tool.mypy.overrides]]
+module = [
+    "environ.*",
+    "django_select2.*",
+    "dj_static.*",
+    "debug_toolbar.*",
+    "crispy_forms.*",
+    "crispy_neurobrutalist.*",
+]
+ignore_missing_imports = true
+

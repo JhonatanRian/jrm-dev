@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
 
-from environ import Env
 from django.contrib.messages import constants as django_messages
+from environ import Env
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -76,7 +76,9 @@ LOGOUT_REDIRECT_URL = "portfolio"
 WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
-    "default": env.db("DATABASE_URL", default="postgres://postgres:postgres@localhost:5432/jrmdev")
+    "default": env.db(
+        "DATABASE_URL", default="postgres://postgres:postgres@localhost:5432/jrmdev"
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -120,6 +122,7 @@ if DEBUG:
 
     # Discover Docker gateway IP for development inside containers
     import socket
+
     try:
         hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
         for ip in ips:

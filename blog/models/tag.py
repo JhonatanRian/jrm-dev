@@ -6,7 +6,9 @@ from core.models.base_model import BaseModel
 
 class Tag(BaseModel):
     name = models.CharField("Nome", max_length=100, unique=True)
-    slug = models.SlugField("Slug", max_length=100, unique=True, db_index=True, blank=True)
+    slug = models.SlugField(
+        "Slug", max_length=100, unique=True, db_index=True, blank=True
+    )
 
     class Meta:
         verbose_name = "Tag"

@@ -15,5 +15,7 @@ class StackForm(forms.ModelForm):
             if self.instance and self.instance.pk:
                 qs = qs.exclude(pk=self.instance.pk)
             if qs.exists():
-                self.add_error("name", "Já existe uma stack cadastrada com este nome.")
+                raise forms.ValidationError(
+                    "Já existe uma stack cadastrada com este nome."
+                )
         return name

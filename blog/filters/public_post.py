@@ -9,10 +9,12 @@ class PublicPostFilter(django_filters.FilterSet):
     search = django_filters.CharFilter(
         method="filter_search",
         label="",
-        widget=forms.TextInput(attrs={
-            "placeholder": "Buscar posts...",
-            "id": "blog-search-input",
-        })
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Buscar posts...",
+                "id": "blog-search-input",
+            }
+        ),
     )
     tag = django_filters.ModelChoiceFilter(
         field_name="tags",

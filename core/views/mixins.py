@@ -15,9 +15,11 @@ class AdminPermissionMixin(LoginRequiredMixin, UserPassesTestMixin):
 
     def handle_no_permission(self):
         if self.raise_exception or self.request.user.is_authenticated:
-            messages.error(self.request, "Você não tem permissão para acessar esta página.")
+            messages.error(
+                self.request, "Você não tem permissão para acessar esta página."
+            )
             # Redireciona para o login publico ou painel_administrativo
-            return redirect("login")
+            return redirect("accounts:login")
         return redirect_to_login(
             self.request.get_full_path(),
             self.get_login_url(),

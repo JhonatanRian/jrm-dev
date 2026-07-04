@@ -10,6 +10,7 @@ from portfolio.models import GroupStack
 
 class GroupStackListView(AdminPermissionMixin, FilterView):
     model = GroupStack
+    queryset = GroupStack.objects.prefetch_related("stacks")
     template_name = "portfolio/admin/group_stack/group_stack_list.html"
     context_object_name = "group_stacks"
     filterset_class = GroupStackFilter

@@ -1,8 +1,6 @@
-from django.db.models import QuerySet
 import django_filters
 from django import forms
-from django.db import connection
-from django.db.models import Q
+from django.db.models import Q, QuerySet
 
 from blog.models import Post
 
@@ -11,9 +9,11 @@ class PostFilter(django_filters.FilterSet):
     search = django_filters.CharFilter(
         method="filter_search",
         label="",
-        widget=forms.TextInput(attrs={
-            "placeholder": "Buscar",
-        })
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Buscar",
+            }
+        ),
     )
 
     class Meta:
@@ -24,6 +24,4 @@ class PostFilter(django_filters.FilterSet):
         if not value:
             return queryset.filter()
 
-        return queryset.filter(
-            Q(title__icontains=value) | Q(content__icontains=value)
-        )
+        return queryset.filter(Q(title__icontains=value) | Q(content__icontains=value))

@@ -60,4 +60,3 @@ class TagDeleteView(AdminPermissionMixin, DeleteView):
     def form_valid(self, form: TagForm) -> HttpResponse:
         messages.success(self.request, "Tag excluída com sucesso!")
         return super().form_valid(form)
-

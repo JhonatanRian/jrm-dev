@@ -1,5 +1,5 @@
-from .stack import StackFilter
-from .project import ProjectFilter
 from .group_stack import GroupStackFilter
+from .project import ProjectFilter
+from .stack import StackFilter
 
 __all__ = ["StackFilter", "ProjectFilter", "GroupStackFilter"]

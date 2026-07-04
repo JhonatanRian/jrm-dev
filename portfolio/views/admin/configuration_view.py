@@ -1,5 +1,5 @@
-from django.shortcuts import redirect, render
 from django.contrib import messages
+from django.shortcuts import redirect, render
 from django.views import View
 
 from core.views.mixins import AdminPermissionMixin
@@ -31,7 +31,9 @@ class ConfigurationView(AdminPermissionMixin, View):
     def get(self, request, *args, **kwargs):
         portfolio = self.get_portfolio()
         form = PortfolioForm(instance=portfolio)
-        return render(request, self.template_name, {"form": form, "portfolio": portfolio})
+        return render(
+            request, self.template_name, {"form": form, "portfolio": portfolio}
+        )
 
     def post(self, request, *args, **kwargs):
         portfolio = self.get_portfolio()
@@ -41,5 +43,9 @@ class ConfigurationView(AdminPermissionMixin, View):
             messages.success(request, "Configurações do portfólio salvas com sucesso!")
             return redirect("portfolio:configuration")
         else:
-            messages.error(request, "Erro ao salvar as configurações. Verifique os campos.")
-        return render(request, self.template_name, {"form": form, "portfolio": portfolio})
+            messages.error(
+                request, "Erro ao salvar as configurações. Verifique os campos."
+            )
+        return render(
+            request, self.template_name, {"form": form, "portfolio": portfolio}
+        )

@@ -24,14 +24,28 @@ urlpatterns = [
         views.ProjectUpdateView.as_view(),
         name="project_update",
     ),
-    path("projects/<int:pk>/delete/", views.ProjectDeleteView.as_view(), name="project_delete"),
-    
+    path(
+        "projects/<int:pk>/delete/",
+        views.ProjectDeleteView.as_view(),
+        name="project_delete",
+    ),
     # GroupStack CRUD
     path("group-stacks/", views.GroupStackListView.as_view(), name="group_stack_list"),
-    path("group-stacks/create/", views.GroupStackCreateView.as_view(), name="group_stack_create"),
-    path("group-stacks/<int:pk>/update/", views.GroupStackUpdateView.as_view(), name="group_stack_update"),
-    path("group-stacks/<int:pk>/delete/", views.GroupStackDeleteView.as_view(), name="group_stack_delete"),
-
+    path(
+        "group-stacks/create/",
+        views.GroupStackCreateView.as_view(),
+        name="group_stack_create",
+    ),
+    path(
+        "group-stacks/<int:pk>/update/",
+        views.GroupStackUpdateView.as_view(),
+        name="group_stack_update",
+    ),
+    path(
+        "group-stacks/<int:pk>/delete/",
+        views.GroupStackDeleteView.as_view(),
+        name="group_stack_delete",
+    ),
     # Configuration Dashboard
     path("configuration/", views.ConfigurationView.as_view(), name="configuration"),
 ]

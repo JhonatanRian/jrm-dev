@@ -1,4 +1,9 @@
 from .admin import (
+    ConfigurationView,
+    GroupStackCreateView,
+    GroupStackDeleteView,
+    GroupStackListView,
+    GroupStackUpdateView,
     ProjectCreateView,
     ProjectDeleteView,
     ProjectDetailView,
@@ -9,11 +14,6 @@ from .admin import (
     StackDetailView,
     StackListView,
     StackUpdateView,
-    GroupStackListView,
-    GroupStackCreateView,
-    GroupStackUpdateView,
-    GroupStackDeleteView,
-    ConfigurationView,
 )
 from .public_view import PortfolioView
 

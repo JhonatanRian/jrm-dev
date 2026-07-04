@@ -71,8 +71,5 @@ class PostTogglePublishView(AdminPermissionMixin, View):
         post_obj.save()
 
         status_msg = "publicado" if post_obj.published else "despublicado"
-        messages.success(
-            request, f"Post '{post_obj.title}' {status_msg} com sucesso!"
-        )
+        messages.success(request, f"Post '{post_obj.title}' {status_msg} com sucesso!")
         return redirect("blog_admin:post_list")
-

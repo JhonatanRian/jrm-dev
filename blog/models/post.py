@@ -10,13 +10,12 @@ from core.models.base_model import BaseModel
 
 class Post(BaseModel):
     title = models.CharField("Título", max_length=255)
-    slug = models.SlugField("Slug", max_length=255, unique=True, db_index=True, blank=True)
+    slug = models.SlugField(
+        "Slug", max_length=255, unique=True, db_index=True, blank=True
+    )
     content = models.TextField("Conteúdo")
     featured_image = models.ImageField(
-        "Imagem de Destaque",
-        upload_to="blog/posts/",
-        blank=True,
-        null=True
+        "Imagem de Destaque", upload_to="blog/posts/", blank=True, null=True
     )
     published = models.BooleanField("Publicado", default=False)
     published_at = models.DateTimeField("Publicado em", blank=True, null=True)
@@ -25,14 +24,11 @@ class Post(BaseModel):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         verbose_name="Autor",
-        related_name="blog_posts"
+        related_name="blog_posts",
     )
 
     tags = models.ManyToManyField(
-        "blog.Tag",
-        blank=True,
-        verbose_name="Tags",
-        related_name="posts"
+        "blog.Tag", blank=True, verbose_name="Tags", related_name="posts"
     )
 
     # Postgres tsvector for Full-Text Search
@@ -64,9 +60,7 @@ class Post(BaseModel):
 
         # Precompute the Search Vector on PostgreSQL
         from django.contrib.postgres.search import SearchVector
+
         Post.objects.filter(pk=self.pk).update(
             search_vector=SearchVector("title", "content")
         )
-
-
-

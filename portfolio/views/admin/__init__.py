@@ -1,3 +1,10 @@
+from .configuration_view import ConfigurationView
+from .group_stack_view import (
+    GroupStackCreateView,
+    GroupStackDeleteView,
+    GroupStackListView,
+    GroupStackUpdateView,
+)
 from .project_view import (
     ProjectCreateView,
     ProjectDeleteView,
@@ -12,13 +19,6 @@ from .stack_view import (
     StackListView,
     StackUpdateView,
 )
-from .group_stack_view import (
-    GroupStackListView,
-    GroupStackCreateView,
-    GroupStackUpdateView,
-    GroupStackDeleteView,
-)
-from .configuration_view import ConfigurationView
 
 __all__ = [
     "ProjectCreateView",

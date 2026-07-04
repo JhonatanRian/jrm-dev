@@ -1,5 +1,4 @@
 from django.db import models
-
 from django.utils.translation import gettext_lazy as _
 
 from core.models.base_model import BaseModel
@@ -14,4 +13,3 @@ class Stack(BaseModel):
 
     def __str__(self):
         return self.name
-

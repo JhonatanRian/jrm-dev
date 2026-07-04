@@ -4,8 +4,8 @@ from django.utils.translation import gettext_lazy as _
 
 from core.models.base_model import BaseModel
 
-from .project import Project
 from .group_stack import GroupStack
+from .project import Project
 
 
 class Portfolio(BaseModel):

@@ -7,20 +7,23 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('blog', '0002_alter_post_slug_alter_tag_slug'),
+        ("blog", "0002_alter_post_slug_alter_tag_slug"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='post',
-            name='search_vector',
-            field=django.contrib.postgres.search.SearchVectorField(blank=True, null=True),
+            model_name="post",
+            name="search_vector",
+            field=django.contrib.postgres.search.SearchVectorField(
+                blank=True, null=True
+            ),
         ),
         migrations.AddIndex(
-            model_name='post',
-            index=django.contrib.postgres.indexes.GinIndex(fields=['search_vector'], name='blog_post_search_vector_gin'),
+            model_name="post",
+            index=django.contrib.postgres.indexes.GinIndex(
+                fields=["search_vector"], name="blog_post_search_vector_gin"
+            ),
         ),
     ]

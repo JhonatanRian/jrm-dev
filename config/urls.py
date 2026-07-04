@@ -1,7 +1,6 @@
 from debug_toolbar.toolbar import debug_toolbar_urls
-
+from django.conf.urls.static import static
 from django.contrib import admin
-
 from django.urls import include, path
 
 from config import settings
@@ -16,8 +15,6 @@ urlpatterns = [
     path("jrm/blog/", include("blog.admin_urls")),
     path("accounts/", include("accounts.urls")),
 ]
-
-from django.conf.urls.static import static
 
 if settings.DEBUG:
     urlpatterns.extend(debug_toolbar_urls())

@@ -9,4 +9,3 @@ urlpatterns = [
     path("", views.BlogListView.as_view(), name="public_list"),
     path("<slug:slug>/", views.BlogDetailView.as_view(), name="public_detail"),
 ]
-

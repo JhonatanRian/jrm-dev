@@ -1,17 +1,12 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.forms import Form, fields, widgets
-
 from django.views.generic import TemplateView
 
+from core.views.mixins import AdminPermissionMixin
 from portfolio.models import Project, Stack
 
 
 class FormExample(Form):
     name = fields.CharField(label="Name", max_length=100, help_text="Enter your name")
-    email = fields.EmailField(
-        label="Email", max_length=100, help_text="Enter your email"
-    )
     email = fields.EmailField(
         label="Email", max_length=100, help_text="Enter your email"
     )
@@ -44,7 +39,7 @@ class FormExample(Form):
     )
 
 
-class PainelView(LoginRequiredMixin, TemplateView):
+class PainelView(AdminPermissionMixin, TemplateView):
     template_name = "core/painel/index.html"
 
     def get_context_data(self, **kwargs):

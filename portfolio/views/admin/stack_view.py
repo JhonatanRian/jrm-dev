@@ -69,4 +69,3 @@ class StackDeleteView(AdminPermissionMixin, DeleteView):
     def form_valid(self, form: StackForm) -> HttpResponse:
         messages.success(self.request, "Stack excluída com sucesso!")
         return super().form_valid(form)
-

@@ -4,20 +4,26 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('portfolio', '0003_groupstack_created_at_groupstack_updated_at_and_more'),
+        ("portfolio", "0003_groupstack_created_at_groupstack_updated_at_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='project',
-            name='icon',
-            field=models.CharField(default='code', help_text='Material symbol outline icon name', max_length=50, verbose_name='Icon'),
+            model_name="project",
+            name="icon",
+            field=models.CharField(
+                default="code",
+                help_text="Material symbol outline icon name",
+                max_length=50,
+                verbose_name="Icon",
+            ),
         ),
         migrations.AddField(
-            model_name='project',
-            name='stacks',
-            field=models.ManyToManyField(blank=True, related_name='projects', to='portfolio.stack'),
+            model_name="project",
+            name="stacks",
+            field=models.ManyToManyField(
+                blank=True, related_name="projects", to="portfolio.stack"
+            ),
         ),
     ]

@@ -32,4 +32,3 @@ class PortfolioForm(forms.ModelForm):
         widgets = {
             "about": TipTapEditorWidget(),
         }
-

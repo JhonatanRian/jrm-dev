@@ -10,7 +10,6 @@ urlpatterns = [
     path("tags/create/", views.TagCreateView.as_view(), name="tag_create"),
     path("tags/<int:pk>/update/", views.TagUpdateView.as_view(), name="tag_update"),
     path("tags/<int:pk>/delete/", views.TagDeleteView.as_view(), name="tag_delete"),
-
     # ── Post CRUD ─────────────────────────────────────────────────────────────
     path("posts/", views.PostListView.as_view(), name="post_list"),
     path("posts/create/", views.PostCreateView.as_view(), name="post_create"),

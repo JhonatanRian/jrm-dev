@@ -1,4 +1,3 @@
-from django.db.models import Q
 from django.views.generic import DetailView
 from django_filters.views import FilterView
 
@@ -10,7 +9,12 @@ class BlogListView(FilterView):
     """Public-facing list of published blog posts with tag and search filtering."""
 
     model = Post
-    queryset = Post.objects.filter(published=True).select_related("author").prefetch_related("tags").order_by("-published_at")
+    queryset = (
+        Post.objects.filter(published=True)
+        .select_related("author")
+        .prefetch_related("tags")
+        .order_by("-published_at")
+    )
     template_name = "blog/public/blog_list.html"
     context_object_name = "posts"
     filterset_class = PublicPostFilter
@@ -20,7 +24,10 @@ class BlogListView(FilterView):
         context = super().get_context_data(**kwargs)
         # Pass all tags for the filter pill buttons
         from blog.models import Tag
-        context["all_tags"] = Tag.objects.filter(posts__published=True).distinct().order_by("name")
+
+        context["all_tags"] = (
+            Tag.objects.filter(posts__published=True).distinct().order_by("name")
+        )
         context["active_tag_slug"] = self.request.GET.get("tag", "")
         context["search_query"] = self.request.GET.get("search", "")
         return context
@@ -36,7 +43,11 @@ class BlogDetailView(DetailView):
     slug_url_kwarg = "slug"
 
     def get_queryset(self):
-        return Post.objects.filter(published=True).select_related("author").prefetch_related("tags")
+        return (
+            Post.objects.filter(published=True)
+            .select_related("author")
+            .prefetch_related("tags")
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

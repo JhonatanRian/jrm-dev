@@ -70,4 +70,3 @@ class ProjectDeleteView(AdminPermissionMixin, DeleteView):
     def form_valid(self, form: ProjectForm) -> HttpResponse:
         messages.success(self.request, "Projeto excluído com sucesso!")
         return super().form_valid(form)
-
