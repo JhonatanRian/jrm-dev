@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-crispy_neurobrutalist = { git = "https://github.com/JhonatanRian/crispy_neurobrutalist", tag = "v0.6.3" }
+crispy_neurobrutalist = { git = "https://github.com/JhonatanRian/crispy_neurobrutalist", tag = "v0.6.4" }
 
 [[tool.uv.dependency-metadata]]
 name = "crispy_neurobrutalist"
