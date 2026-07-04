@@ -1,0 +1,21 @@
+<!-- --- Rodapé do Blog (Blog Footer) --- -->
+<footer class="bg-surface-container-highest w-full border-t-4 border-black mt-xl">
+    <div class="max-w-7xl mx-auto px-md py-lg flex flex-col md:flex-row justify-between items-center gap-md">
+        <div class="flex flex-col items-center md:items-start gap-xs">
+            <span class="font-headline-md text-headline-md text-primary uppercase font-black">JRM BLOG</span>
+            <span class="font-label-bold text-label-bold uppercase text-on-surface">© {% now "Y" %} JRM. TODOS OS DIREITOS RESERVADOS.</span>
+        </div>
+        <div class="flex flex-wrap justify-center gap-lg">
+            <a class="font-label-bold text-label-bold uppercase text-on-surface-variant hover:text-primary transition-colors" href="{% url 'portfolio' %}">Portfólio</a>
+            <a class="font-label-bold text-label-bold uppercase text-on-surface-variant hover:text-primary transition-colors" href="{% url 'blog:public_list' %}">Blog</a>
+            <a class="font-label-bold text-label-bold uppercase text-on-surface-variant hover:text-primary transition-colors" href="#newsletter">Newsletter</a>
+        </div>
+        <div class="flex gap-sm">
+            <button onclick="navigator.clipboard.writeText(window.location.href).then(() => alert('Link copiado para a área de transferência!'))" 
+                    class="neo-border border-2 p-xs bg-white hover:bg-neo-yellow transition-colors" 
+                    title="Compartilhar">
+                <span class="material-symbols-outlined">share</span>
+            </button>
+        </div>
+    </div>
+</footer>

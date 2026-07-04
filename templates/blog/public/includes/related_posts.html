@@ -1,0 +1,42 @@
+{# ── Posts Relacionados ─────────────────────────────────────── #}
+{% if related_posts %}
+<section>
+    <div class="border-b-[4px] border-black pb-md mb-lg">
+        <h2 class="font-headline-md text-headline-md font-black uppercase text-black">
+            Posts Relacionados
+        </h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+        {% for related in related_posts %}
+        <article class="flex flex-col bg-white neo-border neo-shadow neo-card overflow-hidden group">
+            {% if related.featured_image %}
+                <div class="h-32 neo-border border-t-0 border-l-0 border-r-0 overflow-hidden">
+                    <img src="{{ related.featured_image.url }}"
+                         alt="{{ related.title }}"
+                         class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                </div>
+            {% else %}
+                <div class="{% cycle 'bg-neo-green' 'bg-neo-purple' 'bg-neo-orange' %} neo-border border-t-0 border-l-0 border-r-0 h-20 flex items-center px-sm">
+                    <span class="material-symbols-outlined text-2xl text-black opacity-40">article</span>
+                </div>
+            {% endif %}
+            <div class="p-sm flex flex-col flex-grow gap-xs">
+                <time class="font-label-bold text-[10px] uppercase text-black/40">{{ related.published_at|date:"d M Y" }}</time>
+                <h3 class="font-headline-md text-base font-black uppercase text-black leading-tight">
+                    <a href="{% url 'blog:public_detail' slug=related.slug %}" class="hover:underline decoration-2 underline-offset-2">
+                        {{ related.title }}
+                    </a>
+                </h3>
+                <p class="font-body-md text-xs text-black/55 flex-grow leading-relaxed">
+                    {{ related.content|striptags|truncatechars:90 }}
+                </p>
+                <a href="{% url 'blog:public_detail' slug=related.slug %}"
+                   class="neo-border neo-button bg-primary text-white px-sm py-xs neo-shadow font-label-bold text-xs uppercase flex items-center gap-xs mt-auto">
+                    Ler <span class="material-symbols-outlined text-xs">north_east</span>
+                </a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}

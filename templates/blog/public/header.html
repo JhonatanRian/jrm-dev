@@ -1,0 +1,79 @@
+<!-- --- Cabeçalho do Blog (Blog Header) --- -->
+<nav class="bg-background w-full sticky top-0 z-50 border-b-4 border-black shadow-neo" id="blog-header-nav">
+    <div class="max-w-7xl mx-auto flex justify-between items-center w-full px-sm md:px-md py-sm">
+        <a class="font-headline-md text-xl md:text-headline-md font-black uppercase text-primary tracking-tighter hover:text-secondary transition-colors"
+           href="{% url 'blog:public_list' %}">
+            JRM BLOG
+        </a>
+        
+        <!-- Desktop Nav & Actions -->
+        <div class="hidden md:flex gap-md font-label-bold text-label-bold uppercase text-primary items-center">
+            <a class="nav-link hover:text-secondary transition-colors text-black underline decoration-4 underline-offset-8"
+               href="{% url 'blog:public_list' %}">Posts</a>
+            <a class="nav-link hover:text-secondary transition-colors text-black"
+               href="{% url 'portfolio' %}">Portfólio</a>
+            <a class="nav-link hover:text-secondary transition-colors text-black"
+               href="#newsletter">Newsletter</a>
+        </div>
+
+        <!-- Right Side Buttons -->
+        <div class="flex items-center gap-sm">
+            <!-- Subscribe Button Desktop -->
+            <a class="hidden sm:inline-flex neo-border bg-secondary-container px-md py-xs neo-shadow neo-button uppercase font-label-bold text-xs text-black items-center gap-xs hover:translate-x-xs hover:translate-y-xs hover:shadow-none transition-all active:translate-x-shadow-offset active:translate-y-shadow-offset active:shadow-none"
+               href="#newsletter">
+                <span class="material-symbols-outlined text-sm">mail</span>
+                Inscrever-se
+            </a>
+            
+            <!-- Mobile Toggle -->
+            <button class="md:hidden flex items-center justify-center p-xs neo-border bg-white text-black neo-shadow-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" id="blog-mobile-menu-btn">
+                <span class="material-symbols-outlined text-headline-md" id="blog-menu-icon">menu</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="hidden md:hidden border-t-4 border-black bg-background w-full px-md py-sm flex flex-col gap-sm font-label-bold text-label-bold uppercase" id="blog-mobile-menu">
+        <a class="py-xs hover:text-secondary transition-colors border-b-2 border-black/10" href="{% url 'blog:public_list' %}">Posts</a>
+        <a class="py-xs hover:text-secondary transition-colors border-b-2 border-black/10" href="{% url 'portfolio' %}">Portfólio</a>
+        <a class="py-xs hover:text-secondary transition-colors border-b-2 border-black/10" href="#newsletter">Newsletter</a>
+        <a class="py-sm text-center neo-border bg-secondary-container neo-shadow hover:translate-x-xs hover:translate-y-xs hover:shadow-none transition-all" href="#newsletter">Inscrever-se</a>
+    </div>
+</nav>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const btn = document.getElementById("blog-mobile-menu-btn");
+        const menu = document.getElementById("blog-mobile-menu");
+        const icon = document.getElementById("blog-menu-icon");
+        
+        if (btn && menu && icon) {
+            btn.addEventListener("click", function() {
+                const isHidden = menu.classList.contains("hidden");
+                if (isHidden) {
+                    menu.classList.remove("hidden");
+                    icon.textContent = "close";
+                } else {
+                    menu.classList.add("hidden");
+                    icon.textContent = "menu";
+                }
+            });
+            
+            // Close mobile menu when clicking links
+            menu.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", function() {
+                    menu.classList.add("hidden");
+                    icon.textContent = "menu";
+                });
+            });
+            
+            // Handle window resizing
+            window.addEventListener("resize", function() {
+                if (window.innerWidth >= 768) {
+                    menu.classList.add("hidden");
+                    icon.textContent = "menu";
+                }
+            });
+        }
+    });
+</script>

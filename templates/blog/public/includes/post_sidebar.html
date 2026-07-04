@@ -1,0 +1,73 @@
+{# ── Sidebar — ordem 2 no mobile, 1 no desktop (como no Stitch) #}
+<aside class="lg:col-span-3 order-2 lg:order-1 flex flex-col gap-md sticky top-[80px] self-start">
+
+    {# Autor #}
+    <div class="neo-border p-md bg-surface-container neo-shadow-sm">
+        <h3 class="font-label-bold text-label-bold uppercase border-b-2 border-black pb-xs mb-sm">Autor</h3>
+        <div class="flex items-center gap-sm mb-sm">
+            <span class="material-symbols-outlined text-4xl text-black" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+            <div>
+                <p class="font-headline-md text-base font-black uppercase text-black">
+                    {{ post.author.name|default:post.author.email }}
+                </p>
+                <p class="font-body-md text-xs text-black/60">Backend Developer</p>
+            </div>
+        </div>
+        <a href="{% url 'portfolio' %}"
+           class="neo-border neo-button bg-primary text-white px-sm py-xs neo-shadow-sm font-label-bold text-xs uppercase flex items-center justify-center gap-xs">
+            Ver Portfolio <span class="material-symbols-outlined text-xs">north_east</span>
+        </a>
+    </div>
+
+    {# Tempo de Leitura (estimado: ~200 palavras/min) #}
+    <div class="neo-border p-md bg-white neo-shadow-sm">
+        <h3 class="font-label-bold text-label-bold uppercase border-b-2 border-black pb-xs mb-sm">Leitura</h3>
+        {% with word_count=post.content|striptags|wordcount %}
+        <p class="font-body-lg text-2xl font-black">
+            {% widthratio word_count 200 1 %} MIN
+        </p>
+        {% endwith %}
+        <p class="font-body-md text-xs text-black/50 uppercase font-bold mt-xs">Tempo estimado</p>
+    </div>
+
+    {# Publicado em #}
+    <div class="neo-border p-md bg-primary text-white neo-shadow-sm">
+        <h3 class="font-label-bold text-label-bold uppercase border-b-2 border-white/30 pb-xs mb-sm">Publicado em</h3>
+        <p class="font-headline-md text-2xl font-black uppercase">
+            {{ post.published_at|date:"d M" }}
+        </p>
+        <p class="font-body-md text-sm opacity-60">{{ post.published_at|date:"Y" }}</p>
+    </div>
+
+    {# Tags #}
+    {% if post.tags.all %}
+    <div class="neo-border p-md bg-white neo-shadow-sm">
+        <h3 class="font-label-bold text-label-bold uppercase border-b-2 border-black pb-xs mb-sm">Tags</h3>
+        <div class="flex flex-wrap gap-xs">
+            {% for tag in post.tags.all %}
+                <a href="{% url 'blog:public_list' %}?tag={{ tag.slug }}"
+                   class="neo-button neo-border border-[2px] px-sm py-xs font-label-bold text-xs uppercase bg-white text-black hover:bg-neo-yellow-pastel transition-colors">
+                    {{ tag.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {# Compartilhar #}
+    <div class="neo-border p-md bg-secondary-fixed neo-shadow-sm">
+        <h3 class="font-label-bold text-label-bold uppercase border-b-2 border-black pb-xs mb-sm">Compartilhar</h3>
+        <div class="flex gap-sm">
+            <button onclick="navigator.clipboard.writeText(window.location.href).then(() => { const icon = this.querySelector('.material-symbols-outlined'); icon.textContent='check'; setTimeout(()=>icon.textContent='link', 2000); })"
+                    class="neo-border border-[2px] p-xs bg-white hover:bg-neo-yellow transition-colors flex items-center justify-center" title="Copiar link">
+                <span class="material-symbols-outlined">link</span>
+            </button>
+            <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ post.title|urlencode }}"
+               target="_blank" rel="noopener noreferrer"
+               class="neo-border border-[2px] p-xs bg-white hover:bg-neo-yellow transition-colors flex items-center justify-center" title="Compartilhar no X">
+                <span class="material-symbols-outlined">share</span>
+            </a>
+        </div>
+    </div>
+
+</aside>

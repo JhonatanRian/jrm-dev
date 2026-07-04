@@ -1,0 +1,18 @@
+{# ── Newsletter CTA ──────────────────────────────────────────────── #}
+<div class="neo-border bg-primary text-white p-lg mt-xl neo-shadow relative overflow-hidden mb-xl" id="newsletter">
+    <div class="absolute top-0 right-0 p-sm opacity-20 pointer-events-none">
+        <span class="material-symbols-outlined text-[120px]">rss_feed</span>
+    </div>
+    <div class="relative z-10">
+        <h2 class="font-headline-md text-headline-md uppercase mb-sm text-white">Inscreva-se na Newsletter</h2>
+        <p class="font-body-md text-body-md mb-md max-w-xl text-white/80">
+            Receba atualizações semanais sobre desenvolvimento backend, arquitetura de sistemas e neo-brutalismo.
+        </p>
+        <form class="flex flex-col md:flex-row gap-base" onsubmit="event.preventDefault(); alert('Obrigado por se inscrever!'); this.reset();">
+            <input class="flex-1 neo-border bg-white text-black p-base font-label-bold focus:outline-none focus:ring-0" placeholder="SEU_EMAIL@DOMINIO.COM" type="email" required/>
+            <button class="bg-neo-yellow text-black px-lg py-base font-headline-md text-[18px] uppercase neo-border neo-shadow-hover neo-shadow-active transition-all active:translate-x-2 active:translate-y-2 active:shadow-none" type="submit">
+                Inscrever
+            </button>
+        </form>
+    </div>
+</div>
