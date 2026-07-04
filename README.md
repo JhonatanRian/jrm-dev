@@ -11,7 +11,7 @@ This is a personal portfolio project built with Django. It's designed to showcas
 
 * **Backend:** [Django](https://www.djangoproject.com/)
 * **Frontend:** HTML, CSS, JavaScript (with Django Templates)
-* **Database:** SQLite (for development)
+* **Database:** PostgreSQL
 * **Dependency Management:** [uv](https://github.com/astral-sh/uv)
 * **Python Version:** 3.12+
 
@@ -21,6 +21,7 @@ This is a personal portfolio project built with Django. It's designed to showcas
 
 * Python 3.12 or higher
 * `uv` installed (`pip install uv`)
+* PostgreSQL running locally or via Docker
 
 ### Installation
 
@@ -31,29 +32,34 @@ This is a personal portfolio project built with Django. It's designed to showcas
     cd jrm_dev
     ```
 
-2. **Create a virtual environment and install dependencies:**
+2. **Setup your environment variables:**
+   Copy `.env.example` to `.env` and configure `DATABASE_URL`:
+   ```bash
+   cp .env.example .env
+   ```
+
+3. **Install dependencies:**
 
     ```bash
-    uv venv
-    uv pip install -r requirements.txt
+    uv sync
     ```
 
-3. **Apply migrations:**
+4. **Apply migrations:**
 
     ```bash
-    python manage.py migrate
+    uv run manage.py migrate
     ```
 
-4. **Create a superuser:**
+5. **Create a superuser:**
 
     ```bash
-    python manage.py createsuperuser
+    uv run manage.py createsuperuser
     ```
 
-5. **Run the development server:**
+6. **Run the development server:**
 
     ```bash
-    python manage.py runserver
+    uv run manage.py runserver
     ```
 
 ## Project Structure

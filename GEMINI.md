@@ -11,7 +11,7 @@ detail: Always analyze whether GEMINI.md and the project are aligned.
 * **Frontend:** Django Templates, HTML, CSS, JS
 * **CSS Framework:** Tailwind CSS (via Standalone CLI v4)
 * **Web Server:** uWSGI
-* **Database:** SQLite (for development)
+* **Database:** PostgreSQL
 * **Dependency Management:** uv
 * **Containerization:** Docker
 * **Python Version:** 3.12+

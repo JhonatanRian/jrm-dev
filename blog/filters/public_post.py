@@ -1,7 +1,6 @@
 import django_filters
 from django import forms
-from django.db import connection
-from django.db.models import Q
+from django.contrib.postgres.search import SearchQuery
 
 from blog.models import Post, Tag
 
@@ -31,10 +30,4 @@ class PublicPostFilter(django_filters.FilterSet):
         if not value:
             return queryset
 
-        if connection.vendor == "postgresql":
-            from django.contrib.postgres.search import SearchQuery
-            return queryset.filter(search_vector=SearchQuery(value))
-
-        return queryset.filter(
-            Q(title__icontains=value) | Q(content__icontains=value)
-        )
+        return queryset.filter(search_vector=SearchQuery(value))

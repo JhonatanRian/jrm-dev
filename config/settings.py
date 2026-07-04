@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.postgres",
     "debug_toolbar",
     "django_filters",
     "crispy_forms",
@@ -75,7 +76,7 @@ LOGOUT_REDIRECT_URL = "portfolio"
 WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
-    "default": env.db("DATABASE_URL", default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
+    "default": env.db("DATABASE_URL", default="postgres://postgres:postgres@localhost:5432/jrmdev")
 }
 
 AUTH_PASSWORD_VALIDATORS = [

@@ -1,4 +1,6 @@
 from django.conf import settings
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVectorField
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
@@ -33,18 +35,16 @@ class Post(BaseModel):
         related_name="posts"
     )
 
-    # Postgres tsvector / SQLite Text fallback for Full-Text Search
-    is_postgres = "postgres" in settings.DATABASES.get("default", {}).get("ENGINE", "")
-    if is_postgres:
-        from django.contrib.postgres.search import SearchVectorField
-        search_vector = SearchVectorField(null=True, blank=True)
-    else:
-        search_vector = models.TextField(null=True, blank=True)
+    # Postgres tsvector for Full-Text Search
+    search_vector = SearchVectorField(null=True, blank=True)
 
     class Meta:
         verbose_name = "Post"
         verbose_name_plural = "Posts"
         ordering = ["-created_at"]
+        indexes = [
+            GinIndex(fields=["search_vector"], name="blog_post_search_vector_gin")
+        ]
 
     def __str__(self):
         return self.title
@@ -62,18 +62,11 @@ class Post(BaseModel):
 
         super().save(*args, **kwargs)
 
-        # Precompute the Search Vector on PostgreSQL databases
-        if self.is_postgres:
-            from django.contrib.postgres.search import SearchVector
-            Post.objects.filter(pk=self.pk).update(
-                search_vector=SearchVector("title", "content")
-            )
+        # Precompute the Search Vector on PostgreSQL
+        from django.contrib.postgres.search import SearchVector
+        Post.objects.filter(pk=self.pk).update(
+            search_vector=SearchVector("title", "content")
+        )
 
 
-# Conditionally append PostgreSQL GIN Index to avoid SQLite migration errors
-is_postgres = "postgres" in settings.DATABASES.get("default", {}).get("ENGINE", "")
-if is_postgres:
-    from django.contrib.postgres.indexes import GinIndex
-    Post._meta.indexes.append(
-        GinIndex(fields=["search_vector"], name="blog_post_search_vector_gin")
-    )
+

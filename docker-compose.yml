@@ -6,6 +6,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/jrm_dev
+    depends_on:
+      - db
     networks:
       - public
     deploy:
@@ -16,6 +20,21 @@ services:
         - "traefik.http.routers.jrm_dev.entrypoints=websecure"
         - "traefik.http.services.jrm_dev.loadbalancer.server.port=8000"
         - "traefik.http.routers.jrm_dev.tls.certresolver=myresolver"
+
+  db:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: jrm_dev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - public
+
+volumes:
+  postgres_data:
 
 networks:
   public:
