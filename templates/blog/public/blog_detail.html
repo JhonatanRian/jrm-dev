@@ -1,8 +1,6 @@
 {% extends 'core/base_public.html' %}
 {% load static %}
-
 {% block title %}{{ post.title }} — Blog · JRM{% endblock %}
-
 {% block css %}
     <style>
         body {
@@ -10,27 +8,19 @@
         }
     </style>
 {% endblock %}
-
 {% block content %}
     {% include 'blog/public/header.html' %}
-
     <main class="max-w-7xl mx-auto px-sm md:px-md py-xl">
-
         {% include 'blog/public/includes/post_header.html' %}
-
         {# ── Content Grid: 12 colunas — aside (3) + article (9) ─────────────── #}
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-lg mt-xl">
-
             {% include 'blog/public/includes/post_sidebar.html' %}
-
             {# ── Conteúdo Principal — 9 colunas no desktop #}
             <div class="lg:col-span-9 order-1 lg:order-2">
-
                 {# Conteúdo do Post com prose-neo + dropcap no primeiro parágrafo #}
                 <article class="prose-neo prose-neo-dropcap neo-border bg-white neo-shadow p-md md:p-lg mb-lg">
                     {{ post.content|safe }}
                 </article>
-
                 {# ── Rodapé do Post ────────────────────────────────────────── #}
                 <div class="flex flex-wrap items-center justify-between gap-sm mb-xl">
                     <a href="{% url 'blog:public_list' %}"
@@ -38,27 +28,15 @@
                         <span class="material-symbols-outlined text-sm">arrow_back</span>
                         Voltar ao Blog
                     </a>
-                    {% if post.tags.all %}
-                    <div class="flex flex-wrap gap-xs items-center">
-                        <span class="font-label-bold text-xs uppercase text-black/40">Tags:</span>
-                        {% for tag in post.tags.all %}
-                            <a href="{% url 'blog:public_list' %}?tag={{ tag.slug }}"
-                               class="neo-button neo-border border-[2px] px-xs py-[2px] font-label-bold text-xs uppercase bg-white text-black hover:bg-neo-yellow-pastel transition-colors">
-                                {{ tag.name }}
-                            </a>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
                 </div>
-
+                {% comment %}
                 {% include 'blog/public/includes/newsletter_cta.html' %}
-
+                {% endcomment %}
                 {% include 'blog/public/includes/related_posts.html' %}
-
-            </div>{# /Conteúdo Principal #}
-
-        </div>{# /Content Grid #}
+            </div>
+            {# /Conteúdo Principal #}
+        </div>
+        {# /Content Grid #}
     </main>
-
     {% include 'blog/public/footer.html' %}
 {% endblock %}

@@ -1,20 +1,20 @@
 {# ── Header do Post — Stitch style: tags + título uppercase + hero image ── #}
 <header class="mb-lg">
-
     {# Breadcrumb sutil #}
-    <nav aria-label="Breadcrumb" class="mb-md flex items-center gap-xs font-label-bold text-xs uppercase text-black/40">
+    <nav aria-label="Breadcrumb"
+         class="mb-md flex items-center gap-xs font-label-bold text-xs uppercase text-black/40">
         <a href="/" class="hover:text-black transition-colors">Home</a>
         <span class="material-symbols-outlined text-sm">chevron_right</span>
-        <a href="{% url 'blog:public_list' %}" class="hover:text-black transition-colors">Blog</a>
+        <a href="{% url 'blog:public_list' %}"
+           class="hover:text-black transition-colors">Blog</a>
         <span class="material-symbols-outlined text-sm">chevron_right</span>
         <span class="text-black/70 truncate max-w-[220px]">{{ post.title }}</span>
     </nav>
-
     {# Tags + Data — linha de meta #}
+    {% comment %}
     <div class="flex flex-wrap items-center gap-sm mb-md">
         {% for tag in post.tags.all %}
-            <a href="{% url 'blog:public_list' %}?tag={{ tag.slug }}"
-               class="neo-border neo-button border-[2px] px-md py-xs font-label-bold text-label-bold uppercase {% cycle 'bg-neo-yellow-pastel' 'bg-neo-pink' 'bg-neo-blue' %} text-black text-[12px]">
+            <a href="{% url 'blog:public_list' %}?tag={{ tag.slug }}" class="neo-border neo-button border-[2px] px-md py-xs font-label-bold text-label-bold uppercase {% cycle 'bg-neo-yellow-pastel' 'bg-neo-pink' 'bg-neo-blue' %} text-black text-[12px]">
                 {{ tag.name }}
             </a>
         {% endfor %}
@@ -22,21 +22,18 @@
             Publicado em: {{ post.published_at|date:"d \\d\\e F \\d\\e Y" }}
         </span>
     </div>
-
+    {% endcomment %}
     {# Título — headline-xl estilo Stitch #}
     <h1 class="font-headline-xl text-3xl md:text-5xl lg:text-headline-xl font-black uppercase text-black leading-none tracking-tighter mb-lg">
         {{ post.title }}
     </h1>
-
     {# Hero Image — full-width com hover scale, como no Stitch #}
     {% if post.featured_image %}
-    <div class="w-full h-[300px] md:h-[500px] neo-border neo-shadow overflow-hidden relative group">
-        <img
-            src="{{ post.featured_image.url }}"
-            alt="{{ post.title }}"
-            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        >
-        <div class="absolute inset-0 bg-black/5"></div>
-    </div>
+        <div class="w-full h-[300px] md:h-[500px] neo-border neo-shadow overflow-hidden relative group">
+            <img src="{{ post.featured_image.url }}"
+                 alt="{{ post.title }}"
+                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black/5"></div>
+        </div>
     {% endif %}
 </header>
