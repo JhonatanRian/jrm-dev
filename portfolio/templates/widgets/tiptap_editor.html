@@ -191,6 +191,61 @@
                         <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-2.638 3.995-5.17h-4v-10.679h9.983zm14.017 0v7.391c0 5.704-3.748 9.57-9 10.609l-.996-2.151c2.433-.917 3.996-2.638 3.996-5.17h-4v-10.679h10z"/>
                     </svg>
                 </button>
+
+                <!-- Alerts Dropdown -->
+                <div class="relative inline-block text-left tiptap-dropdown">
+                    <button type="button"
+                            id="tiptap-alert-btn-{{ widget.attrs.id }}"
+                            class="tiptap-alert-btn px-2.5 py-1.5 bg-white border-2 border-black font-bold text-xs text-black shadow-[1.5px_1.5px_0_0_rgba(0,0,0,1)] active:translate-y-[0.5px] active:translate-x-[0.5px] active:shadow-none transition-all flex items-center gap-1"
+                            title="Aviso / Alerta"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                        <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                        <svg class="tiptap-chevron w-3 h-3 text-black transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="tiptap-alert-menu-{{ widget.attrs.id }}"
+                         class="tiptap-dropdown-menu hidden absolute left-0 mt-1 w-40 bg-white border-2 border-black shadow-[3px_3px_0_0_rgba(0,0,0,1)] z-50 flex flex-col p-1 gap-1">
+                        <button type="button" data-tiptap-alert="note" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold flex items-center justify-between text-xs text-black">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 bg-[#E2E8F0] border border-black rounded-sm"></span>
+                                <span>Nota</span>
+                            </div>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-alert="tip" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold flex items-center justify-between text-xs text-black">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 bg-[#BBF7D0] border border-black rounded-sm"></span>
+                                <span>Dica</span>
+                            </div>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-alert="important" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold flex items-center justify-between text-xs text-black">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 bg-[#C084FC] border border-black rounded-sm"></span>
+                                <span>Importante</span>
+                            </div>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-alert="warning" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold flex items-center justify-between text-xs text-black">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 bg-[#FEF08A] border border-black rounded-sm"></span>
+                                <span>Atenção</span>
+                            </div>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                        <button type="button" data-tiptap-alert="caution" class="w-full text-left px-2 py-1 hover:bg-[#F1F5F9] font-bold flex items-center justify-between text-xs text-black">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 bg-[#FCA5A5] border border-black rounded-sm"></span>
+                                <span>Cuidado</span>
+                            </div>
+                            <span class="tiptap-check hidden text-green-600 font-bold">✓</span>
+                        </button>
+                    </div>
+                </div>
                 <button type="button"
                         data-tiptap-cmd="codeBlock"
                         title="Bloco de Código"
@@ -443,7 +498,7 @@
     </style>
 
     <script type="module">
-    import { Editor, Mark, mergeAttributes, Extension } from 'https://esm.sh/@tiptap/core';
+    import { Editor, Mark, mergeAttributes, Extension, Node, wrappingInputRule } from 'https://esm.sh/@tiptap/core';
     import { StarterKit } from 'https://esm.sh/@tiptap/starter-kit';
     import { Placeholder } from 'https://esm.sh/@tiptap/extension-placeholder';
     import { Link } from 'https://esm.sh/@tiptap/extension-link';
@@ -734,6 +789,268 @@
         },
     });
 
+    // Custom Alert/Callout Block Node
+    const AlertNode = Node.create({
+        name: 'alertNode',
+        group: 'block',
+        content: 'block+',
+        defining: true,
+        addAttributes() {
+            return {
+                type: {
+                    default: 'note',
+                    parseHTML: element => element.getAttribute('data-type') || 'note',
+                    renderHTML: attributes => ({
+                        'data-type': attributes.type,
+                        class: `neo-alert neo-alert-${attributes.type}`,
+                    }),
+                },
+            };
+        },
+        parseHTML() {
+            return [
+                {
+                    tag: 'div.neo-alert',
+                },
+                {
+                    tag: 'blockquote',
+                    getAttrs: element => {
+                        const firstP = element.querySelector('p') || element;
+                        const text = firstP.textContent.trim();
+                        const match = text.match(/^\[\!(IMPORTANT|WARNING|INFO|NOTE|TIP|CAUTION)\]\s*(.*)/i);
+                        if (match) {
+                            const type = match[1].toLowerCase();
+                            if (firstP === element) {
+                                element.textContent = match[2];
+                            } else {
+                                firstP.textContent = match[2];
+                            }
+                            return { type: type === 'info' ? 'note' : type };
+                        }
+                        return false;
+                    },
+                },
+            ];
+        },
+        renderHTML({ HTMLAttributes }) {
+            return ['div', HTMLAttributes, 0];
+        },
+        addCommands() {
+            return {
+                toggleAlert: (attributes) => ({ commands }) => {
+                    return commands.toggleWrap(this.name, attributes);
+                },
+            };
+        },
+        addInputRules() {
+            return [
+                wrappingInputRule({
+                    find: /^>\s+\[\!(IMPORTANT|WARNING|INFO|NOTE|TIP|CAUTION)\]\s$/,
+                    type: this.type,
+                    getAttributes: match => {
+                        const type = match[1].toLowerCase();
+                        return { type: type === 'info' ? 'note' : type };
+                    },
+    // Helper to check if a string contains Markdown syntax
+    const isMarkdownText = (str) => {
+        return (
+            /^(#{1,5})\s+/m.test(str) ||       // Headers
+            /^[*+-]\s+/m.test(str) ||          // Bullet lists
+            /^\d+\.\s+/m.test(str) ||          // Ordered lists
+            /^>\s+/m.test(str) ||              // Blockquotes / Alerts
+            /\[.+\]\(.+\)/.test(str) ||        // Links
+            /`{3}/.test(str) ||                // Code Blocks
+            /\*\*.*\*\*/.test(str) ||          // Bold
+            /\*.*\* / .test(str)               // Italic
+        );
+    };
+
+    // Robust, line-by-line Markdown to HTML converter
+    function parseMarkdownToHTML(md) {
+        const escapeHtml = (text) => {
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        };
+
+        const lines = md.split(/\r?\n/);
+        let html = '';
+        let inList = false;
+        let listType = null; // 'ul' or 'ol'
+        let inBlockquote = false;
+        let blockquoteLines = [];
+
+        // Pre-detect closed code block ranges to ignore markdown transformation inside them,
+        // and treat unclosed code blocks as regular text lines.
+        const codeBlockRanges = [];
+        let tempOpenIdx = -1;
+        for (let i = 0; i < lines.length; i++) {
+            if (lines[i].trim().startsWith('```')) {
+                if (tempOpenIdx === -1) {
+                    tempOpenIdx = i;
+                } else {
+                    codeBlockRanges.push({ start: tempOpenIdx, end: i });
+                    tempOpenIdx = -1;
+                }
+            }
+        }
+
+        const isLineInCodeBlock = (lineIdx) => {
+            for (const range of codeBlockRanges) {
+                if (lineIdx >= range.start && lineIdx <= range.end) {
+                    return {
+                        inBlock: true,
+                        isDelimiter: lineIdx === range.start || lineIdx === range.end,
+                        startLine: range.start
+                    };
+                }
+            }
+            return { inBlock: false };
+        };
+
+        const parseInline = (text) => {
+            let safeText = escapeHtml(text);
+
+            // Code: `code`
+            safeText = safeText.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+            // Bold: **text** or __text__
+            safeText = safeText.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+            safeText = safeText.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+
+            // Italic: *text* or _text_
+            safeText = safeText.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+            safeText = safeText.replace(/_([^_]+)_/g, '<em>$1</em>');
+
+            // Strikethrough: ~~text~~
+            safeText = safeText.replace(/~~([^~]+)~~/g, '<s>$1</s>');
+
+            // Links: [text](url)
+            safeText = safeText.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
+            return safeText;
+        };
+
+        const closeList = () => {
+            if (inList) {
+                html += `</${listType}>`;
+                inList = false;
+                listType = null;
+            }
+        };
+
+        const processBlockquote = () => {
+            if (!inBlockquote) return;
+            inBlockquote = false;
+
+            const firstLine = blockquoteLines[0] || '';
+            const alertMatch = firstLine.trim().match(/^\[\!(IMPORTANT|WARNING|INFO|NOTE|TIP|CAUTION)\]/i);
+            if (alertMatch) {
+                const alertType = alertMatch[1].toLowerCase();
+                const actualType = alertType === 'info' ? 'note' : alertType;
+
+                blockquoteLines[0] = firstLine.trim().replace(/^\[\!(IMPORTANT|WARNING|INFO|NOTE|TIP|CAUTION)\]\s*/i, '');
+                if (blockquoteLines[0] === '') {
+                    blockquoteLines.shift();
+                }
+
+                html += `<div class="neo-alert neo-alert-${actualType}" data-type="${actualType}">`;
+                html += parseMarkdownToHTML(blockquoteLines.join('\n'));
+                html += '</div>';
+            } else {
+                html += '<blockquote>';
+                html += parseMarkdownToHTML(blockquoteLines.join('\n'));
+                html += '</blockquote>';
+            }
+            blockquoteLines = [];
+        };
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            const trimmed = line.trim();
+
+            const codeInfo = isLineInCodeBlock(i);
+            if (codeInfo.inBlock) {
+                closeList();
+                processBlockquote();
+                if (codeInfo.isDelimiter) {
+                    if (i === codeInfo.startLine) {
+                        const lang = trimmed.slice(3).trim();
+                        const langClass = lang ? ` class="language-${lang}"` : '';
+                        html += `<pre><code${langClass}>`;
+                    } else {
+                        html += '</code></pre>';
+                    }
+                } else {
+                    html += escapeHtml(line) + '\n';
+                }
+                continue;
+            }
+
+            if (/^(---|===\*|\*\*\*|___)$/.test(trimmed)) {
+                closeList();
+                processBlockquote();
+                html += '<hr />';
+                continue;
+            }
+
+            if (trimmed.startsWith('>')) {
+                closeList();
+                inBlockquote = true;
+                const content = line.substring(line.indexOf('>') + 1).replace(/^\s/, '');
+                blockquoteLines.push(content);
+                continue;
+            } else if (inBlockquote) {
+                processBlockquote();
+            }
+
+            const headingMatch = trimmed.match(/^(#{1,5})\s+(.*)$/);
+            if (headingMatch) {
+                closeList();
+                const level = headingMatch[1].length;
+                html += `<h${level}>${parseInline(headingMatch[2])}</h${level}>`;
+                continue;
+            }
+
+            const ulMatch = trimmed.match(/^[*+-]\s+(.*)$/);
+            if (ulMatch) {
+                if (!inList || listType !== 'ul') {
+                    closeList();
+                    html += '<ul>';
+                    inList = true;
+                    listType = 'ul';
+                }
+                html += `<li>${parseInline(ulMatch[1])}</li>`;
+                continue;
+            }
+
+            const olMatch = trimmed.match(/^(\d+)\.\s+(.*)$/);
+            if (olMatch) {
+                if (!inList || listType !== 'ol') {
+                    closeList();
+                    html += '<ol>';
+                    inList = true;
+                    listType = 'ol';
+                }
+                html += `<li>${parseInline(olMatch[2])}</li>`;
+                continue;
+            }
+
+            if (trimmed === '') {
+                closeList();
+            } else {
+                closeList();
+                html += `<p>${parseInline(line)}</p>`;
+            }
+        }
+
+        closeList();
+        processBlockquote();
+
+        return html;
+    }
+
     const initEditor = () => {
         const textareaId = "{{ widget.attrs.id|default:'' }}";
         if (!textareaId) return;
@@ -764,6 +1081,8 @@
         const lhMenu = toolbar.querySelector(`#tiptap-lineheight-menu-${textareaId}`);
         const markupBtn = toolbar.querySelector('.tiptap-markup-btn');
         const markupMenu = toolbar.querySelector(`#tiptap-markup-menu-${textareaId}`);
+        const alertBtn = toolbar.querySelector('.tiptap-alert-btn');
+        const alertMenu = toolbar.querySelector(`#tiptap-alert-menu-${textareaId}`);
 
         // Link modal elements
         const linkModal = container.querySelector(`#tiptap-link-modal-${textareaId}`);
@@ -820,6 +1139,7 @@
         setupDropdown(fontBtn, fontMenu);
         setupDropdown(lhBtn, lhMenu);
         setupDropdown(markupBtn, markupMenu);
+        setupDropdown(alertBtn, alertMenu);
 
         // Update active classes and dropdown labels
         const updateToolbarState = (editor) => {
@@ -1018,6 +1338,36 @@
                     markupBtn.classList.remove('bg-slate-100');
                 }
             }
+
+            // 8. Alerts dropdown active state
+            let anyAlertActive = false;
+            if (alertMenu) {
+                const alertItems = alertMenu.querySelectorAll('[data-tiptap-alert]');
+                alertItems.forEach(item => {
+                    const alertType = item.getAttribute('data-tiptap-alert');
+                    const isActive = editor.isActive('alertNode', { type: alertType });
+                    const checkElement = item.querySelector('.tiptap-check');
+                    if (isActive) {
+                        item.classList.add('bg-slate-100');
+                        checkElement?.classList.remove('hidden');
+                        anyAlertActive = true;
+                    } else {
+                        item.classList.remove('bg-slate-100');
+                        checkElement?.classList.add('hidden');
+                    }
+                });
+            }
+            if (alertBtn) {
+                if (anyAlertActive) {
+                    alertBtn.classList.add('bg-black', 'text-white');
+                    alertBtn.querySelector('svg')?.classList.add('text-white');
+                    alertBtn.querySelector('svg')?.classList.remove('text-black');
+                } else {
+                    alertBtn.classList.remove('bg-black', 'text-white');
+                    alertBtn.querySelector('svg')?.classList.remove('text-white');
+                    alertBtn.querySelector('svg')?.classList.add('text-black');
+                }
+            }
         };
 
         // Initialize TipTap Editor
@@ -1050,8 +1400,21 @@
                 HighlightGreen,
                 LineHeight,
                 Indent,
+                AlertNode,
             ],
             content: textarea.value,
+            editorProps: {
+                handlePaste(view, event) {
+                    const text = event.clipboardData.getData('text/plain');
+                    if (text && isMarkdownText(text)) {
+                        event.preventDefault();
+                        const html = parseMarkdownToHTML(text);
+                        editor.commands.insertContent(html);
+                        return true;
+                    }
+                    return false;
+                }
+            },
             onUpdate: ({ editor }) => {
                 textarea.value = editor.getHTML();
                 updateToolbarState(editor);
@@ -1183,6 +1546,20 @@
                 markupBtn.querySelector('.tiptap-chevron')?.classList.remove('rotate-180');
             });
         });
+
+        // Setup Alert Menu Actions
+        if (alertMenu && alertBtn) {
+            alertMenu.querySelectorAll('[data-tiptap-alert]').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const type = item.getAttribute('data-tiptap-alert');
+                    editor.chain().focus().toggleAlert({ type }).run();
+                    alertMenu.classList.add('hidden');
+                    alertBtn.setAttribute('aria-expanded', 'false');
+                    alertBtn.querySelector('.tiptap-chevron')?.classList.remove('rotate-180');
+                });
+            });
+        }
 
         // 8. Link Dialog Logic
         const openLinkModal = () => {

@@ -1129,5 +1129,70 @@ body {
     @apply font-bold px-4 py-2 border-4 border-black shadow-neo transform inline-block text-black;
 }
 
+/* --- Neo-Brutalist Alerts/Callouts --- */
+.neo-alert {
+    position: relative;
+    border: 4px solid #000000;
+    padding: 1.25rem 1.25rem 1.25rem 1.25rem;
+    margin: 1.5rem 0;
+    box-shadow: 4px 4px 0px 0px #000000;
+    border-radius: 4px;
+    color: #000000;
+}
 
+.neo-alert::before {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 0.25rem;
+    width: fit-content;
+}
 
+.neo-alert-note {
+    background-color: #E2E8F0; /* Slate 200 */
+}
+.neo-alert-note::before {
+    content: "ℹ️ NOTA";
+}
+
+.neo-alert-tip {
+    background-color: #BBF7D0; /* Green 200 */
+}
+.neo-alert-tip::before {
+    content: "💡 DICA";
+}
+
+.neo-alert-important {
+    background-color: #C084FC; /* Purple 400 */
+}
+.neo-alert-important::before {
+    content: "⚠️ IMPORTANTE";
+}
+
+.neo-alert-warning {
+    background-color: #FEF08A; /* Yellow 200 */
+}
+.neo-alert-warning::before {
+    content: "🚨 ATENÇÃO";
+}
+
+.neo-alert-caution {
+    background-color: #FCA5A5; /* Red 300 */
+}
+.neo-alert-caution::before {
+    content: "🛑 CUIDADO";
+}
+
+.neo-alert p {
+    margin-bottom: 0.5rem !important;
+}
+.neo-alert p:last-child {
+    margin-bottom: 0 !important;
+}
