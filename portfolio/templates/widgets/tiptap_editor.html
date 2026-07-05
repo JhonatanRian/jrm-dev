@@ -359,13 +359,20 @@
         </div>
 
         <!-- Editor Content Area -->
-        <div class="tiptap-content-area bg-white min-h-[220px] text-base p-4 focus:outline-none"></div>
+        <div class="tiptap-content-area bg-white text-base p-4 focus:outline-none"></div>
     </div>
 
     <style>
+    .tiptap-content-area {
+        height: 350px;
+        min-height: 220px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        resize: vertical;
+    }
     /* TipTap styles in Editor Mount */
     .tiptap-editor-mount .ProseMirror {
-        min-height: 220px;
+        min-height: 100%;
         outline: none;
     }
     .tiptap-editor-mount .ProseMirror p {
