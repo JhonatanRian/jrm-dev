@@ -851,6 +851,11 @@
                         const type = match[1].toLowerCase();
                         return { type: type === 'info' ? 'note' : type };
                     },
+                }),
+            ];
+        },
+    });
+
     // Helper to check if a string contains Markdown syntax
     const isMarkdownText = (str) => {
         return (
