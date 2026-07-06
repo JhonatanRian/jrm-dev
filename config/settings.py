@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_neurobrutalist",
     "django_select2",
+    "storages",
     "core.apps.CoreConfig",
     "portfolio.apps.PortfolioConfig",
     "accounts.apps.AccountsConfig",
@@ -104,8 +105,73 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = "/static/"
-MEDIA_URL = "/media/"
+if DEBUG:
+    STATIC_URL = "/static/"
+    MEDIA_URL = "/media/"
+
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+else:
+    # AWS S3 Storage Settings
+    AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", default=None)
+    AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", default=None)
+    AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME", default=None)
+    AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME", default=None)
+    AWS_S3_ENDPOINT_URL = env.str("AWS_S3_ENDPOINT_URL", default=None)
+    AWS_S3_CUSTOM_DOMAIN = env.str("AWS_S3_CUSTOM_DOMAIN", default=None)
+    
+    if not AWS_S3_CUSTOM_DOMAIN and AWS_STORAGE_BUCKET_NAME:
+        if AWS_S3_REGION_NAME:
+            AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
+        else:
+            AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+
+    AWS_S3_OBJECT_PARAMETERS = {
+        "CacheControl": "max-age=86400",
+    }
+
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+            "OPTIONS": {
+                "location": "media",
+                "querystring_auth": False,
+                "default_acl": "public-read",
+            },
+        },
+        "staticfiles": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+            "OPTIONS": {
+                "location": "static",
+                "querystring_auth": False,
+                "default_acl": "public-read",
+            },
+        },
+    }
+
+    if AWS_S3_CUSTOM_DOMAIN:
+        STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
+        MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+    elif AWS_STORAGE_BUCKET_NAME:
+        # Default bucket domain if no custom domain is provided
+        if AWS_S3_ENDPOINT_URL:
+            # Custom endpoint (e.g. MinIO, Cloudflare R2, DigitalOcean Spaces)
+            clean_endpoint = AWS_S3_ENDPOINT_URL.replace("https://", "").replace("http://", "")
+            STATIC_URL = f"https://{clean_endpoint}/{AWS_STORAGE_BUCKET_NAME}/static/"
+            MEDIA_URL = f"https://{clean_endpoint}/{AWS_STORAGE_BUCKET_NAME}/media/"
+        else:
+            region_suffix = f"-{AWS_S3_REGION_NAME}" if AWS_S3_REGION_NAME else ""
+            STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3{region_suffix}.amazonaws.com/static/"
+            MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3{region_suffix}.amazonaws.com/media/"
+    else:
+        STATIC_URL = "/static/"
+        MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
