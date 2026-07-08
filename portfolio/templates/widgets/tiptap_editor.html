@@ -514,8 +514,19 @@
     // de elementos corrigida (code antes de select) para não quebrar o parseHTML
     // do TipTap, garantindo que o lowlight e o autoDetect não resetem a linguagem.
     const NeoCodeBlock = CodeBlockLowlight.extend({
-        renderHTML({ HTMLAttributes }) {
-            return ['pre', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, { class: 'neo-mac-codeblock' }), ['code', {}, 0]]
+        renderHTML({ node, HTMLAttributes }) {
+            const lang = node.attrs.language || 'plaintext';
+            return [
+                'pre',
+                mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, { class: 'neo-mac-codeblock' }),
+                [
+                    'code',
+                    {
+                        class: `language-${lang}`,
+                    },
+                    0
+                ]
+            ]
         },
         addNodeView() {
             return ({ node, getPos, editor }) => {
@@ -527,7 +538,7 @@
                 select.className = 'absolute top-1.5 right-2 z-10 text-[10px] uppercase tracking-wider font-bold bg-[#E2E8F0] border-2 border-black text-black px-1.5 py-0.5 rounded-sm cursor-pointer shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:bg-[#FEF08A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all outline-none';
                 
                 const languages = [
-                    { value: 'null',       label: 'Texto Puro' },
+                    { value: 'plaintext',  label: 'Texto Puro' },
                     // Web
                     { value: 'html',       label: 'HTML' },
                     { value: 'xml',        label: 'XML' },
@@ -571,9 +582,12 @@
                     select.appendChild(option);
                 });
 
+                // Inicializa o seletor com a linguagem atual
+                select.value = node.attrs.language || 'plaintext';
+
                 select.addEventListener('mousedown', event => event.stopPropagation());
                 select.addEventListener('change', event => {
-                    const val = event.target.value === 'null' ? null : event.target.value;
+                    const val = event.target.value;
                     if (typeof getPos === 'function') {
                         editor.view.dispatch(editor.state.tr.setNodeMarkup(getPos(), undefined, { language: val }));
                     }
@@ -584,6 +598,10 @@
                 code.setAttribute('autocorrect', 'off');
                 code.setAttribute('autocomplete', 'off');
                 code.setAttribute('autocapitalize', 'off');
+
+                // Inicializa a classe do elemento code com a linguagem atual
+                const initialLang = node.attrs.language || 'plaintext';
+                code.className = `language-${initialLang}`;
                 
                 // IMPORTANTE: 'code' DEVE ser o primeiro filho de 'pre' para que a regra 
                 // parseHTML do TipTap consiga ler a classe 'language-*'
@@ -601,13 +619,9 @@
                             return false;
                         }
                         
-                        if (updatedNode.attrs.language) {
-                            code.className = `language-${updatedNode.attrs.language}`;
-                        } else {
-                            code.className = '';
-                        }
+                        const lang = updatedNode.attrs.language || 'plaintext';
+                        code.className = `language-${lang}`;
                         
-                        const lang = updatedNode.attrs.language || 'null';
                         if (select.value !== lang) {
                             select.value = lang;
                         }
